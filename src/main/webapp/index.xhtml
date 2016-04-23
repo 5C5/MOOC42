@@ -24,7 +24,7 @@
 
 				<p:defaultCommand target="login"/>
 				<p:commandButton id="login" value="#{msg['login.button']}"
-					action="#{loginMB.doLogin}" process="@all" ajax="false" onclick="waiting.show()"
+					action="#{loginMBean.doLogin}" process="@all" ajax="false" onclick="waiting.show()"
 					icon="ui-icon-power" style="left:100px;" />
 	        </h:form> 
 	     </p:panel>  
