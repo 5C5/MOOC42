@@ -8,22 +8,22 @@
 
     <ui:define name="head"></ui:define>
     
-    <ui:define name="title">#{msg['general.login.title']}</ui:define>
+    <ui:define name="title">#{fr['general.login.title']}</ui:define>
 
     <ui:define name="body-site">
- 		<p:panel header="#{msg['general.login.title']}" styleClass="logincontainer">
+ 		<p:panel header="#{fr['general.login.title']}" styleClass="logincontainer">
        		<h:form prependId="false">    
 	        	<p:focus for="j_username" />       
 				<h:panelGrid columns="2">
-						<p:outputLabel for="j_username" value="#{msg['login.username']}" />	
-						<p:inputText id="j_username" required="true" label="#{msg['login.username']}"/>
+						<p:outputLabel for="j_username" value="#{fr['login.username']}" />	
+						<p:inputText id="j_username" required="true" label="#{fr['login.username']}"/>
 	
-					<p:outputLabel for="j_password" value="#{msg['login.password']}" />  
-					<p:password id="j_password" label="#{msg['login.password']}" required="true" />
+					<p:outputLabel for="j_password" value="#{fr['login.password']}" />  
+					<p:password id="j_password" label="#{fr['login.password']}" required="true" />
 				</h:panelGrid>
 
 				<p:defaultCommand target="login"/>
-				<p:commandButton id="login" value="#{msg['login.button']}"
+				<p:commandButton id="login" value="#{fr['login.button']}"
 					action="#{loginMBean.doLogin}" process="@all" ajax="false" onclick="waiting.show()"
 					icon="ui-icon-power" style="left:100px;" />
 	        </h:form> 

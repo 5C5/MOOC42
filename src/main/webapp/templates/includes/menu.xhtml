@@ -12,11 +12,18 @@
 <ui:composition>
 	<h:form id="menuForm">
 		<p:menubar id="menubar" style="z-index:100;" >
-			<p:menuitem id="macceuil" value="Accueil" action="welcome"/>
+            <!-- Accueil -->
+			<p:menuitem id="macceuil" value="#{fr['menu.accueil']}" action="accueil"/>
+            
+            <!-- Cours -->
+            <p:menuitem id="mcours" value="#{fr['menu.cours']}" action="cours"/>
+            
+            <!-- Bac à sable -->
+            <p:menuitem id="mbacSable" value="#{fr['menu.bac.sable']}" action="bacSable"/>
 			
-<!-- 			<p:submenu id="menuFabMan" label="#{msg['nav.fabricatoin.manuelle']}"> -->
-<!-- 				<p:menuitem id="FabMan" value="#{msg['nav.fabricatoin.manuelle']}" action="rchFabricationManuelle" /> -->
-<!-- 				<p:menuitem id="affectSerie" value="#{msg['nav.affectation.serie']}" action="affectationSerie" /> -->
+<!-- 			<p:submenu id="menuFabMan" label="#{fr['nav.fabricatoin.manuelle']}"> -->
+<!-- 				<p:menuitem id="FabMan" value="#{fr['nav.fabricatoin.manuelle']}" action="rchFabricationManuelle" /> -->
+<!-- 				<p:menuitem id="affectSerie" value="#{fr['nav.affectation.serie']}" action="affectationSerie" /> -->
 <!-- 			</p:submenu> -->
 			
 		</p:menubar>
