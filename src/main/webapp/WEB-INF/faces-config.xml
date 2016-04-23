@@ -16,8 +16,8 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
         </locale-config>
 
         <resource-bundle>
-            <base-name>mooc</base-name>
-            <var>msg</var>
+            <base-name>fr</base-name>
+            <var>fr</var>
         </resource-bundle>
         <el-resolver>org.primefaces.application.exceptionhandler.PrimeExceptionHandlerELResolver</el-resolver>
     </application>
@@ -29,6 +29,16 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<to-view-id>/pages/accueil.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+        <navigation-case>
+            <from-outcome>cours</from-outcome>
+            <to-view-id>/pages/cours.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>bacSable</from-outcome>
+            <to-view-id>/pages/bacSable.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
     </navigation-rule>
 
 </faces-config>
