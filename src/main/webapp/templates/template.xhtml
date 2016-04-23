@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+			"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+      	xmlns:sec="http://www.springframework.org/security/tags">
+<h:head>
+	<title><ui:insert name="title"><h:outputText value="MOOC42" /></ui:insert> 
+	<ui:insert name="title-site"></ui:insert></title>
+ 
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="pragma" content="no-cache" />
+    <h:outputScript name="jquery/jquery-plugins.js" library="primefaces" />
+
+	<script language="javascript" type="text/javascript"> 
+  		var s_context = "#{facesContext.externalContext.requestContextPath}";
+
+  		PrimeFaces.locales['fr']={
+	         closeText: 'Fermer',
+	         prevText: 'Précédent',
+	         nextText: 'Suivant',
+	         monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
+	         monthNamesShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc' ],
+	         dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+	         dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+	         dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+	         weekHeader: 'Semaine',
+	         firstDay: 1,
+	         isRTL: false,
+	         showMonthAfterYear: false,
+	         yearSuffix:'',
+	         timeOnlyTitle: 'Choisir l\'heure',
+	         timeText: 'Heure',
+	         hourText: 'Heures',
+	         minuteText: 'Minutes',
+	         secondText: 'Secondes',
+	         currentText: 'Maintenant',
+	         ampm: false,
+	         month: 'Mois',
+	         week: 'Semaine',
+	         day: 'Jour',
+	         allDayText: 'Toute la journée',
+	         dateFormat: 'dd/mm/yy'
+         };
+	</script>
+</h:head>
+
+<h:body>
+	<div id="container">
+
+		<div id="header">
+			<ui:insert name="header">
+				<ui:include src="/templates/includes/header.xhtml" />
+			</ui:insert>
+		</div>
+
+		<div id="mainmenu">
+			<ui:insert name="menu">
+				<ui:include src="/templates/includes/menu.xhtml" />
+			</ui:insert>
+		</div>
+
+		<div id="wrap">
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+			<ui:insert name="body-site"></ui:insert>
+		</div>
+
+		<div class="clearingdiv">&nbsp;</div>
+
+		<div id="footer">
+			<ui:insert name="footer">
+				<ui:include src="/templates/includes/footer.xhtml" />
+			</ui:insert>
+		</div>
+	</div>
+</h:body>
+</html>

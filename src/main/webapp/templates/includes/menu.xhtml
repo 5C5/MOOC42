@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+			"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<h:form id="menuForm">
+		<p:menubar id="menubar" style="z-index:100;" >
+			<p:menuitem id="macceuil" value="Accueil" action="welcome"/>
+			
+			<!-- Fabrication manuelle -->
+			<p:submenu id="menuFabMan" label="#{msg['nav.fabricatoin.manuelle']}">
+				<p:menuitem id="FabMan" value="#{msg['nav.fabricatoin.manuelle']}" action="rchFabricationManuelle" />
+				<p:menuitem id="affectSerie" value="#{msg['nav.affectation.serie']}" action="affectationSerie" />
+			</p:submenu>
+			
+		</p:menubar>
+	</h:form>
+</ui:composition>
+</html>
+
