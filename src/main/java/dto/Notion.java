@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * 
  * @author colas
@@ -11,6 +15,9 @@ import javax.persistence.Id;
  *         Notion de cours, les différentes portes logiques existentes
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Notion {
 
 	/**
@@ -24,4 +31,13 @@ public class Notion {
 	 * Nom de la notion
 	 */
 	private String nom;
+
+	/**
+	 * Constructeur basique
+	 * 
+	 * @param nom
+	 */
+	public Notion(String nom) {
+		this.nom = nom;
+	}
 }
