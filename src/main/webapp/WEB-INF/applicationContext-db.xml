@@ -46,5 +46,9 @@
  <bean
   class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
  
+ <bean id="sessionFactory"
+    class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+</bean>
+ 
 
 </beans>

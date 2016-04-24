@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 
+ *
  * @author colas
  *
  *         Résultat des exercices
@@ -26,54 +26,55 @@ import lombok.Setter;
 @Entity
 public class Competence {
 
-	/**
-	 * ID du résultat
-	 */
-	@Id
-	@GeneratedValue
-	private int id;
+    /**
+     * ID du résultat
+     */
+    @Id
+    @GeneratedValue
+    private int id;
 
-	/**
-	 * Apprenant ayant fait l'exercice
-	 */
-	private Apprenant apprenant;
+    /**
+     * Apprenant ayant fait l'exercice
+     */
+    private Apprenant apprenant;
 
-	/**
-	 * Notions concernées par l'exercice
-	 */
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
-	@JoinColumn(name = "id_notion")
-	private List<Notion> notions;
+    /**
+     * Notions concernées par l'exercice
+     */
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
+    @JoinColumn(name = "id_notion")
+    private List<Notion> notions;
 
-	/**
-	 * Date de la réalisation de l'exercice
-	 */
-	private Date date;
+    /**
+     * Date de la réalisation de l'exercice
+     */
+    private Date date;
 
-	/**
-	 * Difficulté de l'exercice réalisé
-	 */
-	private int difficulté;
+    /**
+     * Difficulté de l'exercice réalisé
+     */
+    private int difficulte;
 
-	/**
-	 * Score effectué
-	 */
-	private int score;
+    /**
+     * Score effectué
+     */
+    private int score;
 
-	/**
-	 * Constructeur complet
-	 * 
-	 * @param apprenant
-	 * @param notions
-	 * @param difficulte
-	 * @param score
-	 */
-	public Competence(Apprenant apprenant, List<Notion> notions, int difficulte, int score) {
-		this.apprenant = apprenant;
-		if (notions != null)
-			this.notions = notions;
-		this.score = score;
-		this.difficulté = difficulte;
-		this.date = new Date();
-	}
+    /**
+     * Constructeur complet
+     *
+     * @param apprenant
+     * @param notions
+     * @param difficulte
+     * @param score
+     */
+    public Competence(final Apprenant apprenant, final List<Notion> notions, final int difficulte, final int score) {
+        this.apprenant = apprenant;
+        if (notions != null) {
+            this.notions = notions;
+        }
+        this.score = score;
+        this.difficulte = difficulte;
+        this.date = new Date();
+    }
 }
