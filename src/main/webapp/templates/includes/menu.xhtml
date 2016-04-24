@@ -11,22 +11,23 @@
 
 <ui:composition>
 	<h:form id="menuForm">
-		<p:menubar id="menubar" style="z-index:100;" >
+        <p:menubar>
             <!-- Accueil -->
-			<p:menuitem id="macceuil" value="#{fr['menu.accueil']}" action="accueil"/>
+            <p:menuitem id="macceuil" value="#{fr['menu.accueil']}" action="accueil" icon="ui-icon-home"/>
             
             <!-- Cours -->
             <p:menuitem id="mcours" value="#{fr['menu.cours']}" action="cours"/>
             
             <!-- Bac à sable -->
             <p:menuitem id="mbacSable" value="#{fr['menu.bac.sable']}" action="bacSable"/>
-			
-<!-- 			<p:submenu id="menuFabMan" label="#{fr['nav.fabricatoin.manuelle']}"> -->
-<!-- 				<p:menuitem id="FabMan" value="#{fr['nav.fabricatoin.manuelle']}" action="rchFabricationManuelle" /> -->
-<!-- 				<p:menuitem id="affectSerie" value="#{fr['nav.affectation.serie']}" action="affectationSerie" /> -->
-<!-- 			</p:submenu> -->
-			
-		</p:menubar>
+            
+            <!-- Profil -->
+            <p:menuitem id="mprofil" value="#{fr['menu.profil']}" action="profil"/>
+     
+            <f:facet name="options">
+                <p:commandButton type="button" value="#{fr['logout.button']}" icon="ui-icon-extlink" />
+            </f:facet>
+        </p:menubar>
 	</h:form>
 </ui:composition>
 </html>
