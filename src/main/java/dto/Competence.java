@@ -76,4 +76,8 @@ public class Competence {
 		this.difficulté = difficulte;
 		this.date = new Date();
 	}
+
+	public Competence() {
+
+	}
 }

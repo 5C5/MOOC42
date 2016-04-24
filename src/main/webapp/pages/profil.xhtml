@@ -12,7 +12,17 @@
 
     <ui:define name="body-site">
  		<p:panel header="#{fr['general.profil.title']}">
-       		<h:form >    
+       		<h:form >
+	        	<h:panelGrid columns="2">
+	        		<!-- Prenom -->
+	        		<p:outputLabel id="prenom" value="#{fr['general.profil.prenom']}"/>
+	        		<p:inputText id="prenom" disabled="true" value="#{profilMBean.apprenant.prenom}"/>
+	        		
+	        		<!-- Nom -->
+	        		<p:outputLabel id="nom" value="#{fr['general.profil.nom']}"/>
+	        		<p:inputText id="nom" disabled="true" value="#{profilMBean.apprenant.nom}"/>
+	        	</h:panelGrid>
+	        	
 	        	
 	        </h:form> 
 	     </p:panel>  

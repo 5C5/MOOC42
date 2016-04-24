@@ -25,12 +25,15 @@ import lombok.Setter;
 @Entity
 public class Apprenant {
 
+	/** Id de l'apprenant (BDD) */
 	@Id
 	@GeneratedValue
 	private int id;
 
+	/** Prenom de l'apprenant */
 	private String prenom;
 
+	/** Nom de l'apprenant */
 	private String nom;
 
 	@OneToMany
@@ -50,8 +53,11 @@ public class Apprenant {
 		this.connaissances = new ArrayList<>();
 	}
 
+	public Apprenant() {
+	}
+
 	/**
-	 * Ajout d'une nuvelle notion
+	 * Ajout d'une nouvelle notion
 	 * 
 	 * @param nouvelle
 	 */

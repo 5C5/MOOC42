@@ -3,6 +3,7 @@ package dto;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class Notion {
 	 */
 	@Id
 	@GeneratedValue
+	@ManyToOne
 	private int id;
 
 	/**
@@ -39,5 +41,9 @@ public class Notion {
 	 */
 	public Notion(String nom) {
 		this.nom = nom;
+	}
+
+	public Notion() {
+
 	}
 }
