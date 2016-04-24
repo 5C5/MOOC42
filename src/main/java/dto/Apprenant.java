@@ -11,6 +11,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -20,21 +21,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@Entity
-public class Apprenant {
-
-	/**
-	 * Id de l'apprenant
-	 */
-	@Id
-	@GeneratedValue
-	private int id;
-
-	/**
-	 * prenom de l'apprenant
-	 */
-	private String prenom;
-
+@NoArgsConstructor
 	private String nom;
 
 	@OneToMany

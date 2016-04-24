@@ -41,7 +41,7 @@ public class Competence {
 	/**
 	 * Notions concernées par l'exercice
 	 */
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "competences")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
 	@JoinColumn(name = "id_notion")
 	private List<Notion> notions;
 
