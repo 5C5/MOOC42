@@ -22,6 +22,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+public class Apprenant {
+
+	@Id
+	@GeneratedValue
+	private int id;
+
+	private String prenom;
+
 	private String nom;
 
 	@OneToMany
