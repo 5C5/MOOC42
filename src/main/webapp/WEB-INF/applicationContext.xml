@@ -8,20 +8,20 @@
     http://www.springframework.org/schema/context/spring-context-3.0.xsd">
     
     <!-- Data Source Declaration -->
-    <import resource="src/main/webapp/WEB-INF/applicationContext-*.xml" />
+    <import resource="applicationContext-*.xml" />
 
     <context:annotation-config/>
 
     <context:component-scan base-package="dao"/>
     <context:component-scan base-package="service"/>
     
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <!--bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
     
     </bean>
     
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+    </bean-->
     
     <context:spring-configured/>
 </beans>
