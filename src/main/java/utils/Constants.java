@@ -12,7 +12,7 @@ public final class Constants {
 
     /** Langue de l'utilisateur */
     public static final String UTILISATEUR_LANGUE = "langue";
-    /** Langue par défaut */
+	/** Langue par dÃ©faut */
     public static final String LANGUE_DEFAUT = "fr";
 
     /** Constante OUI */

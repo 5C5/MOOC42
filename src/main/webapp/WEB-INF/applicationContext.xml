@@ -15,7 +15,8 @@
     <context:component-scan base-package="dao"/>
     <context:component-scan base-package="service"/>
     
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    
     </bean>
     
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">

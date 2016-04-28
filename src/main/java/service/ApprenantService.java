@@ -2,7 +2,9 @@ package service;
 
 
 
-/** Interface de definition des methodes permettant d'acceder a la DAO Apprenant */
+/**
+ * Interface de definition des methodes permettant d'acceder Ã  la DAO Apprenant
+ */
 public interface ApprenantService {
 
     /**

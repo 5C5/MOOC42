@@ -18,19 +18,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
- * Ensemble de methodes generiques d'acces a  la base de donnees.
+ * Ensemble de methodes generiques d'acces aï¿½ la base de donnees.
  */
 public class AbstractDAO<T> {
 
     /** serialVersionUID. */
     private static final long serialVersionUID = 8677286990004284805L;
 
-    /** Type d'objet à traiter. */
+    /** Type d'objet ï¿½ traiter. */
     @SuppressWarnings("unchecked")
     private final Class<T> persistentClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
     /** sessionFactory. */
-    @Autowired
+	@Autowired
     @Qualifier("sessionFactory")
     private transient SessionFactory sessionFactory;
 
@@ -73,9 +73,9 @@ public class AbstractDAO<T> {
     }
 
     /**
-     * Méthode générique retournant l'ensemble des données d'une table.
+     * Mï¿½thode gï¿½nï¿½rique retournant l'ensemble des donnï¿½es d'une table.
      *
-     * @return List<T> la liste des données de la table
+     * @return List<T> la liste des donnï¿½es de la table
      */
     public List<T> rechercherTous() {
         final Session currentSession = this.getSession();
@@ -110,7 +110,7 @@ public class AbstractDAO<T> {
     }
 
     /**
-     * Créer un nouvel objet en base.
+     * Crï¿½er un nouvel objet en base.
      *
      * @param entity L'objet
      */
@@ -128,7 +128,7 @@ public class AbstractDAO<T> {
     }
 
     /**
-     * Met à jour l'objet en base.
+     * Met ï¿½ jour l'objet en base.
      *
      * @param entity L'objet
      */
@@ -139,8 +139,8 @@ public class AbstractDAO<T> {
     /**
      * Chargement d'un objet.
      *
-     * @param objectToInitialize l'objet à initialiser
-     * @return l'objet initialiséé
+     * @param objectToInitialize l'objet ï¿½ initialiser
+     * @return l'objet initialisï¿½ï¿½
      */
     public Object loadProperty(final Object objectToInitialize) {
         if (objectToInitialize == null) {
@@ -166,7 +166,7 @@ public class AbstractDAO<T> {
 
     }
 
-    /** Attache l'objet parent de la collection à la session afin de charger cette dernière. */
+    /** Attache l'objet parent de la collection ï¿½ la session afin de charger cette derniï¿½re. */
     @SuppressWarnings("rawtypes")
     public Collection loadCollection(final Collection collectionToInitialize) {
         if (collectionToInitialize == null) {

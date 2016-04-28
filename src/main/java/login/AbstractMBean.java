@@ -96,7 +96,7 @@ public abstract class AbstractMBean implements Serializable {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String langue = (String) request.getSession().getAttribute(Constants.UTILISATEUR_LANGUE);
         if (langue == null || "".equals(langue)) {
-            // Langue par défaut : fr
+			// Langue par dÃ©faut : fr
             langue = "fr";
         }
         return langue;

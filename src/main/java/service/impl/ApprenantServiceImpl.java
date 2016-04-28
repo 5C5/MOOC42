@@ -3,9 +3,9 @@ package service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import service.ApprenantService;
 import dao.ApprenantDAO;
 import dto.Apprenant;
+import service.ApprenantService;
 
 @Service
 public class ApprenantServiceImpl implements ApprenantService {
@@ -16,7 +16,7 @@ public class ApprenantServiceImpl implements ApprenantService {
     /**
      * DAO Apprenant
      */
-    @Autowired
+	@Autowired
     private ApprenantDAO apprenantDAO;
 
     @Override
