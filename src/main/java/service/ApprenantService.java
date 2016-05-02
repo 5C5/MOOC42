@@ -1,7 +1,5 @@
 package service;
 
-
-
 /**
  * Interface de definition des methodes permettant d'acceder à la DAO Apprenant
  */

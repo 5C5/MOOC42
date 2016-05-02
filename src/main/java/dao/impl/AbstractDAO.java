@@ -14,7 +14,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.collection.spi.PersistentCollection;
 import org.hibernate.proxy.HibernateProxy;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
@@ -30,7 +29,7 @@ public class AbstractDAO<T> {
     private final Class<T> persistentClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
     /** sessionFactory. */
-	@Autowired
+	// @Autowired
     @Qualifier("sessionFactory")
     private transient SessionFactory sessionFactory;
 

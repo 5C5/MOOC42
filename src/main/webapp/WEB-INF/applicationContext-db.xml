@@ -9,7 +9,7 @@
   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <!-- Scan for property file -->
-    <context:property-placeholder location="/WEB-INF/*.properties"/>
+    <context:property-placeholder location="/WEB-INF/database.properties"/>
 
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -63,6 +63,11 @@
     <!-- bean
             class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/ -->
 
-
+	<bean id="loginMBean" class="login.LoginMBean">
+		<property name="apprenantService" ref="apprenantServiceImpl"></property>
+	</bean>
+	
+	<bean id="apprenantServiceImpl" class="service.impl.ApprenantServiceImpl">
+	</bean>
 
 </beans>

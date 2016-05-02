@@ -12,9 +12,6 @@ import org.springframework.context.annotation.Scope;
 import dto.Apprenant;
 import dto.Competence;
 import login.AbstractMBean;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * Classe de gestion du profil
@@ -23,9 +20,9 @@ import lombok.Setter;
  *
  */
 // @Data
-@Getter
-@Setter
-@NoArgsConstructor
+// @Getter
+// @Setter
+// @NoArgsConstructor
 @ManagedBean
 @Scope("view")
 public class ProfilMBean extends AbstractMBean implements Serializable {
@@ -62,6 +59,30 @@ public class ProfilMBean extends AbstractMBean implements Serializable {
 		 */
 
 		this.apprenant = new Apprenant("colas", "picard");
+	}
+
+	public Apprenant getApprenant() {
+		return apprenant;
+	}
+
+	public void setApprenant(Apprenant apprenant) {
+		this.apprenant = apprenant;
+	}
+
+	public List<Competence> getCompetences() {
+		return competences;
+	}
+
+	public void setCompetences(List<Competence> competences) {
+		this.competences = competences;
+	}
+
+	public boolean isNonEditable() {
+		return nonEditable;
+	}
+
+	public void setNonEditable(boolean nonEditable) {
+		this.nonEditable = nonEditable;
 	}
 
 }

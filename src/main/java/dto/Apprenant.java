@@ -49,8 +49,6 @@ public class Apprenant {
 		this.connaissances = new ArrayList<>();
 	}
 
-	public Apprenant() {
-	}
 
 	/**
 	 * Ajout d'une nouvelle notion
@@ -62,6 +60,10 @@ public class Apprenant {
 			this.connaissances = new ArrayList<Notion>();
 		if (!this.connaissances.contains(nouvelle))
 			this.connaissances.add(nouvelle);
+	}
+
+	public Apprenant() {
+
 	}
 
 	public int getId() {
