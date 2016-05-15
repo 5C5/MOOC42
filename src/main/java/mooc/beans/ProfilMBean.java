@@ -15,6 +15,7 @@ import lombok.Setter;
 import mooc.dto.ProfilDto;
 import mooc.login.AbstractMBean;
 import mooc.service.ApprenantService;
+import mooc.service.ConnaissanceService;
 import mooc.utils.Constants;
 import mooc.utils.Theme;
 
@@ -41,6 +42,10 @@ public class ProfilMBean extends AbstractMBean implements Serializable {
     @ManagedProperty(value = "#{apprenantService}")
     private ApprenantService apprenantService;
 
+    /** Service Connaissance */
+    @ManagedProperty(value = "#{connaissanceService}")
+    private ConnaissanceService connaissanceService;
+
     /**
      * Apprenant dont le profil est affiché.
      */
@@ -53,6 +58,11 @@ public class ProfilMBean extends AbstractMBean implements Serializable {
     private String ancienMdp;
     private String nouveauMdp;
     private String confirmMdp;
+
+    /** Id de la connaissance a monter de niveau */
+    private int idConnaissanceLevelUp;
+    /** Niveau actuel de la connaissance */
+    private int connaissanceLevel;
 
     @PostConstruct
     public void init() {
@@ -118,6 +128,14 @@ public class ProfilMBean extends AbstractMBean implements Serializable {
     public void modifierMdp() {
         // TODO
 
+    }
+
+    /**
+     * Méthode appelée pour monter le niveau d'une connaissance de l'apprenant
+     */
+    public void levelUp() {
+        System.out.println(this.idConnaissanceLevelUp + " : nouveau niv " + this.connaissanceLevel);
+        this.connaissanceService.changerNiveauConnaissance(this.idConnaissanceLevelUp, this.connaissanceLevel);
     }
 
 }

@@ -10,6 +10,8 @@ import lombok.Setter;
 @Setter
 public class NiveauDeverouilleDto {
 
+    /** Id */
+    private int id;
     /** Nom */
     private String nom;
     /** Niveau */
