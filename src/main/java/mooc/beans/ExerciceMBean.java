@@ -1,6 +1,7 @@
 package mooc.beans;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -18,23 +19,34 @@ import mooc.login.AbstractMBean;
 @Scope("view")
 public class ExerciceMBean extends AbstractMBean implements Serializable{
 
-    /**
-     * ID
-     */
-    private static final long serialVersionUID = -8124356110804029220L;
+	/**
+	 * ID
+	 */
+	private static final long serialVersionUID = -8124356110804029220L;
 
-    private Element root;
+	/** Elements à afficher */
+	/** Exercice */
+	private Element root;
+	/** LIste de notion */
+	private List<String> notions;
 
-    @PostConstruct
-    public void init() {
+	/** Elements/paramètres à récupérer */
+	/** Liste des notions selectionnées pour l'exercice */
+	private String[] selectedNotions;
 
-    }
+	/** Paramètres d'affichage */
+	private boolean options;
 
-    public Element getRoot() {
-        return this.root;
-    }
+	@PostConstruct
+	public void init() {
 
-    public void setRoot(final Element root) {
-        this.root = root;
-    }
+	}
+
+	public Element getRoot() {
+		return this.root;
+	}
+
+	public void setRoot(final Element root) {
+		this.root = root;
+	}
 }
