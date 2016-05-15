@@ -1,10 +1,6 @@
 package mooc.dao;
 
-import java.util.List;
-
 import mooc.model.Apprenant;
-import mooc.model.Competence;
-import mooc.model.Connaissance;
 
 
 /**
@@ -49,21 +45,5 @@ public interface ApprenantDAO {
      * @return true si l'apprenant est deja en base, sinon false
      */
     public boolean isApprenantExists(final String nom, final String prenom);
-
-    /**
-     * Charger la liste des connaissances
-     *
-     * @param apprenant Apprenant
-     * @return List des connaissances
-     */
-    public List<Connaissance> loadConnaissance(final Apprenant apprenant);
-
-    /**
-     * Charger la liste des competences
-     *
-     * @param apprenant Apprenant
-     * @return List des competences
-     */
-    public List<Competence> loadCompetence(final Apprenant apprenant);
 
 }

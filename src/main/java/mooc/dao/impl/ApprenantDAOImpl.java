@@ -2,16 +2,16 @@ package mooc.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
-
 import mooc.dao.ApprenantDAO;
 import mooc.model.Apprenant;
 import mooc.model.Competence;
 import mooc.model.CompetenceNotion;
 import mooc.model.Connaissance;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 
 /**
@@ -145,58 +145,6 @@ public class ApprenantDAOImpl extends AbstractDAO<Apprenant> implements Apprenan
             return true;
         }
 
-    }
-
-    @Override
-    public List<Connaissance> loadConnaissance(final Apprenant apprenant) {
-        Session session = this.getSession();
-        Transaction tx = session.beginTransaction();
-
-        final Criteria criteria = session.createCriteria(Connaissance.class, "connaissance");
-        if (apprenant != null) {
-            criteria.createAlias("connaissance.apprenant", "apprenant");
-            criteria.add(Restrictions.eq("apprenant.idApprenant", apprenant.getIdApprenant()));
-        }
-
-        List<Connaissance> resultList = criteria.list();
-        tx.commit();
-
-        return resultList;
-    }
-
-    @Override
-    public List<Competence> loadCompetence(final Apprenant apprenant) {
-        Session session = this.getSession();
-        Transaction tx = session.beginTransaction();
-
-        final Criteria criteria = session.createCriteria(Competence.class, "connaissance");
-        if (apprenant != null) {
-            criteria.createAlias("connaissance.apprenant", "apprenant");
-            criteria.add(Restrictions.eq("apprenant.idApprenant", apprenant.getIdApprenant()));
-        }
-
-        List<Competence> resultList = criteria.list();
-        tx.commit();
-
-        for (Competence comp : resultList) {
-            comp.setNotions(this.loadCompetenceNotion(comp));
-        }
-        return resultList;
-    }
-
-    private List<CompetenceNotion> loadCompetenceNotion(final Competence competence) {
-        Session session = this.getSession();
-        Transaction tx = session.beginTransaction();
-
-        final Criteria criteria = session.createCriteria(CompetenceNotion.class, "compNotion");
-        if (competence != null) {
-            criteria.createAlias("compNotion.competence", "competence");
-            criteria.add(Restrictions.eq("competence.idCompetence", competence.getIdCompetence()));
-        }
-
-        List<CompetenceNotion> resultList = criteria.list();
-        tx.commit();
-        return resultList;
     }
 
 }

@@ -21,6 +21,11 @@
     <bean id="apprenantService" class="mooc.service.impl.ApprenantServiceImpl">
         <property name="apprenantDAO" ref="apprenantDAO"></property>
         <property name="notionDAO" ref="notionDAO"></property>
+        <property name="connaissanceDAO" ref="connaissanceDAO"></property>
+        <property name="competenceDAO" ref="competenceDAO"></property>
+    </bean>
+    <bean id="connaissanceService" class="mooc.service.impl.ConnaissanceServiceImpl">
+        <property name="connaissanceDAO" ref="connaissanceDAO"></property>
     </bean>
     
     <!-- DAO -->
@@ -28,6 +33,12 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
     <bean id="notionDAO" class="mooc.dao.impl.NotionDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="connaissanceDAO" class="mooc.dao.impl.ConnaissanceDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="competenceDAO" class="mooc.dao.impl.CompetenceDAOImpl">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
     

@@ -7,6 +7,8 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import mooc.dao.ApprenantDAO;
+import mooc.dao.CompetenceDAO;
+import mooc.dao.ConnaissanceDAO;
 import mooc.dao.NotionDAO;
 import mooc.dto.EvolutionCompetenceDto;
 import mooc.dto.NiveauDeverouilleDto;
@@ -26,17 +28,21 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
     /** serialVersionUID */
     private static final long serialVersionUID = -7304548977948254205L;
 
-    /**
-     * DAO Apprenant
-     */
+    /** DAO Apprenant */
     @Autowired
     private ApprenantDAO apprenantDAO;
 
-    /**
-     * DAO Notion
-     */
+    /** DAO Notion */
     @Autowired
     private NotionDAO notionDAO;
+
+    /** DAO Competence */
+    @Autowired
+    private CompetenceDAO competenceDAO;
+
+    /** DAO Connaissance */
+    @Autowired
+    private ConnaissanceDAO connaissanceDAO;
 
     @Override
     public int getIdApprenant(final String nom, final String prenom, final String motDePasse) {
@@ -100,10 +106,11 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
         profil.setPrenom(apprenant.getPrenom());
 
         // Notions
-        List<Connaissance> connaissances = this.apprenantDAO.loadConnaissance(apprenant);
+        List<Connaissance> connaissances = this.connaissanceDAO.loadConnaissance(apprenant.getIdApprenant());
         List<NiveauDeverouilleDto> niveaux = new ArrayList<NiveauDeverouilleDto>();
         for (Connaissance connaissance : connaissances) {
             NiveauDeverouilleDto niveau = new NiveauDeverouilleDto();
+            niveau.setId(connaissance.getIdConnaissance());
             niveau.setNom(connaissance.getNotion().getNomNotion());
             niveau.setNiveau(connaissance.getNiveau());
             niveaux.add(niveau);
