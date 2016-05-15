@@ -15,11 +15,11 @@
        		<h:form >
 	        	<h:panelGrid columns="2">
 	        		<!-- Prenom -->
-	        		<p:outputLabel for="prenom" value="#{fr['general.profil.prenom']}"/>
+	        		<p:outputLabel for="prenom" value="#{fr['profil.prenom']}"/>
 	        		<p:inputText id="prenom" disabled="#{profilMBean.nonEditable}" value="#{profilMBean.apprenant.prenom}"/>
 	        		
 	        		<!-- Nom -->
-	        		<p:outputLabel for="nom" value="#{fr['general.profil.nom']}"/>
+	        		<p:outputLabel for="nom" value="#{fr['profil.nom']}"/>
 	        		<p:inputText id="nom" disabled="#{profilMBean.nonEditable}" value="#{profilMBean.apprenant.nom}"/>
 	        	</h:panelGrid>
 	        	
