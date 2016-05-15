@@ -2,16 +2,16 @@ package mooc.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+
 import mooc.dao.ApprenantDAO;
 import mooc.model.Apprenant;
 import mooc.model.Competence;
 import mooc.model.CompetenceNotion;
 import mooc.model.Connaissance;
-
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 
 
 /**

@@ -1,4 +1,4 @@
-package beans;
+package mooc.beans;
 
 import java.io.Serializable;
 
@@ -8,7 +8,9 @@ import javax.faces.bean.ManagedBean;
 import org.primefaces.model.diagram.Element;
 import org.springframework.context.annotation.Scope;
 
-import login.AbstractMBean;
+import lombok.Getter;
+import lombok.Setter;
+import mooc.login.AbstractMBean;
 
 @Getter
 @Setter
@@ -16,42 +18,23 @@ import login.AbstractMBean;
 @Scope("view")
 public class ExerciceMBean extends AbstractMBean implements Serializable{
 
-	/**
-	 * ID
-	 */
-	private static final long serialVersionUID = -8124356110804029220L;
+    /**
+     * ID
+     */
+    private static final long serialVersionUID = -8124356110804029220L;
 
-	private Element root;
+    private Element root;
 
-	@PostConstruct
-	public void init() {
-		this.root = new Element("enfant 1");
+    @PostConstruct
+    public void init() {
 
-		Element pere = new Element("papa");
-		Element enfant2 = new Element("enfant 2");
-		Element enfant3 = new Element("enfant 3");
+    }
 
-		Element petitFils11 = new Element("petitFils 11");
-		Element petitFils12 = new Element("petitFils 12");
-		Element petitFils21 = new Element("petitFils 21");
-		Element petitFils22 = new Element("petitFils 22");
+    public Element getRoot() {
+        return this.root;
+    }
 
-		root.addNode(petitFils11);
-		root.addNode(petitFils12);
-		enfant2.addNode(petitFils21);
-		enfant2.addNode(petitFils22);
-
-		pere.addNode(root);
-		pere.addNode(enfant2);
-		pere.addNode(enfant3);
-
-	}
-
-	public Element getRoot() {
-		return root;
-	}
-
-	public void setRoot(Element root) {
-		this.root = root;
-	}
+    public void setRoot(final Element root) {
+        this.root = root;
+    }
 }

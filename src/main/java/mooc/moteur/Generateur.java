@@ -1,4 +1,4 @@
-package moteur;
+package mooc.moteur;
 
 import java.util.List;
 
@@ -8,30 +8,30 @@ import lombok.Data;
 
 /**
  * Classe abstraite pour les générateurs d'exercices
- * 
+ *
  * @author colas
  *
  */
 @Data
 public abstract class Generateur {
 
-	/**
-	 * Attributs
-	 */
-	private DefaultDiagramModel exercice;
+    /**
+     * Attributs
+     */
+    private DefaultDiagramModel exercice;
 
-	public Generateur() {
-		this.exercice = new DefaultDiagramModel();
-	}
+    public Generateur() {
+        this.exercice = new DefaultDiagramModel();
+    }
 
-	public abstract void generer(List<String> portes);
+    public abstract void generer(List<String> portes);
 
-	public DefaultDiagramModel getExercice() {
-		return exercice;
-	}
+    public DefaultDiagramModel getExercice() {
+        return this.exercice;
+    }
 
-	public void setExercice(DefaultDiagramModel exercice) {
-		this.exercice = exercice;
-	}
+    public void setExercice(final DefaultDiagramModel exercice) {
+        this.exercice = exercice;
+    }
 
 }

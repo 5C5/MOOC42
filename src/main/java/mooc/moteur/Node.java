@@ -1,4 +1,4 @@
-package moteur;
+package mooc.moteur;
 
 import org.primefaces.model.diagram.Element;
 import org.primefaces.model.diagram.endpoint.DotEndPoint;
@@ -9,66 +9,66 @@ import lombok.Data;
 
 /**
  * Classe semi abstraite des noeuds
- * 
+ *
  * @author colas
  *
  */
 @Data
 public abstract class Node extends Element {
 
-	/**
-	 * ID
-	 */
-	private static final long serialVersionUID = -575980082032669766L;
+    /**
+     * ID
+     */
+    private static final long serialVersionUID = -575980082032669766L;
 
 
 
-	public abstract boolean getValeur();
+    public abstract boolean getValeur();
 
-	public abstract void majValeur(boolean vraieValeur);
+    public abstract void majValeur(boolean vraieValeur);
 
-	/**
-	 * Constructeur avec juste le label visible
-	 * 
-	 * @param label
-	 */
-	public Node(String label) {
-		super(label);
-	}
+    /**
+     * Constructeur avec juste le label visible
+     *
+     * @param label
+     */
+    public Node(final String label) {
+        super(label);
+    }
 
-	/**
-	 * Constructeur avec le sélecteur de type de valeur (modifiable ou non)
-	 * 
-	 * @param label
-	 * @param entree
-	 */
-	public Node(String label, boolean modifiable) {
-		super(label);
-		this.setDraggable(modifiable);
-	}
+    /**
+     * Constructeur avec le sélecteur de type de valeur (modifiable ou non)
+     *
+     * @param label
+     * @param entree
+     */
+    public Node(final String label, final boolean modifiable) {
+        super(label);
+        this.setDraggable(modifiable);
+    }
 
-	/**
-	 * Petite simplification pour la création d'EndPoint (pour éviter de
-	 * repasser tous les paramètres)
-	 * 
-	 * @param anchor
-	 * @return
-	 */
-	protected EndPoint createEndPoint(EndPointAnchor anchor) {
-		DotEndPoint endPoint = new DotEndPoint(anchor);
-		endPoint.setStyle("{fillStyle:'#404a4e'}");
-		endPoint.setHoverStyle("{fillStyle:'#20282b'}");
+    /**
+     * Petite simplification pour la création d'EndPoint (pour éviter de
+     * repasser tous les paramètres)
+     *
+     * @param anchor
+     * @return
+     */
+    protected EndPoint createEndPoint(final EndPointAnchor anchor) {
+        DotEndPoint endPoint = new DotEndPoint(anchor);
+        endPoint.setStyle("{fillStyle:'#404a4e'}");
+        endPoint.setHoverStyle("{fillStyle:'#20282b'}");
 
-		return endPoint;
-	}
+        return endPoint;
+    }
 
-	/**
-	 * Override implicite du getter getData pour conversion automatique
-	 * 
-	 * @return label
-	 */
-	public String getLabel() {
-		return (String) this.getData();
-	}
+    /**
+     * Override implicite du getter getData pour conversion automatique
+     *
+     * @return label
+     */
+    public String getLabel() {
+        return (String) this.getData();
+    }
 
 }
