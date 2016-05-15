@@ -13,12 +13,19 @@
     <ui:define name="body-site">
  		<p:panel header="#{fr['general.cours.title']}">
        		<h:form >    
-	        	<p:panel id="ou" toggleable="true" header="#{fr['cours.ou.title']}">
-                    <h:panelGrid columns="2" style="width:100%">
-                        <p:graphicImage name="img/table_ou.png" />
-                        <p:outputPanel>#{fr['cours.ou.texte']}</p:outputPanel>
-                    </h:panelGrid>
-                </p:panel>
+                <p:accordionPanel multiple="true" style="margin-top : auto;" id="panelGeneral" >
+                    <p:tab title="#{fr['cours.intro.title']}" >
+                        <h:panelGrid columns="1" style="width:100%">
+                            <p:outputPanel>#{fr['cours.intro.texte']}</p:outputPanel>
+                        </h:panelGrid>
+                     </p:tab>
+                    <p:tab title="#{fr['cours.ou.title']}" >
+                        <h:panelGrid columns="2" style="width:100%">
+                            <p:graphicImage name="img/table_ou.png" />
+                            <p:outputPanel>#{fr['cours.ou.texte']}</p:outputPanel>
+                        </h:panelGrid>
+                     </p:tab>
+                </p:accordionPanel>
 	        </h:form> 
 	     </p:panel>  
 	    </ui:define>

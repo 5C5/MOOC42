@@ -29,6 +29,13 @@
     </repositories>
 
     <dependencies>
+        <!-- HSQL -->
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.2.9</version>
+        </dependency>
+        
         <!-- JSF -->
         <dependency>
             <groupId>com.sun.faces</groupId>

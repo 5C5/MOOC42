@@ -11,23 +11,50 @@
     <ui:define name="title">#{fr['general.login.title']}</ui:define>
 
     <ui:define name="body-site">
- 		<p:panel header="#{fr['general.login.title']}" styleClass="logincontainer">
-       		<h:form prependId="false">    
-	        	<p:focus for="j_username" />       
-				<h:panelGrid columns="2">
-						<p:outputLabel for="j_username" value="#{fr['login.username']}" />	
-						<p:inputText id="j_username" required="true" label="#{fr['login.username']}"/>
-	
-					<p:outputLabel for="j_password" value="#{fr['login.password']}" />  
-					<p:password id="j_password" label="#{fr['login.password']}" required="true" />
-				</h:panelGrid>
-
-				<p:defaultCommand target="login"/>
-				<p:commandButton id="login" value="#{fr['login.button']}"
-					action="#{loginMBean.doLogin}" process="@all" ajax="false" onclick="waiting.show()"
-					icon="ui-icon-power" style="left:100px;" />
-	        </h:form> 
-	     </p:panel>  
+        <h:form prependId="false">    
+            <p:panel style="margin: 0 auto;">
+                <h:panelGrid columns="2" style="margin: 0 auto;">
+             		<p:panel header="#{fr['login.title']}" styleClass="logincontainer">
+            	        	<p:focus for="nom" />       
+            				<h:panelGrid columns="2" style="widht : 100%">
+            						<p:outputLabel for="nom" value="#{fr['login.nom']}" />	
+            						<p:inputText id="nom" value="#{loginMBean.nom}"/>
+                                    
+                                    <p:outputLabel for="prenom" value="#{fr['login.prenom']}" />  
+                                    <p:inputText id="prenom" value="#{loginMBean.prenom}"/>
+            	
+                					<p:outputLabel for="motDePasse" value="#{fr['login.password']}" />  
+                					<p:password id="motDePasse" value="#{loginMBean.motDePasse}"/>
+                                    
+            				</h:panelGrid>
+            
+            				<p:defaultCommand target="login"/>
+            				<p:commandButton id="login" value="#{fr['login.button']}"
+            					action="#{loginMBean.doLogin}" process="@all" ajax="false" onclick="waiting.show();Primefaces.changeTheme('sunny')"
+            					icon="ui-icon-power" style="left:100px;" />
+            	     </p:panel>  
+                     <p:panel header="#{fr['register.title']}" styleClass="logincontainer"> 
+                            <h:panelGrid columns="2">
+                                    <p:outputLabel for="insNom" value="#{fr['register.nom']}" />  
+                                    <p:inputText id="insNom" value="#{loginMBean.insNom}"/>
+                
+                                    <p:outputLabel for="insPrenom" value="#{fr['register.prenom']}" />  
+                                    <p:inputText id="insPrenom" value="#{loginMBean.insPrenom}"/>
+                                    
+                                    <p:outputLabel for="insMotDePasse" value="#{fr['register.password']}" />  
+                                    <p:password id="insMotDePasse" value="#{loginMBean.insMotDePasse}"/>
+                                    
+                                    <p:outputLabel for="insConfirmationMotDePasse" value="#{fr['register.password.confirm']}" />  
+                                    <p:password id="insConfirmationMotDePasse" value="#{loginMBean.insConfirmationMotDePasse}"/>
+                            </h:panelGrid>
+            
+                            <p:commandButton id="register" value="#{fr['register.button']}"
+                                action="#{loginMBean.doRegister}" process="@all" ajax="false" onclick="waiting.show()"
+                                icon="ui-icon-power" style="left:100px;" />
+                     </p:panel>  
+                 </h:panelGrid>
+              </p:panel>
+         </h:form> 
 	    </ui:define>
 
 </ui:composition>

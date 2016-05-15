@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14623738233370" configfile="/MOOC42/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="connexion.xhtml" x="122" y="178" id="pf14623738741771" referenceLink="//@navigationRule.0/@fromViewId|" path="/connexion.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="commande.xhtml" x="122" y="562" id="pf14623738741773" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" path="/commande.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="946" id="pf14627337645400" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14627337645401 pf14627337645402 pf14627337645403 pf14627337645404 pf14628848113730" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/accueil.xhtml" x="338" y="370" id="pf14627337645405" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf14627337645401" path="/pages/accueil.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/cours.xhtml" x="338" y="754" id="pf14627337645406" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf14627337645402" path="/pages/cours.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/bacSable.xhtml" x="338" y="1138" id="pf14627337645407" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf14627337645403" path="/pages/bacSable.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/profil.xhtml" x="338" y="1522" id="pf14627337645408" referenceLink="//@navigationRule.0/@navigationCase.4/@toViewId|" inlinks="pf14627337645404" path="/pages/profil.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf14628848113741" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14628848113730" path="/index.xhtml"/>
+  <links id="pf14627337645401" target="pf14627337645405" source="pf14627337645400" outcome="accueil" redirect="true"/>
+  <links id="pf14627337645402" target="pf14627337645406" source="pf14627337645400" outcome="cours" redirect="true"/>
+  <links id="pf14627337645403" target="pf14627337645407" source="pf14627337645400" outcome="bacSable" redirect="true"/>
+  <links id="pf14627337645404" target="pf14627337645408" source="pf14627337645400" outcome="profil" redirect="true"/>
+  <links id="pf14628848113730" target="pf14628848113741" source="pf14627337645400" outcome="index" redirect="true"/>
+</pageflow:Pageflow>

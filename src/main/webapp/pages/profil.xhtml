@@ -11,20 +11,69 @@
     <ui:define name="title">#{fr['general.profil.title']}</ui:define>
 
     <ui:define name="body-site">
- 		<p:panel header="#{fr['general.profil.title']}">
+ 		<p:panel header="#{fr['general.profil.title']} de #{profilMBean.profil.prenom} #{profilMBean.profil.nom}">
        		<h:form >
 	        	<h:panelGrid columns="2">
-	        		<!-- Prenom -->
-	        		<p:outputLabel for="prenom" value="#{fr['general.profil.prenom']}"/>
-	        		<p:inputText id="prenom" disabled="#{profilMBean.nonEditable}" value="#{profilMBean.apprenant.prenom}"/>
-	        		
-	        		<!-- Nom -->
-	        		<p:outputLabel for="nom" value="#{fr['general.profil.nom']}"/>
-	        		<p:inputText id="nom" disabled="#{profilMBean.nonEditable}" value="#{profilMBean.apprenant.nom}"/>
-	        	</h:panelGrid>
+	        		<!-- Parametres du compte -->
+                    <p:panel header="#{fr['profil.parametre']}">
+                        <h:panelGrid columns="2" cellpadding="10">
+                        <!-- Modification du mot de passe -->
+                            <p:outputLabel for="basic" value="#{fr['profil.motdepasse']} : " /> 
+                            <p:commandButton value="#{fr['profil.motdepasse.button']}" type="button" onclick="PF('dlgMdp').show();" />
+                        <!-- Modification du theme -->
+                            <p:outputLabel for="basic" value="#{fr['profil.theme']} : " /> 
+                            <p:themeSwitcher id="basic" style="width:165px">
+                                <f:selectItem itemLabel="Choisir un thème ..." itemValue="" />
+                                <f:selectItems value="#{profilMBean.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
+                            </p:themeSwitcher>
+                        </h:panelGrid>
+                    </p:panel>
+                    
+                    <!-- Notions -->
+                    <p:panel header="#{fr['profil.niveau.title']}">
+                        <ui:repeat var="niv" value="#{profilMBean.profil.niveaux}" >
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="#{niv.nom}"/>
+                                <p:rating value="#{niv.niveau}" readonly="true" stars="3"/>
+                            </h:panelGrid>
+                        </ui:repeat>
+                    </p:panel>
+                </h:panelGrid>
+                
+                <p:panel header="#{fr['profil.evolution.competence']}">
+                <p:dataTable var="ligne" value="#{profilMBean.profil.evolution}">                 
+                    <p:column headerText="#{fr['profil.evolution.date']}">
+                        <h:outputText value="#{ligne.date}" />
+                    </p:column>
+                 
+                    <p:column headerText="#{fr['profil.evolution.niveau']}">
+                        <p:rating value="#{ligne.niveau}" readonly="true" stars="3"/>
+                    </p:column>
+                 
+                    <p:column headerText="#{fr['profil.evolution.remarque']}">
+                        <h:outputText value="#{ligne.remarque}" />
+                    </p:column>
+                </p:dataTable>
+                </p:panel>
 	        	
 	        	
+             <!-- Modification du mot de passe -->
+             <p:dialog header="#{fr['profil.motdepasse']}" widgetVar="dlgMdp">
+                <h:panelGrid columns="2">
+                    <p:outputLabel for="ancienMdp" value="#{fr['profil.motdepasse.ancien']}" />  
+                    <p:password id="ancienMdp" value="#{profilMBean.ancienMdp}"/>
+                    <p:outputLabel for="nouveauMdp" value="#{fr['profil.motdepasse.nouveau']}" />  
+                    <p:password id="nouveauMdp" value="#{profilMBean.nouveauMdp}"/>                    
+                    <p:outputLabel for="confimMdp" value="#{fr['profil.motdepasse.confirm']}" />  
+                    <p:password id="confimMdp" value="#{profilMBean.confirmMdp}"/>
+                </h:panelGrid>
+
+                <p:commandButton id="modifierMdp" value="#{fr['profil.motdepasse.button']}"
+                    action="#{profilMBean.modifierMdp}" onclick="waiting.show()" style="left:100px;" />
+            </p:dialog>   
+            
 	        </h:form> 
+            
 	     </p:panel>  
 	    </ui:define>
 
