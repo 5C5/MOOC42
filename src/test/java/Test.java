@@ -1,10 +1,11 @@
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
-import dto.Apprenant;
+import mooc.model.Apprenant;
+
 
 /**
- * 
+ *
  * @author colas
  *
  *         Classe de test

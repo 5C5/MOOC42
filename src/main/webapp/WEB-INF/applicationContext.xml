@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-    http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/cache
+		    http://www.springframework.org/schema/cache/spring-cache.xsd">
+	
+    <import resource="db-config.xml" />
     
-    <!-- Data Source Declaration -->
-    <import resource="applicationContext-*.xml" />
+<!--     <context:annotation-config /> -->
 
-    <context:annotation-config/>
-
-    <context:component-scan base-package="dao"/>
-    <context:component-scan base-package="service"/>
+    <!-- Bean -->
+<!--     <bean id="loginMBean" class="mooc.login.LoginMBean"> -->
+<!--         <property name="apprenantService" ref="apprenantService"></property> -->
+<!--     </bean> -->
     
-    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
-    
-    <!--bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-    
+    <!-- Service -->
+    <bean id="apprenantService" class="mooc.service.impl.ApprenantServiceImpl">
+        <property name="apprenantDAO" ref="apprenantDAO"></property>
+        <property name="notionDAO" ref="notionDAO"></property>
     </bean>
     
-    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <!-- DAO -->
+    <bean id="apprenantDAO" class="mooc.dao.impl.ApprenantDAOImpl">
         <property name="sessionFactory" ref="sessionFactory" />
-    </bean-->
+    </bean>
+    <bean id="notionDAO" class="mooc.dao.impl.NotionDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
     
-    <context:spring-configured/>
-</beans>
+<!-- 	<context:component-scan base-package="mooc, mooc.dao, mooc.dao.impl, mooc.service, mooc.service.impl" /> -->
+</beans> 
