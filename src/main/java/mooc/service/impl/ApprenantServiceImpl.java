@@ -12,6 +12,7 @@ import mooc.dao.ApprenantDAO;
 import mooc.dao.CompetenceDAO;
 import mooc.dao.ConnaissanceDAO;
 import mooc.dao.NotionDAO;
+import mooc.dto.CompetenceNotionDto;
 import mooc.dto.EvolutionCompetenceDto;
 import mooc.dto.NiveauDeverouilleDto;
 import mooc.dto.ProfilDto;
@@ -120,7 +121,9 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
 		profil.setNiveaux(niveaux);
 
 		// Evolution des competences
-		List<Competence> competences = this.competenceDAO.loadCompetence(apprenant.getIdApprenant());
+
+		List<Competence> competences = this.competenceDAO
+				.loadCompetence(apprenant.getIdApprenant());
 		List<EvolutionCompetenceDto> evolutions = new ArrayList<EvolutionCompetenceDto>();
 		for (Competence competence : competences) {
 			EvolutionCompetenceDto evolution = new EvolutionCompetenceDto();
@@ -183,10 +186,5 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
 		this.connaissanceDAO = connaissanceDAO;
 	}
 
-	@Override
-	public void modifierMdp(int idApprenant, String nouveauMdp) {
-		// TODO Auto-generated method stub
-
-	}
 
 }
