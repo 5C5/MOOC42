@@ -1,0 +1,11 @@
+.gridTop td {
+    vertical-align: top !important;
+}
+
+.gridTop>tbody>tr>td {
+    vertical-align: top !important;
+}
+
+.topAligned {
+    vertical-align: top !important;
+}

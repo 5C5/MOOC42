@@ -51,6 +51,10 @@ public class Competence {
 	@Column(name = "score")
 	private Integer score;
 
+	/** Remarque */
+	@Column(name = "remarque")
+	private String remarque;
+
 
 	/**
 	 * Constructeur complet
@@ -113,6 +117,14 @@ public class Competence {
 	}
 
 	public void setScore(final int score) {
+		this.score = score;
+	}
+
+	public void setNiveau(final Integer niveau) {
+		this.niveau = niveau;
+	}
+
+	public void setScore(final Integer score) {
 		this.score = score;
 	}
 

@@ -13,7 +13,7 @@
     <ui:define name="body-site">
  		<p:panel header="#{fr['general.profil.title']} de #{profilMBean.profil.prenom} #{profilMBean.profil.nom}">
        		<h:form >
-	        	<h:panelGrid columns="2">
+	        	<h:panelGrid columns="2" >
 	        		<!-- Parametres du compte -->
                     <p:panel header="#{fr['profil.parametre']}">
                         <h:panelGrid columns="2" cellpadding="10">
@@ -46,14 +46,15 @@
                 
                 <p:panel header="#{fr['profil.evolution.competence']}">
                 <p:dataTable var="ligne" value="#{profilMBean.profil.evolution}">                 
-                    <p:column headerText="#{fr['profil.evolution.date']}">
-                        <h:outputText value="#{ligne.date}" />
+                    <p:column headerText="#{fr['profil.evolution.date']}" sortBy="#{ligne.date}"  style="width:150px;">
+                        <p:calendar value="#{ligne.date}" pattern="MM/dd/yyyy HH:mm:ss" disabled="true"/>
                     </p:column>
-                 
-                    <p:column headerText="#{fr['profil.evolution.niveau']}">
+                    <p:column headerText="#{fr['profil.evolution.niveau']}" sortBy="#{ligne.niveau}" style="width:80px;">
                         <p:rating value="#{ligne.niveau}" readonly="true" stars="3"/>
                     </p:column>
-                 
+                    <p:column headerText="#{fr['profil.evolution.score']}" sortBy="#{ligne.score}" style="width:80px;">
+                        <h:outputText value="#{ligne.score}" />
+                    </p:column>
                     <p:column headerText="#{fr['profil.evolution.remarque']}">
                         <h:outputText value="#{ligne.remarque}" />
                     </p:column>

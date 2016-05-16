@@ -21,14 +21,14 @@ CREATE TABLE Connaissance (
 	id_connaissance INT PRIMARY KEY AUTO_INCREMENT,
 	id_apprenant INT NOT NULL,
 	id_notion INT NOT NULL,
-	niveau INT
+	niveau INT DEFAULT 0
 	);
 	
 CREATE TABLE Competence (
 	id_competence INT PRIMARY KEY AUTO_INCREMENT,
 	id_apprenant INT NOT NULL,
-	niveau INT,
-	score INT,
+	niveau INT DEFAULT 0,
+	score INT DEFAULT 0,
 	date_competence DATE,
 	remarque VARCHAR(200)
 	);

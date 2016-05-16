@@ -10,10 +10,13 @@ import mooc.dao.ApprenantDAO;
 import mooc.dao.CompetenceDAO;
 import mooc.dao.ConnaissanceDAO;
 import mooc.dao.NotionDAO;
+import mooc.dto.CompetenceNotionDto;
 import mooc.dto.EvolutionCompetenceDto;
 import mooc.dto.NiveauDeverouilleDto;
 import mooc.dto.ProfilDto;
 import mooc.model.Apprenant;
+import mooc.model.Competence;
+import mooc.model.CompetenceNotion;
 import mooc.model.Connaissance;
 import mooc.model.Notion;
 import mooc.service.ApprenantService;
@@ -118,17 +121,27 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
 		profil.setNiveaux(niveaux);
 
 		// Evolution des competences
-		profil.setEvolution(new ArrayList<EvolutionCompetenceDto>());
-		EvolutionCompetenceDto evol1 = new EvolutionCompetenceDto();
-		evol1.setDate("01/01/2000");
-		evol1.setNiveau(1);
-		evol1.setRemarque("Exercice de validation du OR reussi");
-		profil.getEvolution().add(evol1);
-		EvolutionCompetenceDto evol2 = new EvolutionCompetenceDto();
-		evol2.setDate("08/11/2000");
-		evol2.setNiveau(2);
-		evol2.setRemarque("Exercice avec les portes OR / NOT reussi");
-		profil.getEvolution().add(evol2);
+		List<Competence> competences = this.competenceDAO
+				.loadCompetence(apprenant.getIdApprenant());
+		List<EvolutionCompetenceDto> evolutions = new ArrayList<EvolutionCompetenceDto>();
+		for (Competence competence : competences) {
+			EvolutionCompetenceDto evolution = new EvolutionCompetenceDto();
+			evolution.setId(competence.getIdCompetence());
+			evolution.setDate(competence.getDate());
+			evolution.setNiveau(competence.getNiveau());
+			evolution.setRemarque(competence.getRemarque());
+			evolution.setScore(competence.getScore());
+			List<CompetenceNotionDto> notionsDto = new ArrayList<CompetenceNotionDto>();
+			for (CompetenceNotion notion : competence.getNotions()) {
+				CompetenceNotionDto dto = new CompetenceNotionDto();
+				dto.setId(notion.getIdCompetenceNotion());
+				dto.setNom(notion.getNotion().getNomNotion());
+				notionsDto.add(dto);
+			}
+			evolution.setNotions(notionsDto);
+			evolutions.add(evolution);
+		}
+		profil.setEvolution(evolutions);
 
 		return profil;
 	}
