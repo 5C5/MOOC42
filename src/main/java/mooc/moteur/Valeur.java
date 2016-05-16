@@ -18,14 +18,18 @@ public class Valeur extends Node {
      * @param label -> valeur (0 ou 1) du noeud
      * @param modifiable -> définit s'il s'aggit d'une entrée ou d'une sortie
      */
-    public Valeur(final String label, final boolean modifiable) {
-        super(label, modifiable);
-        if (modifiable) {
-            this.addEndPoint(this.createEndPoint(EndPointAnchor.RIGHT));
-        } else {
-            this.addEndPoint(this.createEndPoint(EndPointAnchor.LEFT));
-        }
+	public Valeur(final String label, final boolean modifiable, boolean solution) {
+		super(label);
+		if (!solution) {
+			if (modifiable) {
+				this.addEndPoint(this.createEndPoint(EndPointAnchor.RIGHT));
+			} else {
+				this.addEndPoint(this.createEndPoint(EndPointAnchor.LEFT));
+			}
+		}
         this.inOut = new ArrayList<Node>();
+		this.setX("10cm");
+		this.setY("10cm");
     }
 
     /**
@@ -37,6 +41,8 @@ public class Valeur extends Node {
         super(label);
         this.addEndPoint(this.createEndPoint(EndPointAnchor.AUTO_DEFAULT));
         this.inOut = new ArrayList<Node>();
+		this.setX("10cm");
+		this.setY("10cm");
     }
 
     /**
@@ -74,5 +80,14 @@ public class Valeur extends Node {
         }
     }
 
+	@Override
+	public void addEntree(Node entree) {
+		this.inOut.add(entree);
+	}
+
+	@Override
+	public void addSortie(Node sortie, boolean solution) {
+		this.inOut.add(sortie);
+	}
 
 }

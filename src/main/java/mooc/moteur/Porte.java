@@ -3,11 +3,10 @@ package mooc.moteur;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.primefaces.model.diagram.endpoint.EndPointAnchor;
+
 import lombok.Data;
 import mooc.utils.Constants;
-
-import org.primefaces.model.diagram.Connection;
-import org.primefaces.model.diagram.endpoint.EndPointAnchor;
 
 /**
  * Classe structure pour les portes
@@ -31,7 +30,7 @@ public class Porte extends Node {
 	private static final long serialVersionUID = 7492047521264421882L;
 
 	/** Liste des valeurs de portes disponibles pour changer le label */
-	private final List<String> listePortes;
+	private List<String> listePortes;
 
 	/** Valeur réelle du noeud, cachée au public */
 	private String realValue;
@@ -114,45 +113,30 @@ public class Porte extends Node {
 		return false;
 	}
 
+
+
+
 	/**
-	 * Ajoute la sortie de la porte (pouvant être une Valeur ou une porte) en
-	 * créant et renvoyant la connexion créé pour ajout au model
+	 * AJoute une entrée
 	 *
+	 * @param entree
+	 *            Noeud à ajouter
+	 */
+	public void addEntree(Node entree) {
+		this.entrees.add(entree);
+	}
+
+	/**
+	 * Ajoute une sortie, solution ou pas
+	 * 
 	 * @param sortie
+	 * @param solution
 	 */
-	public Connection addSortie(final Node sortie, final boolean solution) {
-		Connection c = new Connection(this.getEndPoints().get(Porte.SORTIE), sortie.getEndPoints().get(Porte.ENTREES));
-
-		if (solution) {
+	public void addSortie(Node sortie, boolean solution) {
+		if (solution)
 			this.sortieSolution = sortie;
-		} else {
+		else
 			this.sortie = sortie;
-		}
-		((Porte) sortie).addEntreeWithoutConnection(this);
-		return c;
-
-	}
-
-	/**
-	 * Ajoute une entree(Porte ou Valeur) à la porte en créant la connexion et
-	 * en la renvoyant pour ajout au model
-	 *
-	 * @param entree Noeud à ajouter aux entrées
-	 * @return la connexion créée
-	 */
-	public Connection addEntree(final Node entree) {
-		Connection c = new Connection(this.getEndPoints().get(Porte.ENTREES), entree.getEndPoints().get(0));
-		this.entrees.add(entree);
-		return c;
-	}
-
-	/**
-	 * AJoute une entrée dans la liste sans creer de connexion supplémentaire
-	 *
-	 * @param entree Noeud à ajouter
-	 */
-	public void addEntreeWithoutConnection(final Node entree) {
-		this.entrees.add(entree);
 	}
 
 	/**

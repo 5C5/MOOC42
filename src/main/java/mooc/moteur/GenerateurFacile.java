@@ -2,8 +2,6 @@ package mooc.moteur;
 
 import java.util.List;
 
-import org.primefaces.model.diagram.Connection;
-
 import mooc.utils.Constants;
 
 public class GenerateurFacile extends Generateur {
@@ -25,48 +23,52 @@ public class GenerateurFacile extends Generateur {
 
 		/* Création de la porte */
 		Porte porte = new Porte("", portes.get((int) Math.random() * portes.size()));
+		porte.setX("40em");
+		porte.setY("10em");
+		porte.setDraggable(true);
 
 		/* Création de l'entrée une */
-		Valeur entree1 = new Valeur("0", true);
+		Valeur entree1 = new Valeur("0", true, false);
+		entree1.setX("20em");
+		entree1.setY("5em");
+		entree1.setDraggable(true);
+
 
 		/* Ajout de la connexion entre l'entrée 1 et la porte */
-		Connection c1 = porte.addEntree(entree1);
-		this.getExercice().connect(c1);
+		this.connectEntreeToPorte(entree1, porte);
+
+		/* Creation de l'entree deux */
+		if (porte.getLabel() != Constants.NOT && porte.getLabel() != Constants.EMPTY) {
+			Valeur entree2 = new Valeur("0", true, false);
+			entree2.setX("20em");
+			entree2.setY("15em");
+			entree2.setDraggable(true);
+			this.getExercice().addElement(entree2);
+			/* Creation de la connexion entre la porte et la sortie */
+			this.connectEntreeToPorte(entree2, porte);
+		}
 
 		/* Création de la sortie mise à jour selon les changements de l'utilisateur, dite sortie utilisateur*/
-		Valeur sortieUtilisateur = new Valeur("0", false);
+		Valeur sortieUtilisateur = new Valeur("0", false, false);
+		sortieUtilisateur.setX("60em");
+		sortieUtilisateur.setY("10em");
+		sortieUtilisateur.setDraggable(true);
 		/*
 		 * Création de la sortie "Solution", qui affiche ce que le vrai circuit
 		 * ferait
 		 */
-		Valeur sortieSolution = new Valeur("0", false);
+		Valeur sortieSolution = new Valeur("0", false, true);
+		sortieSolution.setX("80em");
+		sortieSolution.setY("10em");
+		sortieSolution.setDraggable(true);
+
 
 		/* création de la conexion entre la porte et la sortie utilisateur */
-		Connection cSU = porte.addSortie(sortieUtilisateur, false);
-		/* AJout de la connexion au modèle (elle doit apparaître)*/
-		this.getExercice().connect(cSU);
+		this.connectPorteToSortie(porte, sortieUtilisateur);
 		/* Création de la connexion entre la porte et la sortie solution, qui n'est pas ajoutee au modele*/
-		Connection cSOL = porte.addSortie(sortieSolution, true);
-
-		this.getExercice().addElement(entree1);
-		this.getExercice().addElement(porte);
-
-		/* Creation de l'entree deux*/
-		if (porte.getLabel() != Constants.NOT && porte.getLabel() != Constants.EMPTY) {
-			Valeur entree2 = new Valeur("0", true);
-			/* Creation de la connexion entre la porte et la sortie */
-			Connection c2 = porte.addEntree(entree2);
-			/* Ajout au modèle */
-			this.getExercice().connect(c2);
-		}
-
-		/* Toujours ajouter les sorties en derniers, dans l'ordre sortie utilisateur puis sortie exercice
-		 * Pour permettre leur mise à jour différente dans les exercices*/
-		this.getExercice().addElement(sortieUtilisateur);
+		porte.addSortie(sortieSolution, true);
+		sortieSolution.addEntree(porte);
 		this.getExercice().addElement(sortieSolution);
-
-		/* Ajout des connexions */
-
 
 	}
 }

@@ -27,6 +27,10 @@ public abstract class Node extends Element {
 
     public abstract void majValeur(boolean vraieValeur);
 
+	public abstract void addEntree(Node entree);
+
+	public abstract void addSortie(Node sortie, boolean solution);
+
     /**
      * Constructeur avec juste le label visible
      *

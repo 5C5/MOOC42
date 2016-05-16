@@ -26,6 +26,23 @@
        			</p:fieldset>
        			<p:panel header="Ici">
        			<p:diagram value="#{exerciceMBean.root}" style="height:400px" styleClass="ui-widget-content" />
+       			<style type="text/css">
+    				.ui-diagram-element {   
+      		  			width:5em; 
+				        height:5em;
+				        line-height:5em;
+				        text-align: center;
+				        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+				        border-radius: 5em;
+				        border: 1px solid #404a4e;
+				        background-color: #404a4e;
+				        color: #cccccc;
+    				}
+ 
+    				.ui-diagram-element:hover {
+        				background-color: #20282b;
+    				}
+				</style>
        			</p:panel>
 	        </h:form> 
 	     </p:panel>  
