@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
@@ -20,6 +21,8 @@ import mooc.login.AbstractMBean;
 import mooc.service.ApprenantService;
 import mooc.service.ConnaissanceService;
 import mooc.utils.Constants;
+import mooc.utils.Messages;
+import mooc.utils.StringUtil;
 import mooc.utils.Theme;
 
 /**
@@ -124,15 +127,38 @@ public class ProfilMBean extends AbstractMBean implements Serializable {
     }
 
     /**
-     * M�thode appel�e lorsque l'utilisateur modifie son mot de passe
+     * Methode appelee lorsque l'utilisateur modifie son mot de passe
      */
     public void modifierMdp() {
-        // TODO
+    	boolean check = true;
+    	
+		if (!StringUtil.isNotEmpty(this.ancienMdp) && !StringUtil.isNotEmpty(this.nouveauMdp) && !StringUtil.isNotEmpty(this.confirmMdp)) {
+            // Tous les champs sont obligatoires
+            this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("profil.erreur.mdp.champs.obligatoire"));
+            check = false;
+        } 
+		
+        if (!this.nouveauMdp.equals(this.confirmMdp)) {
+            // Le mot de passe et la confirmation doivent etre identiques
+            this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("profil.erreur.mdp.confirmation"));
+            check = false;
+        }
+        
+        if(check){
+        	int id = this.apprenantService.getIdApprenant(this.profil.getNom(), this.profil.getPrenom(), this.ancienMdp);
+            if (id == -1) {
+                this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("profil.erreur.mdp.ancien"));
+                check = false;
+            } else {
+	        	// Si tous les controles sont bons, modification du mdp
+	        	this.apprenantService.modifierMdp(this.profil.getId(), this.nouveauMdp);
+            }
+        }
 
     }
 
     /**
-     * M�thode appel�e pour monter le niveau d'une connaissance de l'apprenant
+     * Methode appelee pour monter le niveau d'une connaissance de l'apprenant
      */
     public void levelUp() {
         this.connaissanceService.changerNiveauConnaissance(this.idConnaissanceLevelUp, this.connaissanceLevel+1);
