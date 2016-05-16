@@ -32,12 +32,12 @@
                     <!-- Notions -->
                     <p:panel header="#{fr['profil.niveau.title']}">
                         <ui:repeat var="niv" value="#{profilMBean.profil.niveaux}" >
-                            <h:panelGrid columns="2" cellpadding="5">
+                            <h:panelGrid columns="3" cellpadding="5">
                                 <h:outputText value="#{niv.nom}"/>
                                 <p:rating value="#{niv.niveau}" readonly="true" stars="3"/>
                                 <p:commandButton id="levelUp" value="Level up" action="#{profilMBean.levelUp}" update="@form">
                                     <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.id}" />
-                                    <f:setPropertyActionListener target="#{profilMBean.connaissanceLevelc}" value="#{niv.niveau}" />
+                                    <f:setPropertyActionListener target="#{profilMBean.connaissanceLevel}" value="#{niv.niveau}" />
                                 </p:commandButton>
                             </h:panelGrid>
                         </ui:repeat>

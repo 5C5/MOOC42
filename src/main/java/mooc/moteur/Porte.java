@@ -3,11 +3,11 @@ package mooc.moteur;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.primefaces.model.diagram.Connection;
-import org.primefaces.model.diagram.endpoint.EndPointAnchor;
-
 import lombok.Data;
 import mooc.utils.Constants;
+
+import org.primefaces.model.diagram.Connection;
+import org.primefaces.model.diagram.endpoint.EndPointAnchor;
 
 /**
  * Classe structure pour les portes
@@ -56,6 +56,7 @@ public class Porte extends Node {
 		}
 		this.addEndPoint(this.createEndPoint(EndPointAnchor.LEFT));
 		this.addEndPoint(this.createEndPoint(EndPointAnchor.RIGHT));
+		this.entrees = new ArrayList<Node>();
 	}
 
 	/**
@@ -69,6 +70,9 @@ public class Porte extends Node {
 					"La chaine de caractère passée en paramètre doit être une porte logique");
 		}
 		this.realValue = vraieValeur;
+		this.addEndPoint(this.createEndPoint(EndPointAnchor.LEFT));
+		this.addEndPoint(this.createEndPoint(EndPointAnchor.RIGHT));
+		this.entrees = new ArrayList<Node>();
 	}
 
 

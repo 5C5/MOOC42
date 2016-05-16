@@ -51,5 +51,13 @@ public interface ApprenantService {
      * @return ProfilDto contenant toutes les infos de l'apprenant
      */
     public ProfilDto getProfilApprenant(final int id);
+    
+    /**
+     * Modifier le mot de passe
+     * 
+     * @param idApprenant Id de l'apprenant
+     * @param nouveauMdp Nouveau mot de passe 
+     */
+    public void modifierMdp(final int idApprenant, final String nouveauMdp);
 
 }
