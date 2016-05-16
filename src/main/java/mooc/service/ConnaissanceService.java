@@ -1,5 +1,9 @@
 package mooc.service;
 
+import java.util.List;
+
+import mooc.dto.NiveauDeverouilleDto;
+
 
 
 /**
@@ -7,12 +11,20 @@ package mooc.service;
  */
 public interface ConnaissanceService {
 
-    /**
-     * Changer le niveau d'une connaissance
-     *
-     * @param idConnaissance Id de la connaissance
-     * @param nouveauNiveau Nouveau niveau
-     */
-    public void changerNiveauConnaissance(final int idConnaissance, final int nouveauNiveau);
+	/**
+	 * Changer le niveau d'une connaissance
+	 *
+	 * @param idConnaissance Id de la connaissance
+	 * @param nouveauNiveau Nouveau niveau
+	 */
+	public void changerNiveauConnaissance(final int idConnaissance, final int nouveauNiveau);
+
+	/**
+	 * Recharger la liste des niveaux (connaissances) de l'apprenant
+	 * 
+	 * @param idApprenant Id de l'apprenant
+	 * @return List des NiveauDeverouilleDto
+	 */
+	public List<NiveauDeverouilleDto> reloadNiveau(final int idApprenant);
 
 }

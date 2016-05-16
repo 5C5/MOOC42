@@ -25,6 +25,7 @@ import mooc.service.ApprenantService;
 @Setter
 public class ApprenantServiceImpl implements ApprenantService, Serializable {
 
+<<<<<<< HEAD
     /** serialVersionUID */
     private static final long serialVersionUID = -7304548977948254205L;
 
@@ -122,12 +123,12 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
         EvolutionCompetenceDto evol1 = new EvolutionCompetenceDto();
         evol1.setDate("01/01/2000");
         evol1.setNiveau(1);
-        evol1.setRemarque("Exercice de validation du OR r�ussi");
+        evol1.setRemarque("Exercice de validation du OR reussi");
         profil.getEvolution().add(evol1);
         EvolutionCompetenceDto evol2 = new EvolutionCompetenceDto();
         evol2.setDate("08/11/2000");
         evol2.setNiveau(2);
-        evol2.setRemarque("Exercice avec les portes OR / NOT r�ussi");
+        evol2.setRemarque("Exercice avec les portes OR / NOT reussi");
         profil.getEvolution().add(evol2);
 
         return profil;

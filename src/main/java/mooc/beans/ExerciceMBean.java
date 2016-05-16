@@ -1,17 +1,19 @@
 package mooc.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
-import org.primefaces.model.diagram.Element;
-import org.springframework.context.annotation.Scope;
-
 import lombok.Getter;
 import lombok.Setter;
 import mooc.login.AbstractMBean;
+import mooc.moteur.GenerateurFacile;
+
+import org.primefaces.model.diagram.DefaultDiagramModel;
+import org.springframework.context.annotation.Scope;
 
 @Getter
 @Setter
@@ -26,27 +28,32 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 
 	/** Elements à afficher */
 	/** Exercice */
-	private Element root;
+	private DefaultDiagramModel root;
 	/** LIste de notion */
 	private List<String> notions;
 
-	/** Elements/paramètres à récupérer */
-	/** Liste des notions selectionnées pour l'exercice */
+	/** Elements/parametres a� recuperer */
+	/** Liste des notions selectionnes pour l'exercice */
 	private String[] selectedNotions;
 
-	/** Paramètres d'affichage */
+	/** Parametres d'affichage */
 	private boolean options;
 
 	@PostConstruct
 	public void init() {
 
+		GenerateurFacile g = new GenerateurFacile();
+		List<String> l = new ArrayList<String>();
+		l.add("AND");
+		g.generer(l);
+		this.root = g.getExercice();
 	}
 
-	public Element getRoot() {
+	public DefaultDiagramModel getRoot() {
 		return this.root;
 	}
 
-	public void setRoot(final Element root) {
+	public void setRoot(final DefaultDiagramModel root) {
 		this.root = root;
 	}
 

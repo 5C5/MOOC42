@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Scope;
 
 import lombok.Getter;
 import lombok.Setter;
+import mooc.dto.NiveauDeverouilleDto;
 import mooc.dto.ProfilDto;
 import mooc.login.AbstractMBean;
 import mooc.service.ApprenantService;
@@ -134,8 +135,11 @@ public class ProfilMBean extends AbstractMBean implements Serializable {
      * Mï¿½thode appelï¿½e pour monter le niveau d'une connaissance de l'apprenant
      */
     public void levelUp() {
-        System.out.println(this.idConnaissanceLevelUp + " : nouveau niv " + this.connaissanceLevel);
-        this.connaissanceService.changerNiveauConnaissance(this.idConnaissanceLevelUp, this.connaissanceLevel);
+        this.connaissanceService.changerNiveauConnaissance(this.idConnaissanceLevelUp, this.connaissanceLevel+1);
+        
+        // Mise à jour des niveaux
+        List<NiveauDeverouilleDto> niveauxUpdated = this.connaissanceService.reloadNiveau(this.profil.getId());
+        this.profil.setNiveaux(niveauxUpdated);
     }
 
 	public ApprenantService getApprenantService() {
