@@ -2,13 +2,13 @@ package mooc.service.impl;
 
 import java.io.Serializable;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import lombok.Getter;
 import lombok.Setter;
 import mooc.dao.ConnaissanceDAO;
 import mooc.model.Connaissance;
 import mooc.service.ConnaissanceService;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 //@Service("apprenantService")
 @Getter
@@ -28,5 +28,13 @@ public class ConnaissanceServiceImpl implements ConnaissanceService, Serializabl
         connaissance.setNiveau(nouveauNiveau);
         this.connaissanceDAO.save(connaissance);
     }
+
+	public ConnaissanceDAO getConnaissanceDAO() {
+		return connaissanceDAO;
+	}
+
+	public void setConnaissanceDAO(ConnaissanceDAO connaissanceDAO) {
+		this.connaissanceDAO = connaissanceDAO;
+	}
 
 }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import lombok.Getter;
 import lombok.Setter;
 import mooc.dao.ApprenantDAO;
@@ -17,8 +19,6 @@ import mooc.model.Apprenant;
 import mooc.model.Connaissance;
 import mooc.model.Notion;
 import mooc.service.ApprenantService;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 //@Service("apprenantService")
 @Getter
@@ -57,7 +57,7 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
     public int inscrireApprenant(final String nom, final String prenom, final String motDePasse) {
         Apprenant apprenant = new Apprenant();
 
-        // Informations générales
+        // Informations gï¿½nï¿½rales
         apprenant.setNom(nom);
         apprenant.setPrenom(prenom);
         apprenant.setMotDePasse(motDePasse);
@@ -122,14 +122,47 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
         EvolutionCompetenceDto evol1 = new EvolutionCompetenceDto();
         evol1.setDate("01/01/2000");
         evol1.setNiveau(1);
-        evol1.setRemarque("Exercice de validation du OR réussi");
+        evol1.setRemarque("Exercice de validation du OR rï¿½ussi");
         profil.getEvolution().add(evol1);
         EvolutionCompetenceDto evol2 = new EvolutionCompetenceDto();
         evol2.setDate("08/11/2000");
         evol2.setNiveau(2);
-        evol2.setRemarque("Exercice avec les portes OR / NOT réussi");
+        evol2.setRemarque("Exercice avec les portes OR / NOT rï¿½ussi");
         profil.getEvolution().add(evol2);
 
         return profil;
     }
+
+	public ApprenantDAO getApprenantDAO() {
+		return apprenantDAO;
+	}
+
+	public void setApprenantDAO(ApprenantDAO apprenantDAO) {
+		this.apprenantDAO = apprenantDAO;
+	}
+
+	public NotionDAO getNotionDAO() {
+		return notionDAO;
+	}
+
+	public void setNotionDAO(NotionDAO notionDAO) {
+		this.notionDAO = notionDAO;
+	}
+
+	public CompetenceDAO getCompetenceDAO() {
+		return competenceDAO;
+	}
+
+	public void setCompetenceDAO(CompetenceDAO competenceDAO) {
+		this.competenceDAO = competenceDAO;
+	}
+
+	public ConnaissanceDAO getConnaissanceDAO() {
+		return connaissanceDAO;
+	}
+
+	public void setConnaissanceDAO(ConnaissanceDAO connaissanceDAO) {
+		this.connaissanceDAO = connaissanceDAO;
+	}
+
 }

@@ -10,6 +10,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.context.annotation.Scope;
+
 import lombok.Getter;
 import lombok.Setter;
 import mooc.dto.ProfilDto;
@@ -18,8 +20,6 @@ import mooc.service.ApprenantService;
 import mooc.service.ConnaissanceService;
 import mooc.utils.Constants;
 import mooc.utils.Theme;
-
-import org.springframework.context.annotation.Scope;
 
 /**
  * Classe de gestion du profil
@@ -47,7 +47,7 @@ public class ProfilMBean extends AbstractMBean implements Serializable {
     private ConnaissanceService connaissanceService;
 
     /**
-     * Apprenant dont le profil est affiché.
+     * Apprenant dont le profil est affichï¿½.
      */
     private ProfilDto profil;
 
@@ -72,8 +72,8 @@ public class ProfilMBean extends AbstractMBean implements Serializable {
         int id = (int) request.getSession().getAttribute(Constants.UTILISATEUR_CONNECTE);
         this.profil = this.apprenantService.getProfilApprenant(id);
 
-        // TODO récupérer l'ID de l'apprenant, récupérer son profil en base
-        // TODO récupérer la liste des compétences qu'a réalisé l'apprenant
+        // TODO rï¿½cupï¿½rer l'ID de l'apprenant, rï¿½cupï¿½rer son profil en base
+        // TODO rï¿½cupï¿½rer la liste des compï¿½tences qu'a rï¿½alisï¿½ l'apprenant
 
     }
 
@@ -123,7 +123,7 @@ public class ProfilMBean extends AbstractMBean implements Serializable {
     }
 
     /**
-     * Méthode appelée lorsque l'utilisateur modifie son mot de passe
+     * Mï¿½thode appelï¿½e lorsque l'utilisateur modifie son mot de passe
      */
     public void modifierMdp() {
         // TODO
@@ -131,11 +131,83 @@ public class ProfilMBean extends AbstractMBean implements Serializable {
     }
 
     /**
-     * Méthode appelée pour monter le niveau d'une connaissance de l'apprenant
+     * Mï¿½thode appelï¿½e pour monter le niveau d'une connaissance de l'apprenant
      */
     public void levelUp() {
         System.out.println(this.idConnaissanceLevelUp + " : nouveau niv " + this.connaissanceLevel);
         this.connaissanceService.changerNiveauConnaissance(this.idConnaissanceLevelUp, this.connaissanceLevel);
     }
+
+	public ApprenantService getApprenantService() {
+		return apprenantService;
+	}
+
+	public void setApprenantService(ApprenantService apprenantService) {
+		this.apprenantService = apprenantService;
+	}
+
+	public ConnaissanceService getConnaissanceService() {
+		return connaissanceService;
+	}
+
+	public void setConnaissanceService(ConnaissanceService connaissanceService) {
+		this.connaissanceService = connaissanceService;
+	}
+
+	public ProfilDto getProfil() {
+		return profil;
+	}
+
+	public void setProfil(ProfilDto profil) {
+		this.profil = profil;
+	}
+
+	public List<Theme> getThemes() {
+		return themes;
+	}
+
+	public void setThemes(List<Theme> themes) {
+		this.themes = themes;
+	}
+
+	public String getAncienMdp() {
+		return ancienMdp;
+	}
+
+	public void setAncienMdp(String ancienMdp) {
+		this.ancienMdp = ancienMdp;
+	}
+
+	public String getNouveauMdp() {
+		return nouveauMdp;
+	}
+
+	public void setNouveauMdp(String nouveauMdp) {
+		this.nouveauMdp = nouveauMdp;
+	}
+
+	public String getConfirmMdp() {
+		return confirmMdp;
+	}
+
+	public void setConfirmMdp(String confirmMdp) {
+		this.confirmMdp = confirmMdp;
+	}
+
+	public int getIdConnaissanceLevelUp() {
+		return idConnaissanceLevelUp;
+	}
+
+	public void setIdConnaissanceLevelUp(int idConnaissanceLevelUp) {
+		this.idConnaissanceLevelUp = idConnaissanceLevelUp;
+	}
+
+	public int getConnaissanceLevel() {
+		return connaissanceLevel;
+	}
+
+	public void setConnaissanceLevel(int connaissanceLevel) {
+		this.connaissanceLevel = connaissanceLevel;
+	}
 
 }

@@ -54,4 +54,37 @@ public class Connaissance {
     public Connaissance() {
 
     }
+
+	public int getIdConnaissance() {
+		return idConnaissance;
+	}
+
+	public void setIdConnaissance(int idConnaissance) {
+		this.idConnaissance = idConnaissance;
+	}
+
+	public Apprenant getApprenant() {
+		return apprenant;
+	}
+
+	public void setApprenant(Apprenant apprenant) {
+		this.apprenant = apprenant;
+	}
+
+	public Notion getNotion() {
+		return notion;
+	}
+
+	public void setNotion(Notion notion) {
+		this.notion = notion;
+	}
+
+	public int getNiveau() {
+		return niveau;
+	}
+
+	public void setNiveau(int niveau) {
+		this.niveau = niveau;
+	}
+
 }

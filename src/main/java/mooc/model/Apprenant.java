@@ -93,4 +93,60 @@ public class Apprenant implements Serializable {
         // }
     }
 
+	public int getIdApprenant() {
+		return idApprenant;
+	}
+
+	public void setIdApprenant(int idApprenant) {
+		this.idApprenant = idApprenant;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
+
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+
+	public List<Connaissance> getConnaissances() {
+		return connaissances;
+	}
+
+	public void setConnaissances(List<Connaissance> connaissances) {
+		this.connaissances = connaissances;
+	}
+
+	public List<Competence> getCompetences() {
+		return competences;
+	}
+
+	public void setCompetences(List<Competence> competences) {
+		this.competences = competences;
+	}
+
 }

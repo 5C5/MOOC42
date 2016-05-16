@@ -39,4 +39,21 @@ public class Notion {
     public Notion() {
 
     }
+
+	public int getIdNotion() {
+		return idNotion;
+	}
+
+	public void setIdNotion(int idNotion) {
+		this.idNotion = idNotion;
+	}
+
+	public String getNomNotion() {
+		return nomNotion;
+	}
+
+	public void setNomNotion(String nomNotion) {
+		this.nomNotion = nomNotion;
+	}
+
 }

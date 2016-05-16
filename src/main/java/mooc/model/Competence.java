@@ -67,4 +67,53 @@ public class Competence {
     public Competence() {
 
     }
+
+	public int getIdCompetence() {
+		return idCompetence;
+	}
+
+	public void setIdCompetence(int idCompetence) {
+		this.idCompetence = idCompetence;
+	}
+
+	public Apprenant getApprenant() {
+		return apprenant;
+	}
+
+	public void setApprenant(Apprenant apprenant) {
+		this.apprenant = apprenant;
+	}
+
+	public List<CompetenceNotion> getNotions() {
+		return notions;
+	}
+
+	public void setNotions(List<CompetenceNotion> notions) {
+		this.notions = notions;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public int getNiveau() {
+		return niveau;
+	}
+
+	public void setNiveau(int niveau) {
+		this.niveau = niveau;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
 }

@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Dto utilisé pour afficher les infos pour le profil
+ * Dto utilisï¿½ pour afficher les infos pour le profil
  */
 @Getter
 @Setter
@@ -25,5 +25,45 @@ public class ProfilDto {
 
     /** Evolution des competences */
     private List<EvolutionCompetenceDto> evolution;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public List<NiveauDeverouilleDto> getNiveaux() {
+		return niveaux;
+	}
+
+	public void setNiveaux(List<NiveauDeverouilleDto> niveaux) {
+		this.niveaux = niveaux;
+	}
+
+	public List<EvolutionCompetenceDto> getEvolution() {
+		return evolution;
+	}
+
+	public void setEvolution(List<EvolutionCompetenceDto> evolution) {
+		this.evolution = evolution;
+	}
 
 }

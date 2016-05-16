@@ -49,4 +49,29 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 	public void setRoot(final Element root) {
 		this.root = root;
 	}
+
+	public List<String> getNotions() {
+		return notions;
+	}
+
+	public void setNotions(List<String> notions) {
+		this.notions = notions;
+	}
+
+	public String[] getSelectedNotions() {
+		return selectedNotions;
+	}
+
+	public void setSelectedNotions(String[] selectedNotions) {
+		this.selectedNotions = selectedNotions;
+	}
+
+	public boolean isOptions() {
+		return options;
+	}
+
+	public void setOptions(boolean options) {
+		this.options = options;
+	}
+
 }

@@ -11,6 +11,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.context.annotation.Scope;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,8 +20,6 @@ import mooc.service.ApprenantService;
 import mooc.utils.Constants;
 import mooc.utils.Messages;
 import mooc.utils.StringUtil;
-
-import org.springframework.context.annotation.Scope;
 
 
 /**
@@ -168,5 +168,86 @@ public class LoginMBean extends AbstractMBean implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "index";
     }
+
+	public ApprenantService getApprenantService() {
+		return apprenantService;
+	}
+
+	public void setApprenantService(ApprenantService apprenantService) {
+		this.apprenantService = apprenantService;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
+
+	public String getInsNom() {
+		return insNom;
+	}
+
+	public void setInsNom(String insNom) {
+		this.insNom = insNom;
+	}
+
+	public String getInsPrenom() {
+		return insPrenom;
+	}
+
+	public void setInsPrenom(String insPrenom) {
+		this.insPrenom = insPrenom;
+	}
+
+	public String getInsMotDePasse() {
+		return insMotDePasse;
+	}
+
+	public void setInsMotDePasse(String insMotDePasse) {
+		this.insMotDePasse = insMotDePasse;
+	}
+
+	public String getInsConfirmationMotDePasse() {
+		return insConfirmationMotDePasse;
+	}
+
+	public void setInsConfirmationMotDePasse(String insConfirmationMotDePasse) {
+		this.insConfirmationMotDePasse = insConfirmationMotDePasse;
+	}
+
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+
+	@Override
+	public String getLangue() {
+		return langue;
+	}
+
+	public void setLangue(String langue) {
+		this.langue = langue;
+	}
 
 }
