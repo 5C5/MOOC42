@@ -25,7 +25,6 @@ import mooc.service.ApprenantService;
 @Setter
 public class ApprenantServiceImpl implements ApprenantService, Serializable {
 
-<<<<<<< HEAD
     /** serialVersionUID */
     private static final long serialVersionUID = -7304548977948254205L;
 
@@ -164,6 +163,12 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
 
 	public void setConnaissanceDAO(ConnaissanceDAO connaissanceDAO) {
 		this.connaissanceDAO = connaissanceDAO;
+	}
+
+	@Override
+	public void modifierMdp(int idApprenant, String nouveauMdp) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
