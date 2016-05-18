@@ -2,6 +2,8 @@ package mooc.service;
 
 import java.util.List;
 
+import mooc.dto.NotionDto;
+
 
 
 /**
@@ -15,5 +17,12 @@ public interface NotionService {
 	 * @return List de tous les libelles
 	 */
 	public List<String> getAllLibelle();
+
+	/**
+	 * Recuperer toutes les notions
+	 *
+	 * @return List de toutes les notionDto
+	 */
+	public List<NotionDto> getAll();
 
 }

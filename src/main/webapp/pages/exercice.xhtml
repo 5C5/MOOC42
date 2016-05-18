@@ -11,38 +11,51 @@
     <ui:define name="title">#{fr['general.exercice.title']}</ui:define>
 
     <ui:define name="body-site">
+        
  		<p:panel header="#{fr['general.exercice.title']}">
        		<h:form>
+                <h:outputScript library="js" name="diagram.js" />
+                
        			<p:fieldset legend="#{fr['exercice.param']}">
-       			<p:outputLabel for="notions" value="#{fr['exercice.notions']}"/>
-       			<p:selectManyCheckbox id="notions" layout="grid" columns="2" style="padding:2px">
-       				<f:selectItem itemLabel="#{fr['porte.ou']}" itemValue="OU" />
-       				<f:selectItem itemLabel="#{fr['porte.et']}" itemValue="ET" />
-       				<f:selectItem itemLabel="#{fr['porte.xor']}" itemValue="XOR" />
-       				<f:selectItem itemLabel="#{fr['porte.xand']}" itemValue="xand" />	
-       			</p:selectManyCheckbox>
+                    <h:panelGrid columns="2">
+               			<p:outputLabel for="notions" value="#{fr['exercice.notions']}"/>
+                        
+                        <p:outputLabel for="niveau" value="#{fr['exercice.niveau']}"/>
+                        
+               			<p:selectManyCheckbox id="notions" layout="grid" columns="2" style="padding:2px;padding-right:30px;" value="#{exerciceMBean.selectedNotions}" disabled="#{exerciceMBean.disabled}">
+                            <f:selectItems value="#{exerciceMBean.notions}" var="notion" itemLabel="#{notion.nom}" itemValue="#{notion.id}" />
+               			</p:selectManyCheckbox>
+                        
+                        <p:selectOneRadio id="niveau" layout="grid" columns="1" style="padding:2px" value="#{exerciceMBean.niveau}" disabled="#{exerciceMBean.disabled}">
+                            <f:selectItem itemLabel="#{fr['exercice.niveau.facile']}" itemValue="1" />
+                            <f:selectItem itemLabel="#{fr['exercice.niveau.moyen']}" itemValue="2" />
+                            <f:selectItem itemLabel="#{fr['exercice.niveau.difficile']}" itemValue="3" />
+                        </p:selectOneRadio>
        			
-       			
+       			      </h:panelGrid>
+                      
+                      <p:commandButton value="#{fr['exercice.demarrer']}" action="#{exerciceMBean.generer}" update="@form" rendered="#{!exerciceMBean.disabled}"/>
        			</p:fieldset>
-       			<p:panel header="Ici">
-       			<p:diagram value="#{exerciceMBean.root}" style="height:400px" styleClass="ui-widget-content" />
-       			<style type="text/css">
-    				.ui-diagram-element {   
-      		  			width:5em; 
-				        height:5em;
-				        line-height:5em;
-				        text-align: center;
-				        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
-				        border-radius: 5em;
-				        border: 1px solid #404a4e;
-				        background-color: #404a4e;
-				        color: #cccccc;
-    				}
- 
-    				.ui-diagram-element:hover {
-        				background-color: #20282b;
-    				}
-				</style>
+       			<p:panel header="#{fr['exercice.title']}" rendered="#{exerciceMBean.disabled}">
+           			<p:diagram value="#{exerciceMBean.root}" style="height:400px" styleClass="ui-widget-content" />
+           			<style type="text/css">
+        				.ui-diagram-element {   
+          		  			width:5em; 
+    				        height:5em;
+    				        line-height:5em;
+    				        text-align: center;
+    				        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+    				        border-radius: 5em;
+    				        border: 1px solid #404a4e;
+    				        background-color: #404a4e;
+    				        color: #cccccc;
+        				}
+     
+        				.ui-diagram-element:hover {
+            				background-color: #20282b;
+        				}
+    				</style>
+                    
        			</p:panel>
 	        </h:form> 
 	     </p:panel>  
