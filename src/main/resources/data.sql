@@ -4,7 +4,8 @@ DELETE FROM Connaissance;
 DELETE FROM Competence;
 DELETE FROM CompetenceNotion;
 
-INSERT INTO Apprenant (prenom, nom, mot_de_passe) VALUES ('Colas','PICARD', 'mdp');
+INSERT INTO Apprenant (prenom, nom, mot_de_passe, role) VALUES ('Colas','PICARD', 'mdp', 'Apprenant');
+INSERT INTO Apprenant (prenom, nom, mot_de_passe, role) VALUES ('admin','admin', 'admin', 'Admin');
 
 INSERT INTO Notion (nom_notion) VALUES ('OU / OR');
 INSERT INTO Notion (nom_notion) VALUES ('ET / AND');

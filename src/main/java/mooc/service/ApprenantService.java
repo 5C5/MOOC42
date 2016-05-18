@@ -45,12 +45,12 @@ public interface ApprenantService {
 	public boolean isApprenantExists(final String nom, final String prenom);
 
 	/**
-	 * Recuperer le profil de l'apprenant
+	 * Recuperer le profil de l'utilisateur (apprenant ou admin)
 	 *
-	 * @param id Id de l'apprenant
-	 * @return ProfilDto contenant toutes les infos de l'apprenant
+	 * @param id Id de l'utilisateur
+	 * @return ProfilDto contenant toutes les infos de l'utilisateur
 	 */
-	public ProfilDto getProfilApprenant(final int id);
+	public ProfilDto getProfil(final int id);
 
 	/**
 	 * Modifier le mot de passe

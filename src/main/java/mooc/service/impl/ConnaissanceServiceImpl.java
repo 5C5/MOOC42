@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import lombok.Getter;
 import lombok.Setter;
 import mooc.dao.ConnaissanceDAO;
@@ -13,7 +11,8 @@ import mooc.dto.NiveauDeverouilleDto;
 import mooc.model.Connaissance;
 import mooc.service.ConnaissanceService;
 
-//@Service("apprenantService")
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Getter
 @Setter
 public class ConnaissanceServiceImpl implements ConnaissanceService, Serializable {
@@ -47,10 +46,10 @@ public class ConnaissanceServiceImpl implements ConnaissanceService, Serializabl
 	}
 
 	public ConnaissanceDAO getConnaissanceDAO() {
-		return connaissanceDAO;
+		return this.connaissanceDAO;
 	}
 
-	public void setConnaissanceDAO(ConnaissanceDAO connaissanceDAO) {
+	public void setConnaissanceDAO(final ConnaissanceDAO connaissanceDAO) {
 		this.connaissanceDAO = connaissanceDAO;
 	}
 

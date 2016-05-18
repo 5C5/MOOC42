@@ -11,14 +11,21 @@
     <ui:define name="title">#{fr['general.profil.title']}</ui:define>
 
     <ui:define name="body-site">
- 		<p:panel header="#{fr['general.profil.title']} de #{profilMBean.profil.prenom} #{profilMBean.profil.nom}">
-       		<h:form >
+    
+        <h:form >
+        <!--  Aucun utilisateur n'est connecte -->
+        <p:panel header="#{fr['profil.erreur.session']}" rendered="#{!profilMBean.rapprenant and !profilMBean.radmin}">
+            <p:commandButton  value="#{fr['profil.retour.index']}" action="index"/>
+        </p:panel>
+        
+        <!-- Profil apprenant -->
+ 		<p:panel header="#{fr['general.profil.title']} de #{profilMBean.profil.prenom} #{profilMBean.profil.nom} " rendered="#{profilMBean.rapprenant}">
 	        	<h:panelGrid columns="2" >
 	        		<!-- Parametres du compte -->
                     <p:panel header="#{fr['profil.parametre']}">
                         <h:panelGrid columns="2" cellpadding="10">
                         <!-- Modification du mot de passe -->
-                            <p:outputLabel for="basic" value="#{fr['profil.motdepasse']} : " /> 
+                            <p:outputLabel value="#{fr['profil.motdepasse']} : " /> 
                             <p:commandButton value="#{fr['profil.motdepasse.button']}" type="button" onclick="PF('dlgMdp').show();" />
                         <!-- Modification du theme -->
                             <p:outputLabel for="basic" value="#{fr['profil.theme']} : " /> 
@@ -26,6 +33,12 @@
                                 <f:selectItem itemLabel="Choisir un thème ..." itemValue="" />
                                 <f:selectItems value="#{profilMBean.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
                             </p:themeSwitcher>
+                        <!-- Modifier la langue -->
+                            <p:outputLabel value="#{fr['profil.langue.modifier']} : " /> 
+                            <p:selectOneMenu>
+                                <f:selectItem itemLabel="Francais" itemValue="fr" />
+                                <!-- Ajout d'autres langues possibles -->
+                            </p:selectOneMenu>
                         </h:panelGrid>
                     </p:panel>
                     
@@ -77,9 +90,63 @@
                     action="#{profilMBean.modifierMdp}" onclick="waiting.show()" style="left:100px;" />
             </p:dialog>   
             
-	        </h:form> 
             
 	     </p:panel>  
+         
+         <!-- Profil admin -->
+         <p:panel rendered="#{profilMBean.radmin}">
+            <p:dataTable var="ligne" value="#{profilMBean.lignes}"  style="margin:10px auto;">                 
+                <p:column headerText="#{fr['register.nom']}" sortBy="#{ligne.nomApprenant} #{ligne.prenomApprenant}">
+                    <h:outputText value="#{ligne.nomApprenant} #{ligne.prenomApprenant}"/>
+                </p:column>
+                <p:column headerText="#{fr['porte.ou']}" sortBy="#{ligne.niveauOU}">
+                    <p:rating value="#{ligne.niveauOU}" readonly="true" stars="3"/>
+                </p:column>
+                <p:column headerText="#{fr['porte.et']}" sortBy="#{ligne.niveauET}">
+                    <p:rating value="#{ligne.niveauET}" readonly="true" stars="3" />
+                </p:column>
+                <p:column headerText="#{fr['porte.not']}" sortBy="#{ligne.niveauNOT}">
+                    <p:rating value="#{ligne.niveauNOT}" readonly="true" stars="3" />
+                </p:column>
+                <p:column headerText="#{fr['porte.xor']}" sortBy="#{ligne.niveauXOR}">
+                    <p:rating value="#{ligne.niveauXOR}" readonly="true" stars="3"/>
+                </p:column>
+            </p:dataTable>
+            <p:accordionPanel multiple="true" style="margin-top : auto;" var="profil" value="#{profilMBean.profil.listeProfil}">
+                    <p:tab title="#{fr['general.profil.title']} de #{profil.prenom} #{profil.nom} ">
+                        <h:panelGrid columns="1" >                    
+                            <!-- Notions -->
+                            <p:panel header="#{fr['profil.niveau.title']}" style="width:30%;">
+                                <ui:repeat var="niv" value="#{profil.niveaux}" >
+                                    <h:panelGrid columns="3" cellpadding="5">
+                                        <h:outputText value="#{niv.nom}"/>
+                                        <p:rating value="#{niv.niveau}" readonly="true" stars="3"/>
+                                    </h:panelGrid>
+                                </ui:repeat>
+                            </p:panel>
+                        
+                            <p:panel header="#{fr['profil.evolution.competence']}">
+                            <p:dataTable var="ligne" value="#{profil.evolution}">                 
+                                <p:column headerText="#{fr['profil.evolution.date']}" sortBy="#{ligne.date}"  style="width:150px;">
+                                    <p:calendar value="#{ligne.date}" pattern="MM/dd/yyyy HH:mm:ss" disabled="true"/>
+                                </p:column>
+                                <p:column headerText="#{fr['profil.evolution.niveau']}" sortBy="#{ligne.niveau}" style="width:80px;">
+                                    <p:rating value="#{ligne.niveau}" readonly="true" stars="3"/>
+                                </p:column>
+                                <p:column headerText="#{fr['profil.evolution.score']}" sortBy="#{ligne.score}" style="width:80px;">
+                                    <h:outputText value="#{ligne.score}" />
+                                </p:column>
+                                <p:column headerText="#{fr['profil.evolution.remarque']}">
+                                    <h:outputText value="#{ligne.remarque}" />
+                                </p:column>
+                            </p:dataTable>
+                            </p:panel>
+                        
+                        </h:panelGrid>
+                    </p:tab>
+            </p:accordionPanel>   
+         </p:panel>
+         </h:form> 
 	    </ui:define>
 
 </ui:composition>

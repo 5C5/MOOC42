@@ -9,7 +9,8 @@ CREATE TABLE Apprenant (
 	prenom VARCHAR(50) NOT NULL,
 	nom VARCHAR(50) NOT NULL,
 	mot_de_passe VARCHAR(50) NOT NULL,
-	theme VARCHAR(20)
+	theme VARCHAR(20),
+	role VARCHAR(10) DEFAULT 'Apprenant'
 	);
 	
 CREATE TABLE Notion (

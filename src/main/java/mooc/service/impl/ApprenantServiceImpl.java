@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import lombok.Getter;
 import lombok.Setter;
 import mooc.dao.ApprenantDAO;
@@ -22,6 +20,9 @@ import mooc.model.CompetenceNotion;
 import mooc.model.Connaissance;
 import mooc.model.Notion;
 import mooc.service.ApprenantService;
+import mooc.utils.Constants;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 //@Service("apprenantService")
 @Getter
@@ -65,6 +66,7 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
 		apprenant.setPrenom(prenom);
 		apprenant.setMotDePasse(motDePasse);
 		// apprenant.setTheme(Constants.THEME_DEFAUT);
+		apprenant.setRole(Constants.APPRENANT);
 
 		// Connaissances
 		List<Connaissance> connaissances = new ArrayList<Connaissance>();
@@ -97,7 +99,7 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
 	}
 
 	@Override
-	public ProfilDto getProfilApprenant(final int id) {
+	public ProfilDto getProfil(final int id) {
 		ProfilDto profil = new ProfilDto();
 		Apprenant apprenant = this.apprenantDAO.getById(id);
 
@@ -107,6 +109,37 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
 		profil.setNom(apprenant.getNom());
 		// Prenom
 		profil.setPrenom(apprenant.getPrenom());
+		// Role
+		profil.setRole(apprenant.getRole());
+
+		if(profil.isApprenant()){
+			/** Profil apprenant */
+			profil = this.getProfilApprenant(apprenant);
+		} else {
+			/** Profil admin */
+			profil.setListeProfil(new ArrayList<ProfilDto>());
+			List<Apprenant> listeApprenant = this.apprenantDAO.getAll();
+			for (Apprenant app : listeApprenant) {
+				if (app.getIdApprenant() != apprenant.getIdApprenant()) {
+					ProfilDto profilApp = this.getProfilApprenant(app);
+					profil.getListeProfil().add(profilApp);
+				}
+			}
+		}
+
+		return profil;
+	}
+
+	private ProfilDto getProfilApprenant(final Apprenant apprenant){
+		ProfilDto profil = new ProfilDto();
+		// ID
+		profil.setId(apprenant.getIdApprenant());
+		// Nom
+		profil.setNom(apprenant.getNom());
+		// Prenom
+		profil.setPrenom(apprenant.getPrenom());
+		// Role
+		profil.setRole(apprenant.getRole());
 
 		// Notions
 		List<Connaissance> connaissances = this.connaissanceDAO.loadConnaissance(apprenant.getIdApprenant());
@@ -121,9 +154,7 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
 		profil.setNiveaux(niveaux);
 
 		// Evolution des competences
-
-		List<Competence> competences = this.competenceDAO
-				.loadCompetence(apprenant.getIdApprenant());
+		List<Competence> competences = this.competenceDAO.loadCompetence(apprenant.getIdApprenant());
 		List<EvolutionCompetenceDto> evolutions = new ArrayList<EvolutionCompetenceDto>();
 		for (Competence competence : competences) {
 			EvolutionCompetenceDto evolution = new EvolutionCompetenceDto();
@@ -143,7 +174,6 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
 			evolutions.add(evolution);
 		}
 		profil.setEvolution(evolutions);
-
 		return profil;
 	}
 

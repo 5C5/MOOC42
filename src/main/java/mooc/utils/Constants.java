@@ -7,20 +7,25 @@ package mooc.utils;
  */
 public final class Constants {
 
-    /** Constante utilisée pour identifier l'instance de l'utilisateur connecté en session. */
-    public static final String UTILISATEUR_CONNECTE = "authUser";
+	/** Constante utilisée pour identifier l'instance de l'utilisateur connecté en session. */
+	public static final String UTILISATEUR_CONNECTE = "authUser";
 
-    /** Langue de l'utilisateur */
-    public static final String UTILISATEUR_LANGUE = "langue";
-    /** Langue par défaut */
-    public static final String LANGUE_DEFAUT = "fr";
-    /** Theme par defaut */
-    public static final String THEME_DEFAUT = "le-frog";
+	/** Langue de l'utilisateur */
+	public static final String UTILISATEUR_LANGUE = "langue";
+	/** Langue par défaut */
+	public static final String LANGUE_DEFAUT = "fr";
+	/** Theme par defaut */
+	public static final String THEME_DEFAUT = "le-frog";
 
-    /** Constante OUI */
-    public static final String OUI = "oui";
-    /** Constante NON */
-    public static final String NON = "non";
+	/** Constante OUI */
+	public static final String OUI = "oui";
+	/** Constante NON */
+	public static final String NON = "non";
+
+	/** Role admin */
+	public static final String ADMIN = "Admin";
+	/** Role apprenant */
+	public static final String APPRENANT = "Apprenant";
 
 	/**
 	 * ********************* Portes Logiques ******************
@@ -36,15 +41,15 @@ public final class Constants {
 	/** Vide, ne fait rien */
 	public static final String EMPTY = "EMPTY";
 
-	public static boolean isLogicGate(String gate) {
+	public static boolean isLogicGate(final String gate) {
 
-		return (gate == AND || gate == OR || gate == NOT || gate == XOR || gate == EMPTY || gate == "");
+		return gate == Constants.AND || gate == Constants.OR || gate == Constants.NOT || gate == Constants.XOR || gate == Constants.EMPTY || gate == "";
 	}
-    /**
-     * Non instantiable
-     */
-    private Constants() {
-    }
+	/**
+	 * Non instantiable
+	 */
+	private Constants() {
+	}
 
 
 }

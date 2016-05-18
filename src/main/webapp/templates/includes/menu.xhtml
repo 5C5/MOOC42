@@ -28,7 +28,7 @@
             <p:menuitem id="mprofil" value="#{fr['menu.profil']}" action="profil"/>
      
             <f:facet name="options">
-                <p:commandButton type="button" value="#{fr['logout.button']}" icon="ui-icon-extlink" />
+                <p:commandButton value="#{fr['logout.button']}" icon="ui-icon-extlink" type="submit" immediate="true"  action="#{loginMBean.logout}" />
             </f:facet>
         </p:menubar>
 	</h:form>
