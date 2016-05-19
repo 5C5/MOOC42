@@ -27,6 +27,13 @@ public final class Constants {
 	/** Role apprenant */
 	public static final String APPRENANT = "Apprenant";
 
+	/** Niveau facile */
+	public static final String NIVEAU_FACILE = "Facile";
+	/** Niveau moyen */
+	public static final String NIVEAU_MOYEN = "Moyen";
+	/** Niveau difficile */
+	public static final String NIVEAU_DIFFICILE = "Difficile";
+
 	/**
 	 * ********************* Portes Logiques ******************
 	 */

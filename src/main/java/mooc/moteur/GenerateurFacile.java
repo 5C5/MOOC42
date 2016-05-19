@@ -12,11 +12,6 @@ public class GenerateurFacile extends Generateur {
 
 	@Override
 	public void generer(final List<String> portes) {
-		if (portes.size() < 1) {
-			throw new IllegalArgumentException(
-					"Pour un exercice de difficulté facile, il doit y avoir au moins une porte");
-		}
-
 		if (portes.contains(Constants.NOT)) {
 			portes.add(Constants.EMPTY);
 		}
@@ -27,6 +22,7 @@ public class GenerateurFacile extends Generateur {
 		porte.setY("10em");
 		porte.setDraggable(true);
 		porte.setStyleClass("porte");
+		System.out.println("porte alea : " + porte.getRealValue());
 
 		/* Création de l'entrée une */
 		Valeur entree1 = new Valeur("0", true, false);
