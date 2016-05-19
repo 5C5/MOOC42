@@ -26,13 +26,14 @@ public class GenerateurFacile extends Generateur {
 		porte.setX("40em");
 		porte.setY("10em");
 		porte.setDraggable(true);
+		porte.setStyleClass("porte");
 
 		/* Création de l'entrée une */
 		Valeur entree1 = new Valeur("0", true, false);
 		entree1.setX("20em");
 		entree1.setY("5em");
 		entree1.setDraggable(true);
-
+		entree1.setStyleClass("entree");
 
 		/* Ajout de la connexion entre l'entrée 1 et la porte */
 		this.connectEntreeToPorte(entree1, porte);
@@ -43,6 +44,7 @@ public class GenerateurFacile extends Generateur {
 			entree2.setX("20em");
 			entree2.setY("15em");
 			entree2.setDraggable(true);
+			entree2.setStyleClass("entree");
 			this.getExercice().addElement(entree2);
 			/* Creation de la connexion entre la porte et la sortie */
 			this.connectEntreeToPorte(entree2, porte);

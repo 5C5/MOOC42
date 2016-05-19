@@ -15,7 +15,20 @@
  		<p:panel header="#{fr['general.exercice.title']}">
        		<h:form>
                 <h:outputScript library="js" name="diagram.js" />
-                
+                <input type="hidden" id="notionSwitch" value="#{exerciceMBean.notionSwitch}"/>
+            <!-- 
+        <p:remoteCommand name="elementClicked" actionListener="#{exerciceMBean.onElementClicked}"/>
+        <script type="text/javascript">
+                    $(document).on('click',
+                            '.ui-diagram > .ui-diagram-element',
+                            function(info) {
+                                elementClicked([ {
+                                    name : 'elementId',
+                                    value : info.target.id
+                                } ]);
+                            });
+        </script>
+         -->
        			<p:fieldset legend="#{fr['exercice.param']}">
                     <h:panelGrid columns="2">
                			<p:outputLabel for="notions" value="#{fr['exercice.notions']}"/>

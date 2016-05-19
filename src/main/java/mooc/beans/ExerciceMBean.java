@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 
 import mooc.dto.NotionDto;
 import mooc.login.AbstractMBean;
@@ -43,6 +44,8 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 	/** Elements a  afficher */
 	/** Exercice */
 	private DefaultDiagramModel root;
+	/** Switch entre les portes */
+	private String notionSwitch;
 
 	@PostConstruct
 	public void init() {
@@ -56,14 +59,32 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 
 	public void generer() {
 		this.disabled = true;
+		this.convertNotion();
 		System.out.println("niveau : " + this.niveau);
 		System.out.println("notions : " + this.selectedNotions.length);
+		System.out.println("notion switch : " + this.notionSwitch);
 		GenerateurFacile g = new GenerateurFacile();
 		List<String> l = new ArrayList<String>();
 		l.add("AND");
 		g.generer(l);
 		this.root = g.getExercice();
-		System.out.println("fini");
+	}
+
+	private void convertNotion() {
+		this.notionSwitch = "";
+		for (int i = 0; i < this.selectedNotions.length; i++) {
+			if (i != this.selectedNotions.length - 1) {
+				this.notionSwitch += this.notions.get(Integer.parseInt(this.selectedNotions[i])-1).getNom() + ";";
+			} else {
+				this.notionSwitch += this.notions.get(Integer.parseInt(this.selectedNotions[i])-1).getNom();
+			}
+		}
+	}
+
+	public void onElementClicked() {
+		System.out.println(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("elementId"));
+		String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("elementId");
+
 	}
 
 	public DefaultDiagramModel getRoot() {
@@ -112,6 +133,14 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 
 	public void setDisabled(final boolean disabled) {
 		this.disabled = disabled;
+	}
+
+	public String getNotionSwitch() {
+		return this.notionSwitch;
+	}
+
+	public void setNotionSwitch(final String notionSwitch) {
+		this.notionSwitch = notionSwitch;
 	}
 
 }
