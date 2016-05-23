@@ -14,14 +14,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author colas Classe représentant les apprenants (individus)
  */
-@Getter
-@Setter
+// @Getter
+// @Setter
 // @NoArgsConstructor
 @Data
 @Entity
@@ -151,6 +149,14 @@ public class Apprenant implements Serializable {
 
 	public void setCompetences(final List<Competence> competences) {
 		this.competences = competences;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }
