@@ -149,4 +149,12 @@ public class Apprenant implements Serializable {
 		this.competences = competences;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 }
