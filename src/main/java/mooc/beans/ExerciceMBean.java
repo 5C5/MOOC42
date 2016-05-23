@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import mooc.dto.NotionDto;
 import mooc.login.AbstractMBean;
@@ -18,6 +19,7 @@ import mooc.utils.Constants;
 import mooc.utils.Messages;
 
 import org.primefaces.model.diagram.DefaultDiagramModel;
+import org.primefaces.model.diagram.Element;
 import org.springframework.context.annotation.Scope;
 
 @ManagedBean
@@ -54,7 +56,13 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 
 	@PostConstruct
 	public void init() {
-		this.disabled = false;
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		this.root = (DefaultDiagramModel) request.getSession().getAttribute(Constants.EXERCICE);
+		if(this.root == null){
+			this.disabled = false;
+		} else {
+			this.disabled = true;
+		}
 		this.notions = this.notionService.getAll();
 	}
 
@@ -75,13 +83,16 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 			// List<String> l = new ArrayList<String>();
 			// l.add("AND");
 			// g.generer(l);
-			g.generer(this.notionsExercice);
+			g.generer(this.notionsExercice, false);
 			this.root = g.getExercice();
 		} else if (this.niveau == 2) {
 			// TODO
 		} else if (this.niveau == 3) {
 			// TODO
 		}
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		request.getSession().removeAttribute(Constants.EXERCICE);
+		request.getSession().setAttribute(Constants.EXERCICE, this.root);
 	}
 
 	/**
@@ -90,10 +101,8 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 	 * @return true si tous les controles sont bons, sinon false
 	 */
 	private boolean checkBefore() {
-		// TODO controles :
-		// - un niveau doit etre sélectionne
-		// - la liste des notions selectionnees doit avoir au moins deux elements
 		if(this.niveau == 0){
+			// Un niveau doit etre selectionne
 			this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("exercice.erreur.niveau"));
 			return false;
 		} else {
@@ -103,11 +112,16 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 					this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("exercice.erreur.niveau.une.porte", new Object[]{Constants.NIVEAU_FACILE}));
 					return false;
 				}
-			} else{
-				// Pour les autres niveaux, il faut au moins deux portes
+			} else if(this.niveau == 2){
+				// En niveau moyen, il faut au moins deux portes
 				if(this.selectedNotions.length < 2) {
-					this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("exercice.erreur.niveau.plus.porte",
-							new Object[]{this.niveau==2 ? Constants.NIVEAU_MOYEN : Constants.NIVEAU_DIFFICILE}));
+					this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("exercice.erreur.niveau.plus.porte", new Object[]{Constants.NIVEAU_MOYEN, "2"}));
+					return false;
+				}
+			} else if(this.niveau == 3){
+				// En niveau difficile, il faut au moins deux portes
+				if(this.selectedNotions.length < 2) {
+					this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("exercice.erreur.niveau.plus.porte", new Object[]{Constants.NIVEAU_DIFFICILE, "2"}));
 					return false;
 				}
 			}
@@ -128,10 +142,30 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		}
 	}
 
-	public void onElementClicked() {
-		System.out.println(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("elementId"));
-		String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("elementId");
+	public void solutionRecalculer() {
+		// Inutile ?
+		System.out.println("root " + this.root);
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		this.root = (DefaultDiagramModel) request.getSession().getAttribute(Constants.EXERCICE);
+		System.out.println(this.root);
+		for (Element el : this.root.getElements()) {
+			System.out.println(el.getStyleClass() + " " + el.getData()+" "+el.getId());
+		}
+	}
 
+	public void solutionRecalculer(final String idElement) {
+		String form = "form_exer:diag-";
+		System.out.println("root " + this.root);
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		this.root = (DefaultDiagramModel) request.getSession().getAttribute(Constants.EXERCICE);
+		System.out.println(this.root);
+		for (Element el : this.root.getElements()) {
+			if ((form + el.getId()).equals(idElement)) {
+				el.setData(1);
+			}
+			System.out.println(el.getStyleClass() + " " + el.getData()+" "+el.getId());
+
+		}
 	}
 
 	public DefaultDiagramModel getRoot() {
@@ -188,6 +222,14 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 
 	public void setNotionSwitch(final String notionSwitch) {
 		this.notionSwitch = notionSwitch;
+	}
+
+	public List<String> getNotionsExercice() {
+		return this.notionsExercice;
+	}
+
+	public void setNotionsExercice(final List<String> notionsExercice) {
+		this.notionsExercice = notionsExercice;
 	}
 
 }

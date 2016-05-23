@@ -14,14 +14,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author colas Classe représentant les apprenants (individus)
  */
-@Getter
-@Setter
 // @NoArgsConstructor
 @Data
 @Entity

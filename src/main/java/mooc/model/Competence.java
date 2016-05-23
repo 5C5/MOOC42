@@ -12,14 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
- * @author colas Résultat des exercices
+ * @author colas Resultat des exercices
  */
-@Getter
-@Setter
 // @NoArgsConstructor
 @Entity
 public class Competence {
@@ -126,6 +121,14 @@ public class Competence {
 
 	public void setScore(final Integer score) {
 		this.score = score;
+	}
+
+	public String getRemarque() {
+		return this.remarque;
+	}
+
+	public void setRemarque(final String remarque) {
+		this.remarque = remarque;
 	}
 
 }

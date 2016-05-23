@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
 import mooc.dao.ConnaissanceDAO;
 import mooc.dto.NiveauDeverouilleDto;
 import mooc.model.Connaissance;
@@ -13,8 +11,6 @@ import mooc.service.ConnaissanceService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Getter
-@Setter
 public class ConnaissanceServiceImpl implements ConnaissanceService, Serializable {
 
 	/** serialVersionUID */

@@ -11,62 +11,94 @@ public class GenerateurFacile extends Generateur {
 	}
 
 	@Override
-	public void generer(final List<String> portes) {
+	public void generer(final List<String> portes, final boolean drag) {
+		Porte porte = null;
+		Valeur entree1 = null;
+		Valeur entree2 = null;
+		Valeur sortieUtilisateur = null;
+		Valeur sortieSolution = null;
+
+		boolean binaire = true;
+
 		if (portes.contains(Constants.NOT)) {
 			portes.add(Constants.EMPTY);
 		}
 
-		/* Création de la porte */
-		Porte porte = new Porte("", portes.get((int) Math.random() * portes.size()));
+		/* Tirage du nombre aleatoire */
+		int alea = (int) Math.random() * portes.size();
+		String porteAlea = portes.get(alea);
+		if (Constants.NOT.equalsIgnoreCase(porteAlea) || Constants.EMPTY.equalsIgnoreCase(porteAlea)){
+			binaire = false;
+		}
+
+		/* Creation de la porte */
+		porte = new Porte("", porteAlea);
 		porte.setX("40em");
 		porte.setY("10em");
-		porte.setDraggable(true);
-		porte.setStyleClass("porte");
+		porte.setDraggable(drag);
+		if (binaire) {
+			porte.setStyleClass("porte");
+		} else {
+			porte.setStyleClass("porteNot");
+		}
 		System.out.println("porte alea : " + porte.getRealValue());
+		System.out.println("porte label : " + porte.getLabel());
 
-		/* Création de l'entrée une */
-		Valeur entree1 = new Valeur("0", true, false);
-		entree1.setX("20em");
-		entree1.setY("5em");
-		entree1.setDraggable(true);
+		/* Creation de l'entree une */
+		entree1 = new Valeur("0", true, false);
+		if (binaire) {
+			entree1.setX("20em");
+			entree1.setY("5em");
+		} else {
+			entree1.setX("20em");
+			entree1.setY("10em");
+		}
+		entree1.setDraggable(drag);
 		entree1.setStyleClass("entree");
 
-		/* Ajout de la connexion entre l'entrée 1 et la porte */
-		this.connectEntreeToPorte(entree1, porte);
+		/* Ajout de la connexion entre l'entree 1 et la porte */
+		if (entree1 != null && porte != null) {
+			this.connectEntreeToPorte(entree1, porte);
+		}
 
 		/* Creation de l'entree deux */
-		if (porte.getLabel() != Constants.NOT && porte.getLabel() != Constants.EMPTY) {
-			Valeur entree2 = new Valeur("0", true, false);
+		if (binaire) {
+			entree2 = new Valeur("0", true, false);
 			entree2.setX("20em");
 			entree2.setY("15em");
-			entree2.setDraggable(true);
+			entree2.setDraggable(drag);
 			entree2.setStyleClass("entree");
 			this.getExercice().addElement(entree2);
 			/* Creation de la connexion entre la porte et la sortie */
-			this.connectEntreeToPorte(entree2, porte);
+			if(entree2 != null && porte != null){
+				this.connectEntreeToPorte(entree2, porte);
+			}
 		}
 
-		/* Création de la sortie mise à jour selon les changements de l'utilisateur, dite sortie utilisateur*/
-		Valeur sortieUtilisateur = new Valeur("0", false, false);
+		/* Creation de la sortie mise a jour selon les changements de l'utilisateur, dite sortie utilisateur*/
+		sortieUtilisateur = new Valeur("0", false, false);
 		sortieUtilisateur.setX("60em");
 		sortieUtilisateur.setY("10em");
-		sortieUtilisateur.setDraggable(true);
-		/*
-		 * Création de la sortie "Solution", qui affiche ce que le vrai circuit
-		 * ferait
-		 */
-		Valeur sortieSolution = new Valeur("0", false, true);
+		sortieUtilisateur.setDraggable(drag);
+
+		/* Creation de la sortie "Solution", qui affiche ce que le vrai circuit ferait */
+		sortieSolution = new Valeur("0", false, true);
 		sortieSolution.setX("80em");
 		sortieSolution.setY("10em");
-		sortieSolution.setDraggable(true);
+		sortieSolution.setDraggable(drag);
 
 
-		/* création de la conexion entre la porte et la sortie utilisateur */
-		this.connectPorteToSortie(porte, sortieUtilisateur);
-		/* Création de la connexion entre la porte et la sortie solution, qui n'est pas ajoutee au modele*/
-		porte.addSortie(sortieSolution, true);
-		sortieSolution.addEntree(porte);
-		this.getExercice().addElement(sortieSolution);
+		/* Creation de la connexion entre la porte et la sortie utilisateur */
+		if(porte != null && sortieUtilisateur != null){
+			this.connectPorteToSortie(porte, sortieUtilisateur);
+		}
+
+		/* Creation de la connexion entre la porte et la sortie solution, qui n'est pas ajoutee au modele*/
+		if (porte != null && sortieSolution != null) {
+			porte.addSortie(sortieSolution, true);
+			sortieSolution.addEntree(porte);
+			this.getExercice().addElement(sortieSolution);
+		}
 
 	}
 }
