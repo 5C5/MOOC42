@@ -5,15 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * @author colas Notion de cours, les différentes portes logiques existentes
  */
 @Entity
-@Getter
-@Setter
 // @NoArgsConstructor
 public class Notion {
 
@@ -41,18 +36,18 @@ public class Notion {
     }
 
 	public int getIdNotion() {
-		return idNotion;
+		return this.idNotion;
 	}
 
-	public void setIdNotion(int idNotion) {
+	public void setIdNotion(final int idNotion) {
 		this.idNotion = idNotion;
 	}
 
 	public String getNomNotion() {
-		return nomNotion;
+		return this.nomNotion;
 	}
 
-	public void setNomNotion(String nomNotion) {
+	public void setNomNotion(final String nomNotion) {
 		this.nomNotion = nomNotion;
 	}
 

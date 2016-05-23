@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
 import mooc.dao.ApprenantDAO;
 import mooc.dao.CompetenceDAO;
 import mooc.dao.ConnaissanceDAO;
@@ -25,8 +23,6 @@ import mooc.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 
 //@Service("apprenantService")
-@Getter
-@Setter
 public class ApprenantServiceImpl implements ApprenantService, Serializable {
 
 	/** serialVersionUID */

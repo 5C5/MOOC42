@@ -1,13 +1,9 @@
 package mooc.dto;
 
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Dto pour gerer les niveaux deverouilles de l'apprenant
  */
-@Getter
-@Setter
 public class NiveauDeverouilleDto {
 
     /** Id */
@@ -18,26 +14,26 @@ public class NiveauDeverouilleDto {
     private int niveau;
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.id = id;
 	}
 
 	public String getNom() {
-		return nom;
+		return this.nom;
 	}
 
-	public void setNom(String nom) {
+	public void setNom(final String nom) {
 		this.nom = nom;
 	}
 
 	public int getNiveau() {
-		return niveau;
+		return this.niveau;
 	}
 
-	public void setNiveau(int niveau) {
+	public void setNiveau(final int niveau) {
 		this.niveau = niveau;
 	}
 

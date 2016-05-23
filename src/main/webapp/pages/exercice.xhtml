@@ -4,6 +4,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
                 template="/templates/template.xhtml">
 
     <ui:define name="head"></ui:define>
@@ -13,22 +14,18 @@
     <ui:define name="body-site">
         
  		<p:panel header="#{fr['general.exercice.title']}">
-       		<h:form>
+       		<h:form id="form_exer">
                 <h:outputScript library="js" name="diagram.js" />
                 <input type="hidden" id="notionSwitch" value="#{exerciceMBean.notionSwitch}"/>
-            <!-- 
-        <p:remoteCommand name="elementClicked" actionListener="#{exerciceMBean.onElementClicked}"/>
-        <script type="text/javascript">
-                    $(document).on('click',
-                            '.ui-diagram > .ui-diagram-element',
-                            function(info) {
-                                elementClicked([ {
-                                    name : 'elementId',
-                                    value : info.target.id
-                                } ]);
-                            });
-        </script>
-         -->
+                 <pe:remoteCommand id="solutionRecalculer" name="solutionRecalculer" process="@this" update=":form_exer:panelDiag" 
+                    actionListener="#{exerciceMBean.solutionRecalculer}" >  
+<!--                     <pe:methodSignature parameters="org.primefaces.model.diagram.DefaultDiagramModel" />   -->
+<!--                     <pe:methodParam name="diag">   -->
+<!--                         <pe:convertJson />   -->
+<!--                     </pe:methodParam>   -->
+                    <pe:methodSignature parameters="java.lang.String" />  
+                     <pe:methodParam name="idElement"/>  
+                </pe:remoteCommand>  
        			<p:fieldset legend="#{fr['exercice.param']}">
                     <h:panelGrid columns="2">
                			<p:outputLabel for="notions" value="#{fr['exercice.notions']}"/>
@@ -49,13 +46,15 @@
                       
                       <p:commandButton value="#{fr['exercice.demarrer']}" action="#{exerciceMBean.generer}" update="@form" rendered="#{!exerciceMBean.disabled}"/>
        			</p:fieldset>
-       			<p:panel header="#{fr['exercice.title']}" rendered="#{exerciceMBean.disabled}">
-           			<p:diagram value="#{exerciceMBean.root}" style="height:400px" styleClass="ui-widget-content" />
+       			<p:panel id="panelDiag" header="#{fr['exercice.title']}" rendered="#{exerciceMBean.disabled}">
+                <!-- rendered="#{exerciceMBean.disabled}" -->
+           			<p:diagram id="diag" value="#{exerciceMBean.root}" style="height:400px" styleClass="ui-widget-content" >
+                    </p:diagram>
            			<style type="text/css">
         				.ui-diagram-element {   
-          		  			width:6em; 
-    				        height:6em;
-    				        line-height:6em;
+          		  			width:5em; 
+    				        height:5em;
+    				        line-height:5em;
     				        text-align: center;
     				        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
     				        border-radius: 5em;

@@ -11,9 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import mooc.service.ApprenantService;
 import mooc.utils.Constants;
 import mooc.utils.Messages;
@@ -29,8 +27,6 @@ import org.springframework.context.annotation.Scope;
 @ManagedBean
 // @SessionScoped
 @Scope("view")
-@Getter
-@Setter
 public class LoginMBean extends AbstractMBean implements Serializable {
 
 	/** serialVersionUID. */

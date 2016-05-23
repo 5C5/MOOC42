@@ -13,10 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
- * @author colas Résultat des exercices
+ * @author colas Resultat des exercices
  */
-// @Getter
-// @Setter
 // @NoArgsConstructor
 @Entity
 public class Competence {
@@ -126,10 +124,10 @@ public class Competence {
 	}
 
 	public String getRemarque() {
-		return remarque;
+		return this.remarque;
 	}
 
-	public void setRemarque(String remarque) {
+	public void setRemarque(final String remarque) {
 		this.remarque = remarque;
 	}
 

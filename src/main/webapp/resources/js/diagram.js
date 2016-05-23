@@ -3,7 +3,10 @@
  */
 
 $(document).unbind('click').on('click', '.ui-diagram > .ui-diagram-element', function(info){
-//  console.log(info.target.id); 
+
+	console.log(info.target.id);
+	solutionRecalculer(info.target.id);
+	return;
 	
   var elem = document.getElementById(info.target.id); 
   var porte =  $(elem);
@@ -43,5 +46,12 @@ $(document).unbind('click').on('click', '.ui-diagram > .ui-diagram-element', fun
 	  } else {
 		  elem.innerHTML = "";
 	  }
-  }
+  } 
+
+  // Recalculer la solution
+  var diag = $(document.getElementById('diag'));
+  console.log(diag);
+  var x = document.getElementsByClassName("entree").length;
+  console.log("entree "+x);
+  solutionRecalculer(JSON.stringify(diag));
 });

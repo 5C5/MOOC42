@@ -7,8 +7,6 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import lombok.Getter;
-import lombok.Setter;
 import mooc.utils.Constants;
 
 /**
@@ -25,8 +23,6 @@ public abstract class AbstractMBean implements Serializable {
 	 * @see Constants#MODE_CONSULTATION
 	 * @see Constants#MODE_MODIFICATION
 	 */
-	@Getter
-	@Setter
 	private String modeAffichage;
 
 	/**
@@ -100,6 +96,14 @@ public abstract class AbstractMBean implements Serializable {
 			langue = "fr";
 		}
 		return langue;
+	}
+
+	public String getModeAffichage() {
+		return this.modeAffichage;
+	}
+
+	public void setModeAffichage(final String modeAffichage) {
+		this.modeAffichage = modeAffichage;
 	}
 
 }

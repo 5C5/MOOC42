@@ -8,14 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * @author colas Consultation des cours
  */
-@Getter
-@Setter
 // @NoArgsConstructor
 @Entity
 public class Connaissance {
@@ -56,34 +51,34 @@ public class Connaissance {
     }
 
 	public int getIdConnaissance() {
-		return idConnaissance;
+		return this.idConnaissance;
 	}
 
-	public void setIdConnaissance(int idConnaissance) {
+	public void setIdConnaissance(final int idConnaissance) {
 		this.idConnaissance = idConnaissance;
 	}
 
 	public Apprenant getApprenant() {
-		return apprenant;
+		return this.apprenant;
 	}
 
-	public void setApprenant(Apprenant apprenant) {
+	public void setApprenant(final Apprenant apprenant) {
 		this.apprenant = apprenant;
 	}
 
 	public Notion getNotion() {
-		return notion;
+		return this.notion;
 	}
 
-	public void setNotion(Notion notion) {
+	public void setNotion(final Notion notion) {
 		this.notion = notion;
 	}
 
 	public int getNiveau() {
-		return niveau;
+		return this.niveau;
 	}
 
-	public void setNiveau(int niveau) {
+	public void setNiveau(final int niveau) {
 		this.niveau = niveau;
 	}
 

@@ -34,6 +34,9 @@ public final class Constants {
 	/** Niveau difficile */
 	public static final String NIVEAU_DIFFICILE = "Difficile";
 
+	/** Exercice */
+	public static final String EXERCICE = "Exercice";
+
 	/**
 	 * ********************* Portes Logiques ******************
 	 */

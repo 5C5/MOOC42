@@ -8,16 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * Lien entre les competences et les notions
  *
  * @author colas
  */
-@Getter
-@Setter
 // @NoArgsConstructor
 @Entity
 public class CompetenceNotion {
@@ -39,26 +34,26 @@ public class CompetenceNotion {
     private Notion notion;
 
 	public int getIdCompetenceNotion() {
-		return idCompetenceNotion;
+		return this.idCompetenceNotion;
 	}
 
-	public void setIdCompetenceNotion(int idCompetenceNotion) {
+	public void setIdCompetenceNotion(final int idCompetenceNotion) {
 		this.idCompetenceNotion = idCompetenceNotion;
 	}
 
 	public Competence getCompetence() {
-		return competence;
+		return this.competence;
 	}
 
-	public void setCompetence(Competence competence) {
+	public void setCompetence(final Competence competence) {
 		this.competence = competence;
 	}
 
 	public Notion getNotion() {
-		return notion;
+		return this.notion;
 	}
 
-	public void setNotion(Notion notion) {
+	public void setNotion(final Notion notion) {
 		this.notion = notion;
 	}
 
