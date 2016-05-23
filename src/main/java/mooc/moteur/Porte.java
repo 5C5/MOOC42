@@ -122,6 +122,7 @@ public class Porte extends Node {
 	 * @param entree
 	 *            Noeud à ajouter
 	 */
+	@Override
 	public void addEntree(Node entree) {
 		this.entrees.add(entree);
 	}
@@ -132,6 +133,7 @@ public class Porte extends Node {
 	 * @param sortie
 	 * @param solution
 	 */
+	@Override
 	public void addSortie(Node sortie, boolean solution) {
 		if (solution)
 			this.sortieSolution = sortie;
@@ -181,5 +183,45 @@ public class Porte extends Node {
 	 */
 	@Override
 	public void majValeur(final boolean vraieValeur) {/* Do Nothing */}
+
+	public List<String> getListePortes() {
+		return listePortes;
+	}
+
+	public void setListePortes(List<String> listePortes) {
+		this.listePortes = listePortes;
+	}
+
+	public String getRealValue() {
+		return realValue;
+	}
+
+	public void setRealValue(String realValue) {
+		this.realValue = realValue;
+	}
+
+	public Node getSortie() {
+		return sortie;
+	}
+
+	public void setSortie(Node sortie) {
+		this.sortie = sortie;
+	}
+
+	public Node getSortieSolution() {
+		return sortieSolution;
+	}
+
+	public void setSortieSolution(Node sortieSolution) {
+		this.sortieSolution = sortieSolution;
+	}
+
+	public List<Node> getEntrees() {
+		return entrees;
+	}
+
+	public void setEntrees(List<Node> entrees) {
+		this.entrees = entrees;
+	}
 
 }
