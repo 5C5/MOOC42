@@ -26,6 +26,7 @@
                     <pe:methodSignature parameters="java.lang.String" />  
                      <pe:methodParam name="idElement"/>  
                 </pe:remoteCommand>  
+                
        			<p:fieldset legend="#{fr['exercice.param']}">
                     <h:panelGrid columns="2">
                			<p:outputLabel for="notions" value="#{fr['exercice.notions']}"/>
@@ -45,7 +46,9 @@
        			      </h:panelGrid>
                       
                       <p:commandButton value="#{fr['exercice.demarrer']}" action="#{exerciceMBean.generer}" update="@form" rendered="#{!exerciceMBean.disabled}"/>
-       			</p:fieldset>
+       			      <p:commandButton value="#{fr['exercice.reset']}" action="#{exerciceMBean.reset}" update="@form" rendered="#{exerciceMBean.disabled}"/>
+                
+                </p:fieldset>
        			<p:panel id="panelDiag" header="#{fr['exercice.title']}" rendered="#{exerciceMBean.disabled}">
                 <!-- rendered="#{exerciceMBean.disabled}" -->
            			<p:diagram id="diag" value="#{exerciceMBean.exercice.root}" style="height:400px" styleClass="ui-widget-content" >
