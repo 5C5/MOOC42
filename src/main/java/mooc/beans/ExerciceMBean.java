@@ -123,16 +123,37 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		String form = "form_exer:diag-";
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		this.exercice = (Exercice) request.getSession().getAttribute(Constants.EXERCICE);
-		System.out.println(this.exercice);
+		// System.out.println(this.exercice);
 		DefaultDiagramModel root = this.exercice.getRoot();
 
-		// Recalculer de la solution
+		// Mise a jour des valeurs lors d'un clic dessus
 		for (Element el : root.getElements()) {
 			if ((form + el.getId()).equals(idElement)) {
-				el.setData(this.exercice.switchData(el));
+				if(!Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass()) && !Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
+					el.setData(this.exercice.switchData(el));
+//					System.out.println(el.getStyleClass() + " " + el.getData()+" "+el.getId());
+				}
 			}
-			System.out.println(el.getStyleClass() + " " + el.getData()+" "+el.getId());
-
+		}
+		// Recalcule des solutions
+		for (Element el : root.getElements()) {
+			if(Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass())){
+				Boolean sortieSolution = this.exercice.calculSortieSolution(root);
+				if(sortieSolution){
+					el.setData("1");
+				} else {
+					el.setData("0");
+				}
+//				System.out.println(el.getStyleClass() + " " + el.getData()+" "+el.getId());
+			} else if(Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
+				Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
+				if(sortieUtilisateur){
+					el.setData("1");
+				} else {
+					el.setData("0");
+				}
+//				System.out.println(el.getStyleClass() + " " + el.getData()+" "+el.getId());
+			}
 		}
 
 		// Modification de l'exercice

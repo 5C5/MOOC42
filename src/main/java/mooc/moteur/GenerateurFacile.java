@@ -4,6 +4,9 @@ import java.util.List;
 
 import mooc.utils.Constants;
 
+import org.primefaces.model.diagram.DefaultDiagramModel;
+import org.primefaces.model.diagram.Element;
+
 public class GenerateurFacile extends Generateur {
 
 	public GenerateurFacile() {
@@ -38,9 +41,9 @@ public class GenerateurFacile extends Generateur {
 		porte.setY("10em");
 		porte.setDraggable(drag);
 		if (binaire) {
-			porte.setStyleClass("porte");
+			porte.setStyleClass(Constants.PORTE);
 		} else {
-			porte.setStyleClass("porteNot");
+			porte.setStyleClass(Constants.PORTE_NOT);
 		}
 		System.out.println("porte alea : " + porte.getRealValue());
 		System.out.println("porte label : " + porte.getLabel());
@@ -56,7 +59,7 @@ public class GenerateurFacile extends Generateur {
 			entree1.setY("10em");
 		}
 		entree1.setDraggable(drag);
-		entree1.setStyleClass("entree");
+		entree1.setStyleClass(Constants.ENTREE);
 
 		/* Ajout de la connexion entre l'entree 1 et la porte */
 		if (entree1 != null && porte != null) {
@@ -70,7 +73,7 @@ public class GenerateurFacile extends Generateur {
 			entree2.setX("20em");
 			entree2.setY("15em");
 			entree2.setDraggable(drag);
-			entree2.setStyleClass("entree");
+			entree2.setStyleClass(Constants.ENTREE);
 			this.getExercice().addElement(entree2);
 			/* Creation de la connexion entre la porte et la sortie */
 			if(entree2 != null && porte != null){
@@ -84,6 +87,7 @@ public class GenerateurFacile extends Generateur {
 		sortieUtilisateur.setX("60em");
 		sortieUtilisateur.setY("10em");
 		sortieUtilisateur.setDraggable(drag);
+		sortieUtilisateur.setStyleClass(Constants.SORTIE_UTILISATEUR);
 
 		/* Creation de la sortie "Solution", qui affiche ce que le vrai circuit ferait */
 		sortieSolution = new Valeur("0", false, true);
@@ -91,6 +95,7 @@ public class GenerateurFacile extends Generateur {
 		sortieSolution.setX("80em");
 		sortieSolution.setY("10em");
 		sortieSolution.setDraggable(drag);
+		sortieSolution.setStyleClass(Constants.SORTIE_SOLUTION);
 
 
 		/* Creation de la connexion entre la porte et la sortie utilisateur */
@@ -105,5 +110,95 @@ public class GenerateurFacile extends Generateur {
 			this.getExercice().addElement(sortieSolution);
 		}
 
+	}
+
+	@Override
+	public Boolean calculSortieUtilisateur(final DefaultDiagramModel root) {
+		String porte = null;
+		Boolean entree1 = null;
+		Boolean entree2 = null;
+
+		for (Element el : root.getElements()) {
+			String style = el.getStyleClass();
+			String data = (String) el.getData();
+			if (Constants.ENTREE.equalsIgnoreCase(style)) {
+				if (entree1 == null) {
+					entree1 = this.convertToBoolean(data);
+				} else {
+					entree2 = this.convertToBoolean(data);
+				}
+			} else if (Constants.PORTE.equalsIgnoreCase(style)) {
+				porte = data;
+			} else if (Constants.PORTE_NOT.equalsIgnoreCase(style)) {
+				porte = data;
+			}
+		}
+
+		if (entree1 != null && entree2 != null) {
+			System.out.println("Calcul sortie utilisateur : "+entree1+" "+porte +" "+entree2);
+			// Operation binaire
+			if (Constants.AND.equalsIgnoreCase(porte)) {
+				return entree1 && entree2;
+			} else if (Constants.OR.equalsIgnoreCase(porte)) {
+				return entree1 || entree2;
+			} else if (Constants.XOR.equalsIgnoreCase(porte)) {
+				return entree1 ^ entree2;
+			}
+		} else if (entree1 != null) {
+			System.out.println("Calcul sortie solution : "+entree1+" "+porte);
+			if (Constants.NOT.equalsIgnoreCase(porte)) {
+				return !entree1;
+			} else {
+				return entree1;
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public Boolean calculSortieSolution(final DefaultDiagramModel root) {
+		String porte = null;
+		Boolean entree1 = null;
+		Boolean entree2 = null;
+		Porte porteReel = null;
+
+		for (Element el : root.getElements()) {
+			String style = el.getStyleClass();
+			String data = (String) el.getData();
+			if (Constants.ENTREE.equalsIgnoreCase(style)) {
+				if (entree1 == null) {
+					entree1 = this.convertToBoolean(data);
+				} else {
+					entree2 = this.convertToBoolean(data);
+				}
+			} else if (Constants.PORTE.equalsIgnoreCase(style)) {
+				porteReel = (Porte) el;
+				porte = porteReel.getRealValue();
+			} else if (Constants.PORTE_NOT.equalsIgnoreCase(style)) {
+				porteReel = (Porte) el;
+				porte = porteReel.getRealValue();
+			}
+		}
+
+		if (entree1 != null && entree2 != null) {
+			System.out.println("Calcul sortie solution : "+entree1+" "+porte +" "+entree2);
+			// Operation binaire
+			if (Constants.AND.equalsIgnoreCase(porte)) {
+				return entree1 && entree2;
+			} else if (Constants.OR.equalsIgnoreCase(porte)) {
+				return entree1 || entree2;
+			} else if (Constants.XOR.equalsIgnoreCase(porte)) {
+				return entree1 ^ entree2;
+			}
+		} else if (entree1 != null) {
+			if (Constants.NOT.equalsIgnoreCase(porte)) {
+				return !entree1;
+			} else {
+				return entree1;
+			}
+		}
+
+		return null;
 	}
 }

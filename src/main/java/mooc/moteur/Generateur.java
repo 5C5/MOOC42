@@ -18,34 +18,34 @@ import org.primefaces.model.diagram.connector.StraightConnector;
 @Data
 public abstract class Generateur {
 
-    /**
-     * Attributs
-     */
-    private DefaultDiagramModel exercice;
+	/**
+	 * Attributs
+	 */
+	private DefaultDiagramModel exercice;
 	private Connector connecteur;
 
-    public Generateur() {
-        this.exercice = new DefaultDiagramModel();
+	public Generateur() {
+		this.exercice = new DefaultDiagramModel();
 		this.exercice.setMaxConnections(-1);
 		this.connecteur = new StraightConnector();
 		this.connecteur.setPaintStyle("{strokeStyle:'#404a4e', lineWidth:3}");
 		this.connecteur.setHoverPaintStyle("{strokeStyle:'#20282b'}");
-    }
+	}
 
-    public abstract void generer(final List<String> portes, final boolean drag);
+	public abstract void generer(final List<String> portes, final boolean drag);
 
-    public DefaultDiagramModel getExercice() {
-        return this.exercice;
-    }
+	public DefaultDiagramModel getExercice() {
+		return this.exercice;
+	}
 
-    public void setExercice(final DefaultDiagramModel exercice) {
-        this.exercice = exercice;
-    }
+	public void setExercice(final DefaultDiagramModel exercice) {
+		this.exercice = exercice;
+	}
 
 	/**
 	 * Vérifie que l'entree et la porte sont deja dans le modèle avant de creer
 	 * la connexion allant de l'entree a la porte
-	 * 
+	 *
 	 * @param entree
 	 * @param porte
 	 */
@@ -91,4 +91,19 @@ public abstract class Generateur {
 		this.getExercice().connect(new Connection(porte.getEndPoints().get(1), sortie.getEndPoints().get(0), this.connecteur));
 	}
 
+	public Boolean calculSortieSolution(final DefaultDiagramModel root) {
+		return null;
+	}
+
+	public Boolean calculSortieUtilisateur(final DefaultDiagramModel root) {
+		return null;
+	}
+
+	public boolean convertToBoolean(final String entree) {
+		if ("1".equalsIgnoreCase(entree)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

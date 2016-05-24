@@ -140,14 +140,14 @@ public class Exercice {
 	public String switchData(final Element el) {
 		String style = el.getStyleClass();
 		String data = (String) el.getData();
-		if ("entree".equalsIgnoreCase(style)) {
+		if (Constants.ENTREE.equalsIgnoreCase(style)) {
 			// Si entree, switch entre 0 et 1
 			if ("1".equalsIgnoreCase(data)) {
 				return "0";
 			} else {
 				return "1";
 			}
-		} else if ("porte".equalsIgnoreCase(style)) {
+		} else if (Constants.PORTE.equalsIgnoreCase(style)) {
 			// Si porte, switch entre les portes possibles
 			int i = 0;
 			for (NotionDto notion : this.notions) {
@@ -161,7 +161,7 @@ public class Exercice {
 				}
 				i++;
 			}
-		} else if ("porteNot".equalsIgnoreCase(style)) {
+		} else if (Constants.PORTE_NOT.equalsIgnoreCase(style)) {
 			// Si porte not, switch entre not et vide
 			if (Constants.NOT.equalsIgnoreCase(data)) {
 				return "";
@@ -170,5 +170,13 @@ public class Exercice {
 			}
 		}
 		return null;
+	}
+
+	public Boolean calculSortieSolution(final DefaultDiagramModel root) {
+		return this.generateur.calculSortieSolution(root);
+	}
+
+	public Boolean calculSortieUtilisateur(final DefaultDiagramModel root) {
+		return this.generateur.calculSortieUtilisateur(root);
 	}
 }
