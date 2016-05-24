@@ -33,6 +33,7 @@ public class GenerateurFacile extends Generateur {
 
 		/* Creation de la porte */
 		porte = new Porte("", porteAlea);
+		porte.setData(porteAlea);
 		porte.setX("40em");
 		porte.setY("10em");
 		porte.setDraggable(drag);
@@ -46,6 +47,7 @@ public class GenerateurFacile extends Generateur {
 
 		/* Creation de l'entree une */
 		entree1 = new Valeur("0", true, false);
+		entree1.setData("0");
 		if (binaire) {
 			entree1.setX("20em");
 			entree1.setY("5em");
@@ -64,6 +66,7 @@ public class GenerateurFacile extends Generateur {
 		/* Creation de l'entree deux */
 		if (binaire) {
 			entree2 = new Valeur("0", true, false);
+			entree2.setData("0");
 			entree2.setX("20em");
 			entree2.setY("15em");
 			entree2.setDraggable(drag);
@@ -77,12 +80,14 @@ public class GenerateurFacile extends Generateur {
 
 		/* Creation de la sortie mise a jour selon les changements de l'utilisateur, dite sortie utilisateur*/
 		sortieUtilisateur = new Valeur("0", false, false);
+		sortieUtilisateur.setData("0");
 		sortieUtilisateur.setX("60em");
 		sortieUtilisateur.setY("10em");
 		sortieUtilisateur.setDraggable(drag);
 
 		/* Creation de la sortie "Solution", qui affiche ce que le vrai circuit ferait */
 		sortieSolution = new Valeur("0", false, true);
+		sortieSolution.setData("0");
 		sortieSolution.setX("80em");
 		sortieSolution.setY("10em");
 		sortieSolution.setDraggable(drag);
