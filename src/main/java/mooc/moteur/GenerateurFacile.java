@@ -15,12 +15,6 @@ public class GenerateurFacile extends Generateur {
 
 	@Override
 	public void generer(final List<String> portes, final boolean drag) {
-		Porte porte = null;
-		Valeur entree1 = null;
-		Valeur entree2 = null;
-		Valeur sortieUtilisateur = null;
-		Valeur sortieSolution = null;
-
 		boolean binaire = true;
 
 		if (portes.contains(Constants.NOT)) {
@@ -28,11 +22,33 @@ public class GenerateurFacile extends Generateur {
 		}
 
 		/* Tirage du nombre aleatoire */
-		int alea = (int) Math.random() * portes.size();
+		int alea = (int) (Math.random() * portes.size());
 		String porteAlea = portes.get(alea);
 		if (Constants.NOT.equalsIgnoreCase(porteAlea) || Constants.EMPTY.equalsIgnoreCase(porteAlea)){
 			binaire = false;
 		}
+
+		if (binaire) {
+			this.creerModele1(porteAlea, drag);
+		} else {
+			this.creerModele2(porteAlea, drag);
+		}
+
+	}
+
+	/**
+	 * Création du modele 1, contenant deux entrees et une porte binaire
+	 *
+	 * @param porteAlea Porte unaire
+	 * @param drag Draggable
+	 */
+	private void creerModele1(final String porteAlea, final boolean drag) {
+		// Modele 1 contient une porte binaire
+		Porte porte = null;
+		Valeur entree1 = null;
+		Valeur entree2 = null;
+		Valeur sortieUtilisateur = null;
+		Valeur sortieSolution = null;
 
 		/* Creation de la porte */
 		porte = new Porte("", porteAlea);
@@ -40,46 +56,31 @@ public class GenerateurFacile extends Generateur {
 		porte.setX("40em");
 		porte.setY("10em");
 		porte.setDraggable(drag);
-		if (binaire) {
-			porte.setStyleClass(Constants.PORTE);
-		} else {
-			porte.setStyleClass(Constants.PORTE_NOT);
-		}
-		System.out.println("porte alea : " + porte.getRealValue());
-		System.out.println("porte label : " + porte.getLabel());
+		porte.setStyleClass(Constants.PORTE);
+		this.getExercice().addElement(porte);
 
 		/* Creation de l'entree une */
 		entree1 = new Valeur("0", true, false);
 		entree1.setData("0");
-		if (binaire) {
-			entree1.setX("20em");
-			entree1.setY("5em");
-		} else {
-			entree1.setX("20em");
-			entree1.setY("10em");
-		}
+		entree1.setX("20em");
+		entree1.setY("5em");
 		entree1.setDraggable(drag);
 		entree1.setStyleClass(Constants.ENTREE);
+		this.getExercice().addElement(entree1);
 
 		/* Ajout de la connexion entre l'entree 1 et la porte */
-		if (entree1 != null && porte != null) {
-			this.connectEntreeToPorte(entree1, porte);
-		}
+		this.connectEntreeToPorte(entree1, porte);
 
 		/* Creation de l'entree deux */
-		if (binaire) {
-			entree2 = new Valeur("0", true, false);
-			entree2.setData("0");
-			entree2.setX("20em");
-			entree2.setY("15em");
-			entree2.setDraggable(drag);
-			entree2.setStyleClass(Constants.ENTREE);
-			this.getExercice().addElement(entree2);
-			/* Creation de la connexion entre la porte et la sortie */
-			if(entree2 != null && porte != null){
-				this.connectEntreeToPorte(entree2, porte);
-			}
-		}
+		entree2 = new Valeur("0", true, false);
+		entree2.setData("0");
+		entree2.setX("20em");
+		entree2.setY("15em");
+		entree2.setDraggable(drag);
+		entree2.setStyleClass(Constants.ENTREE);
+		this.getExercice().addElement(entree2);
+		/* Creation de la connexion entre la porte et la sortie */
+		this.connectEntreeToPorte(entree2, porte);
 
 		/* Creation de la sortie mise a jour selon les changements de l'utilisateur, dite sortie utilisateur*/
 		sortieUtilisateur = new Valeur("0", false, false);
@@ -88,6 +89,7 @@ public class GenerateurFacile extends Generateur {
 		sortieUtilisateur.setY("10em");
 		sortieUtilisateur.setDraggable(drag);
 		sortieUtilisateur.setStyleClass(Constants.SORTIE_UTILISATEUR);
+		this.getExercice().addElement(sortieUtilisateur);
 
 		/* Creation de la sortie "Solution", qui affiche ce que le vrai circuit ferait */
 		sortieSolution = new Valeur("0", false, true);
@@ -96,20 +98,88 @@ public class GenerateurFacile extends Generateur {
 		sortieSolution.setY("10em");
 		sortieSolution.setDraggable(drag);
 		sortieSolution.setStyleClass(Constants.SORTIE_SOLUTION);
+		this.getExercice().addElement(sortieSolution);
 
 
 		/* Creation de la connexion entre la porte et la sortie utilisateur */
-		if(porte != null && sortieUtilisateur != null){
-			this.connectPorteToSortie(porte, sortieUtilisateur);
-		}
+		this.connectPorteToSortie(porte, sortieUtilisateur);
 
 		/* Creation de la connexion entre la porte et la sortie solution, qui n'est pas ajoutee au modele*/
-		if (porte != null && sortieSolution != null) {
-			porte.addSortie(sortieSolution, true);
-			sortieSolution.addEntree(porte);
-			this.getExercice().addElement(sortieSolution);
-		}
+		porte.addSortie(sortieSolution, true);
+		sortieSolution.addEntree(porte);
 
+	}
+
+	/**
+	 * Création du modele 2, contenant une entree et une porte uniaire
+	 *
+	 * @param porteAlea Porte unaire
+	 * @param drag Draggable
+	 */
+	private void creerModele2(final String porteAlea, final boolean drag) {
+		// Modele 2 contient une porte unaire
+		Porte porte = null;
+		Valeur entree1 = null;
+		Valeur sortieUtilisateur = null;
+		Valeur sortieSolution = null;
+
+		/* Creation de la porte */
+		porte = new Porte("", porteAlea);
+		porte.setData(porteAlea);
+		if (Constants.EMPTY.equalsIgnoreCase(porteAlea)) {
+			porte.setData("");
+		}
+		porte.setX("40em");
+		porte.setY("10em");
+		porte.setDraggable(drag);
+		porte.setStyleClass(Constants.PORTE_NOT);
+		this.getExercice().addElement(porte);
+
+		/* Creation de l'entree une */
+		entree1 = new Valeur("0", true, false);
+		entree1.setData("0");
+		entree1.setX("20em");
+		entree1.setY("10em");
+		entree1.setDraggable(drag);
+		entree1.setStyleClass(Constants.ENTREE);
+		this.getExercice().addElement(entree1);
+
+		/* Ajout de la connexion entre l'entree 1 et la porte */
+		this.connectEntreeToPorte(entree1, porte);
+
+		/*
+		 * Creation de la sortie mise a jour selon les changements de
+		 * l'utilisateur, dite sortie utilisateur
+		 */
+		sortieUtilisateur = new Valeur("0", false, false);
+		sortieUtilisateur.setData("0");
+		sortieUtilisateur.setX("60em");
+		sortieUtilisateur.setY("10em");
+		sortieUtilisateur.setDraggable(drag);
+		sortieUtilisateur.setStyleClass(Constants.SORTIE_UTILISATEUR);
+		this.getExercice().addElement(sortieUtilisateur);
+
+		/*
+		 * Creation de la sortie "Solution", qui affiche ce que le vrai circuit
+		 * ferait
+		 */
+		sortieSolution = new Valeur("0", false, true);
+		sortieSolution.setData("0");
+		sortieSolution.setX("80em");
+		sortieSolution.setY("10em");
+		sortieSolution.setDraggable(drag);
+		sortieSolution.setStyleClass(Constants.SORTIE_SOLUTION);
+		this.getExercice().addElement(sortieSolution);
+
+		/* Creation de la connexion entre la porte et la sortie utilisateur */
+		this.connectPorteToSortie(porte, sortieUtilisateur);
+
+		/*
+		 * Creation de la connexion entre la porte et la sortie solution, qui
+		 * n'est pas ajoutee au modele
+		 */
+		porte.addSortie(sortieSolution, true);
+		sortieSolution.addEntree(porte);
 	}
 
 	@Override
@@ -134,26 +204,7 @@ public class GenerateurFacile extends Generateur {
 			}
 		}
 
-		if (entree1 != null && entree2 != null) {
-			System.out.println("Calcul sortie utilisateur : "+entree1+" "+porte +" "+entree2);
-			// Operation binaire
-			if (Constants.AND.equalsIgnoreCase(porte)) {
-				return entree1 && entree2;
-			} else if (Constants.OR.equalsIgnoreCase(porte)) {
-				return entree1 || entree2;
-			} else if (Constants.XOR.equalsIgnoreCase(porte)) {
-				return entree1 ^ entree2;
-			}
-		} else if (entree1 != null) {
-			System.out.println("Calcul sortie solution : "+entree1+" "+porte);
-			if (Constants.NOT.equalsIgnoreCase(porte)) {
-				return !entree1;
-			} else {
-				return entree1;
-			}
-		}
-
-		return null;
+		return this.calculPorte(entree1, entree2, porte);
 	}
 
 	@Override
@@ -181,24 +232,6 @@ public class GenerateurFacile extends Generateur {
 			}
 		}
 
-		if (entree1 != null && entree2 != null) {
-			System.out.println("Calcul sortie solution : "+entree1+" "+porte +" "+entree2);
-			// Operation binaire
-			if (Constants.AND.equalsIgnoreCase(porte)) {
-				return entree1 && entree2;
-			} else if (Constants.OR.equalsIgnoreCase(porte)) {
-				return entree1 || entree2;
-			} else if (Constants.XOR.equalsIgnoreCase(porte)) {
-				return entree1 ^ entree2;
-			}
-		} else if (entree1 != null) {
-			if (Constants.NOT.equalsIgnoreCase(porte)) {
-				return !entree1;
-			} else {
-				return entree1;
-			}
-		}
-
-		return null;
+		return this.calculPorte(entree1, entree2, porte);
 	}
 }

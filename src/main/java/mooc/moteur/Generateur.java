@@ -3,6 +3,7 @@ package mooc.moteur;
 import java.util.List;
 
 import lombok.Data;
+import mooc.utils.Constants;
 
 import org.primefaces.model.diagram.Connection;
 import org.primefaces.model.diagram.DefaultDiagramModel;
@@ -105,5 +106,25 @@ public abstract class Generateur {
 		} else {
 			return false;
 		}
+	}
+	
+	public boolean calculPorte(final Boolean entree1, final Boolean entree2, final String porte){
+		if (entree1 != null && entree2 != null) {
+			// Operation binaire
+			if (Constants.AND.equalsIgnoreCase(porte)) {
+				return entree1 && entree2;
+			} else if (Constants.OR.equalsIgnoreCase(porte)) {
+				return entree1 || entree2;
+			} else if (Constants.XOR.equalsIgnoreCase(porte)) {
+				return entree1 ^ entree2;
+			}
+		} else if (entree1 != null) {
+			if (Constants.NOT.equalsIgnoreCase(porte)) {
+				return !entree1;
+			} else {
+				return entree1;
+			}
+		}
+		return false;
 	}
 }

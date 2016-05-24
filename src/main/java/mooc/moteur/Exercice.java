@@ -138,6 +138,12 @@ public class Exercice {
 	}
 
 	public String switchData(final Element el) {
+		List<NotionDto> notionBinaire = new ArrayList<NotionDto>();
+		for (NotionDto notion : this.notions) {
+			if (!Constants.NOT.equalsIgnoreCase(notion.getNom())) {
+				notionBinaire.add(notion);
+			}
+		}
 		String style = el.getStyleClass();
 		String data = (String) el.getData();
 		if (Constants.ENTREE.equalsIgnoreCase(style)) {
@@ -150,13 +156,13 @@ public class Exercice {
 		} else if (Constants.PORTE.equalsIgnoreCase(style)) {
 			// Si porte, switch entre les portes possibles
 			int i = 0;
-			for (NotionDto notion : this.notions) {
-				if (notion.getNom().equalsIgnoreCase(data)) {
+			for (NotionDto notion : notionBinaire) {
+				if (notion.getNom().equalsIgnoreCase(data) && !Constants.NOT.equalsIgnoreCase(notion.getNom())) {
 					// On prend la notion suivante
-					if (i < this.notions.size() - 1) {
-						return this.notions.get(i + 1).getNom();
+					if (i < notionBinaire.size() - 1) {
+						return notionBinaire.get(i + 1).getNom();
 					} else {
-						return this.notions.get(0).getNom();
+						return notionBinaire.get(0).getNom();
 					}
 				}
 				i++;
