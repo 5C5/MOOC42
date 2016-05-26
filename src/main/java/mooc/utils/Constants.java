@@ -51,6 +51,18 @@ public final class Constants {
 	/** Vide, ne fait rien */
 	public static final String EMPTY = "EMPTY";
 
+	/** Constantes pour la resolution d'exercice */
+	/** Porte */
+	public static final String PORTE = "porte";
+	/** Porte not */
+	public static final String PORTE_NOT = "porteNot";
+	/** Entree */
+	public static final String ENTREE = "entree";
+	/** Sortie utilisateur */
+	public static final String SORTIE_UTILISATEUR = "sortieUtilisateur";
+	/** Sortie solution */
+	public static final String SORTIE_SOLUTION = "sortieSolution";
+
 	public static boolean isLogicGate(final String gate) {
 
 		return gate == Constants.AND || gate == Constants.OR || gate == Constants.NOT || gate == Constants.XOR || gate == Constants.EMPTY || gate == "";

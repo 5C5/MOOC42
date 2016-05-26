@@ -14,7 +14,6 @@ import mooc.utils.Constants;
  * @author colas
  *
  */
-@Data
 public class Porte extends Node {
 
 	/**

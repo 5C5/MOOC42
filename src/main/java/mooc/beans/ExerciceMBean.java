@@ -1,7 +1,6 @@
 package mooc.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import mooc.dto.NotionDto;
 import mooc.login.AbstractMBean;
-import mooc.moteur.GenerateurFacile;
+import mooc.moteur.Exercice;
 import mooc.service.NotionService;
 import mooc.utils.Constants;
 import mooc.utils.Messages;
@@ -48,20 +47,38 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 
 	/** Elements a  afficher */
 	/** Exercice */
-	private DefaultDiagramModel root;
+	private Exercice exercice;
+	// private DefaultDiagramModel root;
 	/** Switch entre les portes */
-	private String notionSwitch;
+	// private String notionSwitch;
 	/** Portes utilisees pour l'exercice */
-	private List<String> notionsExercice;
+	// private List<String> notionsExercice;
+
+	/** Utilisateur connecte ou non */
+	private boolean utilConn;
 
 	@PostConstruct
 	public void init() {
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		this.root = (DefaultDiagramModel) request.getSession().getAttribute(Constants.EXERCICE);
-		if(this.root == null){
+		this.exercice = (Exercice) request.getSession().getAttribute(Constants.EXERCICE);
+		Integer id = (Integer) request.getSession().getAttribute(Constants.UTILISATEUR_CONNECTE);
+		if(id == null){
+			this.utilConn = false;
+			this.addFacesMessage(FacesMessage.SEVERITY_WARN, Messages.message("general.erreur.utilisateur"));
+		} else {
+			this.utilConn = true;
+		}
+		if (this.exercice == null) {
 			this.disabled = false;
 		} else {
 			this.disabled = true;
+			int i = 0;
+			this.selectedNotions = new String[this.exercice.getNotions().size()];
+			for (NotionDto notion : this.exercice.getNotions()) {
+				this.selectedNotions[i] = Integer.toString(notion.getId());
+				i++;
+			}
+			this.niveau = this.exercice.getDifficulte();
 		}
 		this.notions = this.notionService.getAll();
 	}
@@ -73,26 +90,15 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 			return;
 		}
 
+		this.exercice = new Exercice();
 		this.disabled = true;
-		this.convertNotion();
-		System.out.println("niveau : " + this.niveau);
-		System.out.println("notions : " + this.selectedNotions.length);
-		System.out.println("notion switch : " + this.notionSwitch);
-		if (this.niveau == 1) {
-			GenerateurFacile g = new GenerateurFacile();
-			// List<String> l = new ArrayList<String>();
-			// l.add("AND");
-			// g.generer(l);
-			g.generer(this.notionsExercice, false);
-			this.root = g.getExercice();
-		} else if (this.niveau == 2) {
-			// TODO
-		} else if (this.niveau == 3) {
-			// TODO
-		}
+		this.exercice.setNotionSelected(this.selectedNotions, this.notions);
+		this.exercice.setDifficulte(this.niveau);
+		this.exercice.generer();
+		System.out.println(this.exercice);
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		request.getSession().removeAttribute(Constants.EXERCICE);
-		request.getSession().setAttribute(Constants.EXERCICE, this.root);
+		request.getSession().setAttribute(Constants.EXERCICE, this.exercice);
 	}
 
 	/**
@@ -129,51 +135,57 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		return true;
 	}
 
-	private void convertNotion() {
-		this.notionSwitch = "";
-		this.notionsExercice = new ArrayList<String>();
-		for (int i = 0; i < this.selectedNotions.length; i++) {
-			if (i != this.selectedNotions.length - 1) {
-				this.notionSwitch += this.notions.get(Integer.parseInt(this.selectedNotions[i])-1).getNom() + ";";
-			} else {
-				this.notionSwitch += this.notions.get(Integer.parseInt(this.selectedNotions[i])-1).getNom();
-			}
-			this.notionsExercice.add(this.notions.get(Integer.parseInt(this.selectedNotions[i])-1).getNom());
-		}
-	}
-
-	public void solutionRecalculer() {
-		// Inutile ?
-		System.out.println("root " + this.root);
-		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		this.root = (DefaultDiagramModel) request.getSession().getAttribute(Constants.EXERCICE);
-		System.out.println(this.root);
-		for (Element el : this.root.getElements()) {
-			System.out.println(el.getStyleClass() + " " + el.getData()+" "+el.getId());
-		}
-	}
-
 	public void solutionRecalculer(final String idElement) {
+		// Recuperation de l'exercice
 		String form = "form_exer:diag-";
-		System.out.println("root " + this.root);
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		this.root = (DefaultDiagramModel) request.getSession().getAttribute(Constants.EXERCICE);
-		System.out.println(this.root);
-		for (Element el : this.root.getElements()) {
+		this.exercice = (Exercice) request.getSession().getAttribute(Constants.EXERCICE);
+		// System.out.println(this.exercice);
+		DefaultDiagramModel root = this.exercice.getRoot();
+
+		// Mise a jour des valeurs lors d'un clic dessus
+		for (Element el : root.getElements()) {
 			if ((form + el.getId()).equals(idElement)) {
-				el.setData(1);
+				if(!Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass()) && !Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
+					el.setData(this.exercice.switchData(el));
+					//					System.out.println(el.getStyleClass() + " " + el.getData()+" "+el.getId());
+				}
 			}
-			System.out.println(el.getStyleClass() + " " + el.getData()+" "+el.getId());
-
 		}
+		// Recalcule des solutions
+		for (Element el : root.getElements()) {
+			if(Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass())){
+				Boolean sortieSolution = this.exercice.calculSortieSolution(root);
+				if(sortieSolution){
+					el.setData("1");
+				} else {
+					el.setData("0");
+				}
+				//				System.out.println(el.getStyleClass() + " " + el.getData()+" "+el.getId());
+			} else if(Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
+				Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
+				if(sortieUtilisateur){
+					el.setData("1");
+				} else {
+					el.setData("0");
+				}
+				//				System.out.println(el.getStyleClass() + " " + el.getData()+" "+el.getId());
+			}
+		}
+
+		// Modification de l'exercice
+		this.exercice.setRoot(root);
+		request.getSession().removeAttribute(Constants.EXERCICE);
+		request.getSession().setAttribute(Constants.EXERCICE, this.exercice);
 	}
 
-	public DefaultDiagramModel getRoot() {
-		return this.root;
-	}
-
-	public void setRoot(final DefaultDiagramModel root) {
-		this.root = root;
+	public void reset(){
+		this.exercice = null;
+		this.disabled = false;
+		this.niveau = 0;
+		this.selectedNotions = new String[this.notions.size()];
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		request.getSession().removeAttribute(Constants.EXERCICE);
 	}
 
 	public List<NotionDto> getNotions() {
@@ -216,20 +228,20 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		this.disabled = disabled;
 	}
 
-	public String getNotionSwitch() {
-		return this.notionSwitch;
+	public Exercice getExercice() {
+		return this.exercice;
 	}
 
-	public void setNotionSwitch(final String notionSwitch) {
-		this.notionSwitch = notionSwitch;
+	public void setExercice(final Exercice exercice) {
+		this.exercice = exercice;
 	}
 
-	public List<String> getNotionsExercice() {
-		return this.notionsExercice;
+	public boolean isUtilConn() {
+		return this.utilConn;
 	}
 
-	public void setNotionsExercice(final List<String> notionsExercice) {
-		this.notionsExercice = notionsExercice;
+	public void setUtilConn(final boolean utilConn) {
+		this.utilConn = utilConn;
 	}
 
 }

@@ -16,7 +16,7 @@
  		<p:panel header="#{fr['general.exercice.title']}">
        		<h:form id="form_exer">
                 <h:outputScript library="js" name="diagram.js" />
-                <input type="hidden" id="notionSwitch" value="#{exerciceMBean.notionSwitch}"/>
+<!--                 <input type="hidden" id="notionSwitch" value="#{exerciceMBean.notionSwitch}"/> -->
                  <pe:remoteCommand id="solutionRecalculer" name="solutionRecalculer" process="@this" update=":form_exer:panelDiag" 
                     actionListener="#{exerciceMBean.solutionRecalculer}" >  
 <!--                     <pe:methodSignature parameters="org.primefaces.model.diagram.DefaultDiagramModel" />   -->
@@ -26,6 +26,7 @@
                     <pe:methodSignature parameters="java.lang.String" />  
                      <pe:methodParam name="idElement"/>  
                 </pe:remoteCommand>  
+                
        			<p:fieldset legend="#{fr['exercice.param']}">
                     <h:panelGrid columns="2">
                			<p:outputLabel for="notions" value="#{fr['exercice.notions']}"/>
@@ -45,10 +46,12 @@
        			      </h:panelGrid>
                       
                       <p:commandButton value="#{fr['exercice.demarrer']}" action="#{exerciceMBean.generer}" update="@form" rendered="#{!exerciceMBean.disabled}"/>
-       			</p:fieldset>
+       			      <p:commandButton value="#{fr['exercice.reset']}" action="#{exerciceMBean.reset}" update="@form" rendered="#{exerciceMBean.disabled}"/>
+                
+                </p:fieldset>
        			<p:panel id="panelDiag" header="#{fr['exercice.title']}" rendered="#{exerciceMBean.disabled}">
                 <!-- rendered="#{exerciceMBean.disabled}" -->
-           			<p:diagram id="diag" value="#{exerciceMBean.root}" style="height:400px" styleClass="ui-widget-content" >
+           			<p:diagram id="diag" value="#{exerciceMBean.exercice.root}" style="height:400px" styleClass="ui-widget-content" >
                     </p:diagram>
            			<style type="text/css">
         				.ui-diagram-element {   
