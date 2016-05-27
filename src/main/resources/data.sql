@@ -7,8 +7,8 @@ DELETE FROM CompetenceNotion;
 INSERT INTO Apprenant (prenom, nom, mot_de_passe, role) VALUES ('Colas','PICARD', 'mdp', 'Apprenant');
 INSERT INTO Apprenant (prenom, nom, mot_de_passe, role) VALUES ('admin','admin', 'admin', 'Admin');
 
-INSERT INTO Notion (nom_notion) VALUES ('OU / OR');
-INSERT INTO Notion (nom_notion) VALUES ('ET / AND');
+INSERT INTO Notion (nom_notion) VALUES ('OR');
+INSERT INTO Notion (nom_notion) VALUES ('AND');
 INSERT INTO Notion (nom_notion) VALUES ('NOT');
 INSERT INTO Notion (nom_notion) VALUES ('XOR');
 

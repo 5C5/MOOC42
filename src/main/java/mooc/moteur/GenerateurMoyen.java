@@ -63,7 +63,18 @@ public class GenerateurMoyen extends Generateur {
 			this.creerModele3(porteAlea1, porteAlea2, drag);
 		}
 
-
+	}
+	
+	public void genererModele1(final String porteAlea1, final String porteAlea2, final boolean drag) {
+		this.creerModele1(porteAlea1, porteAlea2, drag);
+	}
+	
+	public void genererModele2(final String porteAlea1, final String porteAlea2, final boolean drag) {
+		this.creerModele2(porteAlea1, porteAlea2, drag);
+	}
+	
+	public void genererModele3(final String porteAlea1, final String porteAlea2, final boolean drag) {
+		this.creerModele3(porteAlea1, porteAlea2, drag);
 	}
 
 	/**

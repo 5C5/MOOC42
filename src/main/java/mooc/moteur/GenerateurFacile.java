@@ -36,6 +36,14 @@ public class GenerateurFacile extends Generateur {
 
 	}
 
+	public void genererModele1(final String porteAlea, final boolean drag) {
+		this.creerModele1(porteAlea, drag);
+	}
+
+	public void genererModele2(final String porteAlea, final boolean drag) {
+		this.creerModele2(porteAlea, drag);
+	}
+
 	/**
 	 * Création du modele 1, contenant deux entrees et une porte binaire
 	 *
