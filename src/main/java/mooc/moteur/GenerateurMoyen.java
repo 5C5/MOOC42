@@ -47,34 +47,30 @@ public class GenerateurMoyen extends Generateur {
 		} else if (Constants.NOT.equalsIgnoreCase(porteAlea2)|| Constants.EMPTY.equalsIgnoreCase(porteAlea2)) {
 			binaire2 = false;
 		}
-		// System.out.println(Math.random() * portes.size());
-		// System.out.println("alea 1 " + alea + ", alea 2 " + alea2);
-		// System.out.println("porte 1 " + porteAlea1 + ", porte 2 " +
-		// porteAlea2);
 
 		if(binaire1 && binaire2){
 			// Creation du modele 1 : contient trois entrees et deux portes binaires
-			this.creerModele1(porteAlea1, porteAlea2, drag);
+			this.creerModele1(porteAlea1, porteAlea2, drag, true);
 		} else if(!binaire1 && binaire2){
 			// Creation du modele 2 : contient deux entrees et deux portes (la premiere unaire et la seconde binaire)
-			this.creerModele2(porteAlea1, porteAlea2, drag);
+			this.creerModele2(porteAlea1, porteAlea2, drag, true);
 		} else if(binaire1 && !binaire2){
 			// Creation du modele 3 : contient deux entrees et deux portes (la premiere binaire et la seconde unaire)
-			this.creerModele3(porteAlea1, porteAlea2, drag);
+			this.creerModele3(porteAlea1, porteAlea2, drag, true);
 		}
 
 	}
-	
-	public void genererModele1(final String porteAlea1, final String porteAlea2, final boolean drag) {
-		this.creerModele1(porteAlea1, porteAlea2, drag);
+
+	public void genererModele1(final String porteAlea1, final String porteAlea2, final boolean drag, final boolean solution) {
+		this.creerModele1(porteAlea1, porteAlea2, drag, solution);
 	}
-	
-	public void genererModele2(final String porteAlea1, final String porteAlea2, final boolean drag) {
-		this.creerModele2(porteAlea1, porteAlea2, drag);
+
+	public void genererModele2(final String porteAlea1, final String porteAlea2, final boolean drag, final boolean solution) {
+		this.creerModele2(porteAlea1, porteAlea2, drag, solution);
 	}
-	
-	public void genererModele3(final String porteAlea1, final String porteAlea2, final boolean drag) {
-		this.creerModele3(porteAlea1, porteAlea2, drag);
+
+	public void genererModele3(final String porteAlea1, final String porteAlea2, final boolean drag, final boolean solution) {
+		this.creerModele3(porteAlea1, porteAlea2, drag, solution);
 	}
 
 	/**
@@ -84,7 +80,7 @@ public class GenerateurMoyen extends Generateur {
 	 * @param porteAlea2
 	 * @param drag
 	 */
-	private void creerModele1(final String porteAlea1, final String porteAlea2, final boolean drag) {
+	private void creerModele1(final String porteAlea1, final String porteAlea2, final boolean drag, final boolean solution) {
 		// Modele 1 contient trois entrees et deux portes binaires
 		Porte porte1 = null;
 		Porte porte2 = null;
@@ -156,7 +152,7 @@ public class GenerateurMoyen extends Generateur {
 		sortieUtilisateur = new Valeur("0", false, false);
 		sortieUtilisateur.setData("0");
 		sortieUtilisateur.setX("80em");
-		sortieUtilisateur.setY("10em");
+		sortieUtilisateur.setY("20em");
 		sortieUtilisateur.setDraggable(drag);
 		sortieUtilisateur.setStyleClass(Constants.SORTIE_UTILISATEUR);
 		this.getExercice().addElement(sortieUtilisateur);
@@ -165,13 +161,15 @@ public class GenerateurMoyen extends Generateur {
 		 * Creation de la sortie "Solution", qui affiche ce que le vrai circuit
 		 * ferait
 		 */
-		sortieSolution = new Valeur("0", false, true);
-		sortieSolution.setData("0");
-		sortieSolution.setX("100em");
-		sortieSolution.setY("10em");
-		sortieSolution.setDraggable(drag);
-		sortieSolution.setStyleClass(Constants.SORTIE_SOLUTION);
-		this.getExercice().addElement(sortieSolution);
+		if(solution){
+			sortieSolution = new Valeur("0", false, true);
+			sortieSolution.setData("0");
+			sortieSolution.setX("100em");
+			sortieSolution.setY("20em");
+			sortieSolution.setDraggable(drag);
+			sortieSolution.setStyleClass(Constants.SORTIE_SOLUTION);
+			this.getExercice().addElement(sortieSolution);
+		}
 
 		/* Creation de la connexion entre la porte 2 et la sortie utilisateur */
 		this.connectPorteToSortie(porte2, sortieUtilisateur);
@@ -180,8 +178,10 @@ public class GenerateurMoyen extends Generateur {
 		 * Creation de la connexion entre la porte et la sortie solution, qui
 		 * n'est pas ajoutee au modele
 		 */
-		porte2.addSortie(sortieSolution, true);
-		sortieSolution.addEntree(porte2);
+		if(solution){
+			porte2.addSortie(sortieSolution, true);
+			sortieSolution.addEntree(porte2);
+		}
 
 	}
 
@@ -192,7 +192,7 @@ public class GenerateurMoyen extends Generateur {
 	 * @param porteAlea2
 	 * @param drag
 	 */
-	private void creerModele2(final String porteAlea1, final String porteAlea2, final boolean drag) {
+	private void creerModele2(final String porteAlea1, final String porteAlea2, final boolean drag, final boolean solution) {
 		Porte porte1 = null;
 		Porte porte2 = null;
 		Valeur entree1 = null;
@@ -207,7 +207,7 @@ public class GenerateurMoyen extends Generateur {
 			porte1.setData("");
 		}
 		porte1.setX("40em");
-		porte1.setY("10em");
+		porte1.setY("5em");
 		porte1.setDraggable(drag);
 		porte1.setStyleClass(Constants.PORTE_NOT);
 		this.getExercice().addElement(porte1);
@@ -216,7 +216,7 @@ public class GenerateurMoyen extends Generateur {
 		porte2 = new Porte("", porteAlea2);
 		porte2.setData(porteAlea2);
 		porte2.setX("60em");
-		porte2.setY("20em");
+		porte2.setY("15em");
 		porte2.setDraggable(drag);
 		porte2.setStyleClass(Constants.PORTE);
 		this.getExercice().addElement(porte2);
@@ -234,7 +234,7 @@ public class GenerateurMoyen extends Generateur {
 		entree2 = new Valeur("0", true, false);
 		entree2.setData("0");
 		entree2.setX("20em");
-		entree2.setY("15em");
+		entree2.setY("25em");
 		entree2.setDraggable(drag);
 		entree2.setStyleClass(Constants.ENTREE);
 		this.getExercice().addElement(entree2);
@@ -254,7 +254,7 @@ public class GenerateurMoyen extends Generateur {
 		sortieUtilisateur = new Valeur("0", false, false);
 		sortieUtilisateur.setData("0");
 		sortieUtilisateur.setX("80em");
-		sortieUtilisateur.setY("10em");
+		sortieUtilisateur.setY("15em");
 		sortieUtilisateur.setDraggable(drag);
 		sortieUtilisateur.setStyleClass(Constants.SORTIE_UTILISATEUR);
 		this.getExercice().addElement(sortieUtilisateur);
@@ -263,13 +263,15 @@ public class GenerateurMoyen extends Generateur {
 		 * Creation de la sortie "Solution", qui affiche ce que le vrai circuit
 		 * ferait
 		 */
-		sortieSolution = new Valeur("0", false, true);
-		sortieSolution.setData("0");
-		sortieSolution.setX("100em");
-		sortieSolution.setY("10em");
-		sortieSolution.setDraggable(drag);
-		sortieSolution.setStyleClass(Constants.SORTIE_SOLUTION);
-		this.getExercice().addElement(sortieSolution);
+		if(solution){
+			sortieSolution = new Valeur("0", false, true);
+			sortieSolution.setData("0");
+			sortieSolution.setX("100em");
+			sortieSolution.setY("15em");
+			sortieSolution.setDraggable(drag);
+			sortieSolution.setStyleClass(Constants.SORTIE_SOLUTION);
+			this.getExercice().addElement(sortieSolution);
+		}
 
 		/* Creation de la connexion entre la porte 2 et la sortie utilisateur */
 		this.connectPorteToSortie(porte2, sortieUtilisateur);
@@ -278,8 +280,10 @@ public class GenerateurMoyen extends Generateur {
 		 * Creation de la connexion entre la porte et la sortie solution, qui
 		 * n'est pas ajoutee au modele
 		 */
-		porte2.addSortie(sortieSolution, true);
-		sortieSolution.addEntree(porte2);
+		if(solution){
+			porte2.addSortie(sortieSolution, true);
+			sortieSolution.addEntree(porte2);
+		}
 
 	}
 
@@ -290,7 +294,7 @@ public class GenerateurMoyen extends Generateur {
 	 * @param porteAlea2
 	 * @param drag
 	 */
-	private void creerModele3(final String porteAlea1, final String porteAlea2, final boolean drag) {
+	private void creerModele3(final String porteAlea1, final String porteAlea2, final boolean drag, final boolean solution) {
 		Porte porte1 = null;
 		Porte porte2 = null;
 		Valeur entree1 = null;
@@ -302,7 +306,7 @@ public class GenerateurMoyen extends Generateur {
 		porte1 = new Porte("", porteAlea1);
 		porte1.setData(porteAlea1);
 		porte1.setX("40em");
-		porte1.setY("10em");
+		porte1.setY("15em");
 		porte1.setDraggable(drag);
 		porte1.setStyleClass(Constants.PORTE);
 		this.getExercice().addElement(porte1);
@@ -314,7 +318,7 @@ public class GenerateurMoyen extends Generateur {
 			porte2.setData("");
 		}
 		porte2.setX("60em");
-		porte2.setY("20em");
+		porte2.setY("15em");
 		porte2.setDraggable(drag);
 		porte2.setStyleClass(Constants.PORTE_NOT);
 		this.getExercice().addElement(porte2);
@@ -332,7 +336,7 @@ public class GenerateurMoyen extends Generateur {
 		entree2 = new Valeur("0", true, false);
 		entree2.setData("0");
 		entree2.setX("20em");
-		entree2.setY("15em");
+		entree2.setY("25em");
 		entree2.setDraggable(drag);
 		entree2.setStyleClass(Constants.ENTREE);
 		this.getExercice().addElement(entree2);
@@ -351,7 +355,7 @@ public class GenerateurMoyen extends Generateur {
 		sortieUtilisateur = new Valeur("0", false, false);
 		sortieUtilisateur.setData("0");
 		sortieUtilisateur.setX("80em");
-		sortieUtilisateur.setY("10em");
+		sortieUtilisateur.setY("15em");
 		sortieUtilisateur.setDraggable(drag);
 		sortieUtilisateur.setStyleClass(Constants.SORTIE_UTILISATEUR);
 		this.getExercice().addElement(sortieUtilisateur);
@@ -360,13 +364,15 @@ public class GenerateurMoyen extends Generateur {
 		 * Creation de la sortie "Solution", qui affiche ce que le vrai circuit
 		 * ferait
 		 */
-		sortieSolution = new Valeur("0", false, true);
-		sortieSolution.setData("0");
-		sortieSolution.setX("100em");
-		sortieSolution.setY("10em");
-		sortieSolution.setDraggable(drag);
-		sortieSolution.setStyleClass(Constants.SORTIE_SOLUTION);
-		this.getExercice().addElement(sortieSolution);
+		if(solution){
+			sortieSolution = new Valeur("0", false, true);
+			sortieSolution.setData("0");
+			sortieSolution.setX("100em");
+			sortieSolution.setY("15em");
+			sortieSolution.setDraggable(drag);
+			sortieSolution.setStyleClass(Constants.SORTIE_SOLUTION);
+			this.getExercice().addElement(sortieSolution);
+		}
 
 		/* Creation de la connexion entre la porte 2 et la sortie utilisateur */
 		this.connectPorteToSortie(porte2, sortieUtilisateur);
@@ -375,8 +381,10 @@ public class GenerateurMoyen extends Generateur {
 		 * Creation de la connexion entre la porte et la sortie solution, qui
 		 * n'est pas ajoutee au modele
 		 */
-		porte2.addSortie(sortieSolution, true);
-		sortieSolution.addEntree(porte2);
+		if(solution){
+			porte2.addSortie(sortieSolution, true);
+			sortieSolution.addEntree(porte2);
+		}
 
 	}
 
@@ -495,25 +503,104 @@ public class GenerateurMoyen extends Generateur {
 
 
 		// Reconnaissance du modele
+		//		if(binaire1 && binaire2){
+		//			modele = 1;
+		//		} else if(!binaire1 && binaire2){
+		//			modele = 2;
+		//		} else if(binaire1 && !binaire2){
+		//			modele = 3;
+		//		}
+		//
+		//		if(modele == 1){
+		//			Boolean entreeInter = this.calculPorte(entree1, entree2, porte1);
+		//			return this.calculPorte(entreeInter, entree3, porte2);
+		//		} else if(modele == 2){
+		//			Boolean entreeInter = this.calculPorte(entree1, null, porte1);
+		//			return this.calculPorte(entreeInter, entree2, porte2);
+		//		} else if(modele == 3){
+		//			Boolean entreeInter = this.calculPorte(entree1, entree2, porte1);
+		//			return this.calculPorte(entreeInter, null, porte2);
+		//		}
+
+		return this.calculPorte(entree1, entree2, entree3, porte1, porte2);
+	}
+
+	@Override
+	public int valider(final DefaultDiagramModel root) {
+		int combi = 0;
+		String porte1 = null;
+		String porte2 = null;
+		String porteReel1 = null;
+		String porteReel2 = null;
+		Boolean binaire1 = null;
+		Boolean binaire2 = null;
+
+		for (Element el : root.getElements()) {
+			String style = el.getStyleClass();
+			String data = (String) el.getData();
+			if (Constants.PORTE.equalsIgnoreCase(style)) {
+				if(porte1 == null){
+					porte1 = data;
+					porteReel1 = ((Porte) el).getRealValue();
+					binaire1 = true;
+				} else {
+					porte2 = data;
+					porteReel2 = ((Porte) el).getRealValue();
+					binaire2 = true;
+				}
+			} else if (Constants.PORTE_NOT.equalsIgnoreCase(style)) {
+				if(porte1 == null){
+					porte1 = data;
+					porteReel1 = ((Porte) el).getRealValue();
+					binaire1 = false;
+				} else {
+					porte2 = data;
+					porteReel2 = ((Porte) el).getRealValue();
+					binaire2 = false;
+				}
+			}
+		}
+
+		System.out.println("Solution : " + porteReel1 + " " + porteReel2);
+
 		if(binaire1 && binaire2){
-			modele = 1;
+			/* Modele 1 */
+			for (int i = 0; i <= 1; i++) {
+				boolean entree1 = i == 0 ? true : false;
+				for (int j = 0; j <= 1; j++) {
+					boolean entree2 = j == 0 ? true : false;
+					for(int k = 0 ; k<=1; k++){
+						boolean entree3 = k == 0 ? true : false;
+						if (!this.calculDiffPorte(entree1, entree2, entree3, porte1, porte2, porteReel1, porteReel2)) {
+							combi++;
+						}
+					}
+				}
+			}
 		} else if(!binaire1 && binaire2){
-			modele = 2;
+			/* Modele 2 */
+			for (int i = 0; i <= 1; i++) {
+				boolean entree1 = i == 0 ? true : false;
+				for (int j = 0; j <= 1; j++) {
+					boolean entree3 = j == 0 ? true : false;
+					if (!this.calculDiffPorte(entree1, null, entree3, porte1, porte2, porteReel1, porteReel2)) {
+						combi++;
+					}
+				}
+			}
 		} else if(binaire1 && !binaire2){
-			modele = 3;
+			/* Modele 3 */
+			for (int i = 0; i <= 1; i++) {
+				boolean entree1 = i == 0 ? true : false;
+				for (int j = 0; j <= 1; j++) {
+					boolean entree2 = j == 0 ? true : false;
+					if (!this.calculDiffPorte(entree1, entree2, null, porte1, porte2, porteReel1, porteReel2)) {
+						combi++;
+					}
+				}
+			}
 		}
 
-		if(modele == 1){
-			Boolean entreeInter = this.calculPorte(entree1, entree2, porte1);
-			return this.calculPorte(entreeInter, entree3, porte2);
-		} else if(modele == 2){
-			Boolean entreeInter = this.calculPorte(entree1, null, porte1);
-			return this.calculPorte(entreeInter, entree2, porte2);
-		} else if(modele == 3){
-			Boolean entreeInter = this.calculPorte(entree1, entree2, porte1);
-			return this.calculPorte(entreeInter, null, porte2);
-		}
-
-		return null;
+		return combi;
 	}
 }

@@ -51,7 +51,7 @@
                 </p:fieldset>
        			<p:panel id="panelDiag" header="#{fr['exercice.title']}" rendered="#{exerciceMBean.disabled}">
                 <!-- rendered="#{exerciceMBean.disabled}" -->
-           			<p:diagram id="diag" value="#{exerciceMBean.exercice.root}" style="height:400px" styleClass="ui-widget-content" >
+           			<p:diagram id="diag" value="#{exerciceMBean.exercice.root}" style="height:35em" styleClass="ui-widget-content" >
                     </p:diagram>
            			<style type="text/css">
         				.ui-diagram-element {   
@@ -71,6 +71,8 @@
         				}
     				</style>
                     
+                    <p:commandButton value="#{fr['exercice.valider']}" action="#{exerciceMBean.valider}" update="@form" />
+                      
        			</p:panel>
 	        </h:form> 
 	     </p:panel>  

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import mooc.dto.NotionDto;
 import mooc.login.AbstractMBean;
 import mooc.moteur.Exercice;
+import mooc.service.CompetenceService;
 import mooc.service.NotionService;
 import mooc.utils.Constants;
 import mooc.utils.Messages;
@@ -33,6 +34,10 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 	/** Service Notion */
 	@ManagedProperty(value = "#{notionService}")
 	private NotionService notionService;
+
+	/** Service Apprenant */
+	@ManagedProperty(value = "#{competenceService}")
+	private CompetenceService competenceService;
 
 	/** Elements/parametres a  recuperer */
 	/** Liste des notions selectionnes pour l'exercice */
@@ -148,7 +153,6 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 			if ((form + el.getId()).equals(idElement)) {
 				if(!Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass()) && !Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
 					el.setData(this.exercice.switchData(el));
-					//					System.out.println(el.getStyleClass() + " " + el.getData()+" "+el.getId());
 				}
 			}
 		}
@@ -161,7 +165,6 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 				} else {
 					el.setData("0");
 				}
-				//				System.out.println(el.getStyleClass() + " " + el.getData()+" "+el.getId());
 			} else if(Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
 				Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
 				if(sortieUtilisateur){
@@ -169,7 +172,6 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 				} else {
 					el.setData("0");
 				}
-				//				System.out.println(el.getStyleClass() + " " + el.getData()+" "+el.getId());
 			}
 		}
 
@@ -177,6 +179,25 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		this.exercice.setRoot(root);
 		request.getSession().removeAttribute(Constants.EXERCICE);
 		request.getSession().setAttribute(Constants.EXERCICE, this.exercice);
+	}
+
+	public void valider() {
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		Integer id = (Integer) request.getSession().getAttribute(Constants.UTILISATEUR_CONNECTE);
+		this.exercice = (Exercice) request.getSession().getAttribute(Constants.EXERCICE);
+		// Verification si la solution utilisateur est correcte
+		int verif = this.exercice.valider(this.exercice.getRoot());
+
+		if(verif == 0){
+			if (id != null) {
+				// Enregistrement de l'exercice pour l'apprenant
+				this.competenceService.ajouterExercice(id, this.exercice.getNotions(), this.exercice.getDifficulte(), 0);
+			}
+			this.reset();
+			this.addFacesMessage(FacesMessage.SEVERITY_INFO, Messages.message("exercice.reussi"));
+		} else {
+			this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("exercice.erreur.validation", new Object[] { verif }));
+		}
 	}
 
 	public void reset(){
@@ -242,6 +263,14 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 
 	public void setUtilConn(final boolean utilConn) {
 		this.utilConn = utilConn;
+	}
+
+	public CompetenceService getCompetenceService() {
+		return this.competenceService;
+	}
+
+	public void setCompetenceService(final CompetenceService competenceService) {
+		this.competenceService = competenceService;
 	}
 
 }
