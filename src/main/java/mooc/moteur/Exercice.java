@@ -133,7 +133,6 @@ public class Exercice {
 		for (NotionDto notion : this.notions) {
 			s += notion.getNom() + " ";
 		}
-		s += "\n";
 		return s;
 	}
 
@@ -184,5 +183,9 @@ public class Exercice {
 
 	public Boolean calculSortieUtilisateur(final DefaultDiagramModel root) {
 		return this.generateur.calculSortieUtilisateur(root);
+	}
+
+	public int valider(final DefaultDiagramModel root) {
+		return this.generateur.valider(root);
 	}
 }

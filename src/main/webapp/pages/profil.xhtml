@@ -60,7 +60,9 @@
                 <p:panel header="#{fr['profil.evolution.competence']}">
                 <p:dataTable var="ligne" value="#{profilMBean.profil.evolution}">                 
                     <p:column headerText="#{fr['profil.evolution.date']}" sortBy="#{ligne.date}"  style="width:150px;">
-                        <p:calendar value="#{ligne.date}" pattern="MM/dd/yyyy HH:mm:ss" disabled="true"/>
+                        <h:outputText value="#{ligne.date}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="Europe/Paris"/>
+                        </h:outputText>
                     </p:column>
                     <p:column headerText="#{fr['profil.evolution.niveau']}" sortBy="#{ligne.niveau}" style="width:80px;">
                         <p:rating value="#{ligne.niveau}" readonly="true" stars="3"/>
@@ -128,7 +130,9 @@
                             <p:panel header="#{fr['profil.evolution.competence']}">
                             <p:dataTable var="ligne" value="#{profil.evolution}">                 
                                 <p:column headerText="#{fr['profil.evolution.date']}" sortBy="#{ligne.date}"  style="width:150px;">
-                                    <p:calendar value="#{ligne.date}" pattern="MM/dd/yyyy HH:mm:ss" disabled="true"/>
+                                <h:outputText value="#{ligne.date}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="Europe/Paris"/>
+                                </h:outputText>
                                 </p:column>
                                 <p:column headerText="#{fr['profil.evolution.niveau']}" sortBy="#{ligne.niveau}" style="width:80px;">
                                     <p:rating value="#{ligne.niveau}" readonly="true" stars="3"/>

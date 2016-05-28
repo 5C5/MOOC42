@@ -18,7 +18,7 @@ public class GenerateurMoyenTest {
 		Exercice exercice = new Exercice();
 		exercice.setNotions(new ArrayList<NotionDto>());
 		GenerateurMoyen generateur = new GenerateurMoyen();
-		generateur.genererModele1(Constants.AND, Constants.OR, false);
+		generateur.genererModele1(Constants.AND, Constants.OR, false, true);
 
 		String idEntree1 = null;
 		String idEntree2 = null;
@@ -51,11 +51,11 @@ public class GenerateurMoyenTest {
 				el.setData(exercice.switchData(el));
 			}
 		}
-		
+
 		for (Element el : generateur.getExercice().getElements()) {
 			System.out.println(el.getId()+" "+el.getData()+" "+el.getStyleClass());
 		}
-		
+
 		System.out.println("Sortie utilisateur : "+generateur.calculSortieUtilisateur(generateur.getExercice()));
 
 		System.out.println("Sortie solution : "+generateur.calculSortieSolution(generateur.getExercice()));

@@ -100,6 +100,10 @@ public abstract class Generateur {
 		return null;
 	}
 
+	public int valider(final DefaultDiagramModel root) {
+		return 0;
+	}
+
 	public boolean convertToBoolean(final String entree) {
 		if ("1".equalsIgnoreCase(entree)) {
 			return true;
@@ -107,7 +111,7 @@ public abstract class Generateur {
 			return false;
 		}
 	}
-	
+
 	public boolean calculPorte(final Boolean entree1, final Boolean entree2, final String porte){
 		if (entree1 != null && entree2 != null) {
 			// Operation binaire
@@ -124,6 +128,30 @@ public abstract class Generateur {
 			} else {
 				return entree1;
 			}
+		}
+		return false;
+	}
+	
+	public boolean calculPorte(final Boolean entree1, final Boolean entree2, final Boolean entree3, final String porte1, final String porte2){
+		Boolean entreeInter = this.calculPorte(entree1, entree2, porte1);
+		return this.calculPorte(entreeInter, entree3, porte2);
+	}
+
+	public boolean calculDiffPorte(final Boolean entree1, final Boolean entree2, final String porte, final String porteReel){
+		boolean sortieUtilisateur = this.calculPorte(entree1, entree2, porte);
+		boolean sortieSolution = this.calculPorte(entree1, entree2, porteReel);
+		if(sortieSolution == sortieUtilisateur){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean calculDiffPorte(final Boolean entree1, final Boolean entree2, final Boolean entree3, 
+			final String porte1, final String porte2, final String porteReel1, final String porteReel2){
+		boolean sortieUtilisateur = this.calculPorte(entree1, entree2, entree3, porte1, porte2);
+		boolean sortieSolution = this.calculPorte(entree1, entree2, entree3, porteReel1, porteReel2);
+		if(sortieSolution == sortieUtilisateur){
+			return true;
 		}
 		return false;
 	}
