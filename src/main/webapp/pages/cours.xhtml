@@ -55,25 +55,29 @@
 							L’algèbre de Boole propose 3 opérations binaires : 
 								<!-- Conjonction -->
 								<p:fieldset legend="Conjonction (ET)" style="margin : 50 50 50 50 !important" toggleable="true" collapsed="true">
+								<h:panelGrid columns="2">
+								<p:graphicImage name="img/opération_ET.png" title="Voici la table de vérité de l’opération ET :"/> 
+								
 								La conjonction est une opération qui prend deux opérandes, 
 								c’est à dire deux valeurs, en entrée. Elle renvoie 1 seulement si les deux opérandes sont égales à 1. 
 								Dans les autres cas, elle renvoie le résultat 0.
+								</h:panelGrid>
 								</p:fieldset>
 								
 								<!-- Disjonction -->
 								<p:fieldset legend="Disjonction (OU)" style="margin : 50 50 50 50 !important" toggleable="true" collapsed="true">
+								<h:panelGrid columns="2">
 									La disjonction est une opération qui prend deux opérandes en entrée.
 									Elle renvoie 1 quand l’une des deux opérandes est égale à 1.
-								</p:column>
-								<p:column>
-									<p:graphicImage name="img/opération_OU.png" title="Voici la table de vérité de l’opération OU :"/> 
-								</p:column>
+									
+                            		<p:graphicImage name="img/opération_OU.png" title="Voici la table de vérité de l’opération OU :"/>
+								
 								</h:panelGrid>
 								</p:fieldset>
 								
 								<!-- Negation -->
 								<p:fieldset legend="Négation (NON)" style="margin : 50 50 50 50 !important" toggleable="true" collapsed="true">
-								<h:panelGrid columns="2" cellspacing="2cm" cellpadding="2cm">
+								<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
 								
 								<p:column>
 									<p:graphicImage name="img/opération_NON.png" title="Voici la table de vérité de l’opération NON :"/> 
@@ -110,7 +114,6 @@
                      <p:tab title="#{fr['cours.et.title']}" >
                         <h:panelGrid columns="2" style="width:100%">
                         		<p:graphicImage name="img/opération_ET.png" title="Voici la table de vérité de l’opération ET :"/> 
-								</p:column>
                             <p:outputPanel>La porte AND (ou ET) correspond à l’opération ET de l’algèbre de Boole que nous avons vu dans l’introduction de ce cours.
                              Comme pour les opérations booléennes, il est possible de présenter les résultats renvoyés par une porte logique dans une table de vérité.
                             </p:outputPanel>
@@ -118,7 +121,9 @@
                      </p:tab>
                     <p:tab title="#{fr['cours.ou.title']}" >
                         <h:panelGrid columns="2" style="width:100%">
-                            <p:graphicImage name="img/table_ou.png" />
+<!--                             <p:graphicImage name="img/table_ou.png" /> -->
+							La porte OR (OU, ou OU inclusif) correspond à l'opérateur logique OU de l'algèbre de Boole.
+							<p:graphicImage name="img/opération_OU.png" title="Voici la table de vérité de l’opération OU :"/>
                             <p:outputPanel>#{fr['cours.ou.texte']}</p:outputPanel>
                         </h:panelGrid>
                      </p:tab>

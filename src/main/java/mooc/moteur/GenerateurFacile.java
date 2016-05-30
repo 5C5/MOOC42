@@ -2,10 +2,10 @@ package mooc.moteur;
 
 import java.util.List;
 
-import mooc.utils.Constants;
-
 import org.primefaces.model.diagram.DefaultDiagramModel;
 import org.primefaces.model.diagram.Element;
+
+import mooc.utils.Constants;
 
 public class GenerateurFacile extends Generateur {
 
@@ -45,7 +45,7 @@ public class GenerateurFacile extends Generateur {
 	}
 
 	/**
-	 * Création du modele 1, contenant deux entrees et une porte binaire
+	 * Crï¿½ation du modele 1, contenant deux entrees et une porte binaire
 	 *
 	 * @param porteAlea Porte unaire
 	 * @param drag Draggable
@@ -123,10 +123,12 @@ public class GenerateurFacile extends Generateur {
 	}
 
 	/**
-	 * Création du modele 2, contenant une entree et une porte uniaire
+	 * Crï¿½ation du modele 2, contenant une entree et une porte unaire
 	 *
-	 * @param porteAlea Porte unaire
-	 * @param drag Draggable
+	 * @param porteAlea
+	 *            Porte unaire
+	 * @param drag
+	 *            Draggable
 	 */
 	private void creerModele2(final String porteAlea, final boolean drag, final boolean solution) {
 		// Modele 2 contient une porte unaire
