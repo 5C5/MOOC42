@@ -39,7 +39,7 @@
 							vous pouvez consulter l’article <a href="https://fr.wikipedia.org/wiki/Syst%C3%A8me_binaire">Wikipédia</a> à ce sujet. 
 							</p:fieldset>
 							
-							<p:fieldset legend="L’algèbre de Boole, c’est quoi ?" style="font-size: 16px;">
+							<p:fieldset legend="L’algèbre de Boole, c’est quoi ?" style="font-size: 16px; margin : auto !important; padding:20 !important">
 			
 							L’algèbre de Boole est une branche des mathématiques qui permet, 
 							à l’image de l’algèbre classique qui propose de réaliser des opérations mathématiques sur des nombres, 
@@ -53,26 +53,67 @@
 							qui comporte toutes les combinaisons possibles d’entrées et les résultats associés.
 							 
 							L’algèbre de Boole propose 3 opérations binaires : 
-								<p:fieldset legend="Conjonction (ET)">
+								<!-- Conjonction -->
+								<p:fieldset legend="Conjonction (ET)" style="margin : 50 50 50 50 !important" toggleable="true" collapsed="true">
 								La conjonction est une opération qui prend deux opérandes, 
 								c’est à dire deux valeurs, en entrée. Elle renvoie 1 seulement si les deux opérandes sont égales à 1. 
 								Dans les autres cas, elle renvoie le résultat 0.
 								</p:fieldset>
-								<p:fieldset legend="Disjonction (OU)">
-								<h:panelGrid columns="2">
-								<p:column>
-									La disjonction est une opération qui prend deux opérandes en entrée.<br/> 
+								
+								<!-- Disjonction -->
+								<p:fieldset legend="Disjonction (OU)" style="margin : 50 50 50 50 !important" toggleable="true" collapsed="true">
+									La disjonction est une opération qui prend deux opérandes en entrée.
 									Elle renvoie 1 quand l’une des deux opérandes est égale à 1.
 								</p:column>
 								<p:column>
-									Voici la table de vérité de l’opération OU :
-									<p:graphicImage name="img/opération_OU.png"/> 
+									<p:graphicImage name="img/opération_OU.png" title="Voici la table de vérité de l’opération OU :"/> 
 								</p:column>
 								</h:panelGrid>
 								</p:fieldset>
+								
+								<!-- Negation -->
+								<p:fieldset legend="Négation (NON)" style="margin : 50 50 50 50 !important" toggleable="true" collapsed="true">
+								<h:panelGrid columns="2" cellspacing="2cm" cellpadding="2cm">
+								
+								<p:column>
+									<p:graphicImage name="img/opération_NON.png" title="Voici la table de vérité de l’opération NON :"/> 
+								</p:column>
+								<p:column>
+									La négation est une opération qui ne prend qu’une seule opérande. 
+									Elle a pour but de renvoyer l’inverse de la valeur d’entrée, 
+									c’est à dire qu’elle renverra 0 si l’entrée est 1 et 1 si l’entrée est 0.
+								</p:column>
+								</h:panelGrid>
+								</p:fieldset>
+								
+								Si vous voulez plus d’informations sur l’algèbre de Boole, 
+								vous pouvez consulter l’article <a href="https://fr.wikipedia.org/wiki/Alg%C3%A8bre_de_Boole_(logique)">Wikipédia</a> à ce sujet.
+								<br/>
+								<br/>
+								Les portes logiques sont des réalisations physiques de ces opérateurs booléens, 
+								elles vont, en fonction des tensions électriques présentes aux entrées et de l’opération que l’on cherche à réaliser, 
+								faire passer ou non le courant pour signifier le résultat du calcul.
+								<br/>
+								<br/>
+								Elles vont permettre aux circuits électroniques de réaliser les calculs nécessaires à l’accomplissement de leurs tâches.
+								Il existe différentes portes logiques correspondant aux différentes opérations de l’algèbre de Boole.
+								<br/>
+								<br/>
+								Dans ce cours, nous allons présenter les différentes portes logiques existantes et vous apprendre à les manipuler.
+								
+								
 							</p:fieldset>
 			
 
+                        </h:panelGrid>
+                     </p:tab>
+                     <p:tab title="#{fr['cours.et.title']}" >
+                        <h:panelGrid columns="2" style="width:100%">
+                        		<p:graphicImage name="img/opération_ET.png" title="Voici la table de vérité de l’opération ET :"/> 
+								</p:column>
+                            <p:outputPanel>La porte AND (ou ET) correspond à l’opération ET de l’algèbre de Boole que nous avons vu dans l’introduction de ce cours.
+                             Comme pour les opérations booléennes, il est possible de présenter les résultats renvoyés par une porte logique dans une table de vérité.
+                            </p:outputPanel>
                         </h:panelGrid>
                      </p:tab>
                     <p:tab title="#{fr['cours.ou.title']}" >
