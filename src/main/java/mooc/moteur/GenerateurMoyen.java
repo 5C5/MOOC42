@@ -92,7 +92,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de la porte 1 */
 		porte1 = new Porte("", porteAlea1);
-		porte1.setData(porteAlea1);
+		porte1.setData("");
 		porte1.setX("40em");
 		porte1.setY("10em");
 		porte1.setDraggable(drag);
@@ -101,7 +101,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de la porte 2 */
 		porte2 = new Porte("", porteAlea2);
-		porte2.setData(porteAlea2);
+		porte2.setData("");
 		porte2.setX("60em");
 		porte2.setY("20em");
 		porte2.setDraggable(drag);
@@ -202,10 +202,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de la porte 1 */
 		porte1 = new Porte("", porteAlea1);
-		porte1.setData(porteAlea1);
-		if (Constants.EMPTY.equalsIgnoreCase(porteAlea1)) {
-			porte1.setData("");
-		}
+		porte1.setData("");
 		porte1.setX("40em");
 		porte1.setY("5em");
 		porte1.setDraggable(drag);
@@ -214,7 +211,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de la porte 2 */
 		porte2 = new Porte("", porteAlea2);
-		porte2.setData(porteAlea2);
+		porte2.setData("");
 		porte2.setX("60em");
 		porte2.setY("15em");
 		porte2.setDraggable(drag);
@@ -304,7 +301,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de la porte 1 */
 		porte1 = new Porte("", porteAlea1);
-		porte1.setData(porteAlea1);
+		porte1.setData("");
 		porte1.setX("40em");
 		porte1.setY("15em");
 		porte1.setDraggable(drag);
@@ -313,10 +310,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de la porte 2 */
 		porte2 = new Porte("", porteAlea2);
-		porte2.setData(porteAlea2);
-		if (Constants.EMPTY.equalsIgnoreCase(porteAlea2)) {
-			porte2.setData("");
-		}
+		porte2.setData("");
 		porte2.setX("60em");
 		porte2.setY("15em");
 		porte2.setDraggable(drag);

@@ -60,7 +60,7 @@ public class GenerateurFacile extends Generateur {
 
 		/* Creation de la porte */
 		porte = new Porte("", porteAlea);
-		porte.setData(porteAlea);
+		porte.setData("");
 		porte.setX("40em");
 		porte.setY("15em");
 		porte.setDraggable(drag);
@@ -138,9 +138,7 @@ public class GenerateurFacile extends Generateur {
 		/* Creation de la porte */
 		porte = new Porte("", porteAlea);
 		porte.setData(porteAlea);
-		if (Constants.EMPTY.equalsIgnoreCase(porteAlea)) {
-			porte.setData("");
-		}
+		porte.setData("");
 		porte.setX("40em");
 		porte.setY("15em");
 		porte.setDraggable(drag);
