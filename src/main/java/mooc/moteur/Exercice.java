@@ -58,6 +58,22 @@ public class Exercice {
 		this.root = this.generateur.getExercice();
 	}
 
+	/**
+	 * Lance le generateur pour le bac a sable
+	 *
+	 * @param nbEntree Nombre d'entree
+	 * @param nbPorteUnaire Nombre de porte unaire
+	 * @param nbPorteBinaire Nombre de porte binaire
+	 */
+	public void generer(final Integer nbEntree, final Integer nbPorteUnaire, final Integer nbPorteBinaire) {
+		this.generateur = new GenerateurBacSable();
+		this.generateur.setNbEntree(nbEntree);
+		this.generateur.setNbPorteUnaire(nbPorteUnaire);
+		this.generateur.setNbPorteBinaire(nbPorteBinaire);
+		this.generateur.generer(this.convertNotion(), true);
+		this.root = this.generateur.getExercice();
+	}
+
 	private ArrayList<String> convertNotion() {
 		ArrayList<String> notionsExercice = new ArrayList<String>();
 		for (NotionDto dto : this.notions) {
@@ -155,6 +171,9 @@ public class Exercice {
 		} else if (Constants.PORTE.equalsIgnoreCase(style)) {
 			// Si porte, switch entre les portes possibles
 			int i = 0;
+			if ("".equalsIgnoreCase(data)) {
+				return notionBinaire.get(0).getNom();
+			}
 			for (NotionDto notion : notionBinaire) {
 				if (notion.getNom().equalsIgnoreCase(data) && !Constants.NOT.equalsIgnoreCase(notion.getNom())) {
 					// On prend la notion suivante

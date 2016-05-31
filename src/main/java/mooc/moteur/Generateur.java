@@ -2,7 +2,6 @@ package mooc.moteur;
 
 import java.util.List;
 
-import lombok.Data;
 import mooc.utils.Constants;
 
 import org.primefaces.model.diagram.Connection;
@@ -16,7 +15,6 @@ import org.primefaces.model.diagram.connector.StraightConnector;
  * @author colas
  *
  */
-@Data
 public abstract class Generateur {
 
 	/**
@@ -24,6 +22,10 @@ public abstract class Generateur {
 	 */
 	private DefaultDiagramModel exercice;
 	private Connector connecteur;
+
+	protected Integer nbEntree;
+	protected Integer nbPorteUnaire;
+	protected Integer nbPorteBinaire;
 
 	public Generateur() {
 		this.exercice = new DefaultDiagramModel();
@@ -92,6 +94,38 @@ public abstract class Generateur {
 		this.getExercice().connect(new Connection(porte.getEndPoints().get(1), sortie.getEndPoints().get(0), this.connecteur));
 	}
 
+	public Connector getConnecteur() {
+		return this.connecteur;
+	}
+
+	public void setConnecteur(final Connector connecteur) {
+		this.connecteur = connecteur;
+	}
+
+	public Integer getNbEntree() {
+		return this.nbEntree;
+	}
+
+	public void setNbEntree(final Integer nbEntree) {
+		this.nbEntree = nbEntree;
+	}
+
+	public Integer getNbPorteUnaire() {
+		return this.nbPorteUnaire;
+	}
+
+	public void setNbPorteUnaire(final Integer nbPorteUnaire) {
+		this.nbPorteUnaire = nbPorteUnaire;
+	}
+
+	public Integer getNbPorteBinaire() {
+		return this.nbPorteBinaire;
+	}
+
+	public void setNbPorteBinaire(final Integer nbPorteBinaire) {
+		this.nbPorteBinaire = nbPorteBinaire;
+	}
+
 	public Boolean calculSortieSolution(final DefaultDiagramModel root) {
 		return null;
 	}
@@ -131,7 +165,7 @@ public abstract class Generateur {
 		}
 		return false;
 	}
-	
+
 	public boolean calculPorte(final Boolean entree1, final Boolean entree2, final Boolean entree3, final String porte1, final String porte2){
 		Boolean entreeInter = this.calculPorte(entree1, entree2, porte1);
 		return this.calculPorte(entreeInter, entree3, porte2);
@@ -145,8 +179,8 @@ public abstract class Generateur {
 		}
 		return false;
 	}
-	
-	public boolean calculDiffPorte(final Boolean entree1, final Boolean entree2, final Boolean entree3, 
+
+	public boolean calculDiffPorte(final Boolean entree1, final Boolean entree2, final Boolean entree3,
 			final String porte1, final String porte2, final String porteReel1, final String porteReel2){
 		boolean sortieUtilisateur = this.calculPorte(entree1, entree2, entree3, porte1, porte2);
 		boolean sortieSolution = this.calculPorte(entree1, entree2, entree3, porteReel1, porteReel2);

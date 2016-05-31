@@ -36,6 +36,8 @@ public final class Constants {
 
 	/** Exercice */
 	public static final String EXERCICE = "Exercice";
+	/** Bac a sable */
+	public static final String BAC_SABLE = "BacSable";
 
 	/**
 	 * ********************* Portes Logiques ******************
