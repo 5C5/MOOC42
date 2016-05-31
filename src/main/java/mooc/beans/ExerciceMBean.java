@@ -10,6 +10,11 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.primefaces.context.RequestContext;
+import org.primefaces.model.diagram.DefaultDiagramModel;
+import org.primefaces.model.diagram.Element;
+import org.springframework.context.annotation.Scope;
+
 import mooc.dto.NotionDto;
 import mooc.login.AbstractMBean;
 import mooc.moteur.Exercice;
@@ -17,10 +22,6 @@ import mooc.service.CompetenceService;
 import mooc.service.NotionService;
 import mooc.utils.Constants;
 import mooc.utils.Messages;
-
-import org.primefaces.model.diagram.DefaultDiagramModel;
-import org.primefaces.model.diagram.Element;
-import org.springframework.context.annotation.Scope;
 
 @ManagedBean
 @Scope("view")
@@ -39,7 +40,7 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 	@ManagedProperty(value = "#{competenceService}")
 	private CompetenceService competenceService;
 
-	/** Elements/parametres a  recuperer */
+	/** Elements/parametres aï¿½ recuperer */
 	/** Liste des notions selectionnes pour l'exercice */
 	private String[] selectedNotions;
 	/** Niveau de l'exercice */
@@ -50,7 +51,7 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 	/** Parametres d'affichage */
 	private boolean disabled;
 
-	/** Elements a  afficher */
+	/** Elements aï¿½ afficher */
 	/** Exercice */
 	private Exercice exercice;
 	// private DefaultDiagramModel root;
@@ -187,16 +188,22 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		this.exercice = (Exercice) request.getSession().getAttribute(Constants.EXERCICE);
 		// Verification si la solution utilisateur est correcte
 		int verif = this.exercice.valider(this.exercice.getRoot());
+		RequestContext context = RequestContext.getCurrentInstance();
+		// System.out.println("Au moins j'ai Ã§a");
 
 		if(verif == 0){
 			if (id != null) {
 				// Enregistrement de l'exercice pour l'apprenant
 				this.competenceService.ajouterExercice(id, this.exercice.getNotions(), this.exercice.getDifficulte(), 0);
 			}
-			this.reset();
-			this.addFacesMessage(FacesMessage.SEVERITY_INFO, Messages.message("exercice.reussi"));
+			// this.reset();
+			//this.addFacesMessage(FacesMessage.SEVERITY_INFO, Messages.message("exercice.reussi"));
+			context.execute("PF('reussite').show();");
+
 		} else {
-			this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("exercice.erreur.validation", new Object[] { verif }));
+			//this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("exercice.erreur.validation", new Object[] { verif }));
+
+			context.execute("PF('echec').show();");
 		}
 	}
 
@@ -207,6 +214,13 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		this.selectedNotions = new String[this.notions.size()];
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		request.getSession().removeAttribute(Constants.EXERCICE);
+	}
+
+	public void refermer() {
+		this.reset();
+		RequestContext context = RequestContext.getCurrentInstance();
+		context.execute("PF('reussite').hide();");
+		System.out.println("Plop back");
 	}
 
 	public List<NotionDto> getNotions() {
