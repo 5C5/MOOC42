@@ -3,6 +3,7 @@ package mooc.moteur;
 import java.util.ArrayList;
 import java.util.List;
 
+import mooc.dto.LigneBacSableDto;
 import mooc.dto.NotionDto;
 import mooc.utils.Constants;
 
@@ -61,15 +62,11 @@ public class Exercice {
 	/**
 	 * Lance le generateur pour le bac a sable
 	 *
-	 * @param nbEntree Nombre d'entree
-	 * @param nbPorteUnaire Nombre de porte unaire
-	 * @param nbPorteBinaire Nombre de porte binaire
+	 * @param table Tableau avec les valeurs voulues
 	 */
-	public void generer(final Integer nbEntree, final Integer nbPorteUnaire, final Integer nbPorteBinaire) {
+	public void generer(final List<LigneBacSableDto> table) {
 		this.generateur = new GenerateurBacSable();
-		this.generateur.setNbEntree(nbEntree);
-		this.generateur.setNbPorteUnaire(nbPorteUnaire);
-		this.generateur.setNbPorteBinaire(nbPorteBinaire);
+		this.generateur.setTable(table);
 		this.generateur.generer(this.convertNotion(), true);
 		this.root = this.generateur.getExercice();
 	}
