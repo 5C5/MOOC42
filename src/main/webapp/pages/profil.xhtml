@@ -65,7 +65,10 @@
                         </h:outputText>
                     </p:column>
                     <p:column headerText="#{fr['profil.evolution.niveau']}" sortBy="#{ligne.niveau}" style="width:80px;">
-                        <p:rating value="#{ligne.niveau}" readonly="true" stars="3"/>
+                        <h:outputText value="Facile" rendered="#{ligne.niveau == 1}"/>
+                        <h:outputText value="Moyen" rendered="#{ligne.niveau == 2}"/>
+                        <h:outputText value="Difficile" rendered="#{ligne.niveau == 3}"/>
+<!--                         <p:rating value="#{ligne.niveau}" readonly="true" stars="3"/> -->
                     </p:column>
                     <p:column headerText="#{fr['profil.evolution.score']}" sortBy="#{ligne.score}" style="width:80px;">
                         <h:outputText value="#{ligne.score}" />
