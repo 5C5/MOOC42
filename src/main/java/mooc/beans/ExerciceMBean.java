@@ -45,6 +45,8 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 	private String[] selectedNotions;
 	/** Niveau de l'exercice */
 	private int niveau;
+	/** Type de l'exercice */
+	private String type;
 	/** Liste de notion */
 	private List<NotionDto> notions;
 
@@ -85,6 +87,7 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 				i++;
 			}
 			this.niveau = this.exercice.getDifficulte();
+			this.type = Integer.toString(this.exercice.getType());
 		}
 		this.notions = this.notionService.getAll();
 	}
@@ -100,6 +103,7 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		this.disabled = true;
 		this.exercice.setNotionSelected(this.selectedNotions, this.notions);
 		this.exercice.setDifficulte(this.niveau);
+		this.exercice.setType(Integer.parseInt(this.type));
 		this.exercice.generer();
 		System.out.println(this.exercice);
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -187,11 +191,11 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		Integer id = (Integer) request.getSession().getAttribute(Constants.UTILISATEUR_CONNECTE);
 		this.exercice = (Exercice) request.getSession().getAttribute(Constants.EXERCICE);
 		// Verification si la solution utilisateur est correcte
-		int verif = this.exercice.valider(this.exercice.getRoot());
+		boolean verif = this.exercice.valider(this.exercice.getRoot());
 		RequestContext context = RequestContext.getCurrentInstance();
 		// System.out.println("Au moins j'ai ça");
 
-		if(verif == 0){
+		if (verif) {
 			if (id != null) {
 				// Enregistrement de l'exercice pour l'apprenant
 				this.competenceService.ajouterExercice(id, this.exercice.getNotions(), this.exercice.getDifficulte(), 0);
@@ -286,5 +290,18 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 	public void setCompetenceService(final CompetenceService competenceService) {
 		this.competenceService = competenceService;
 	}
+
+	public void updateType() {
+
+	}
+
+	public String getType() {
+		return this.type;
+	}
+
+	public void setType(final String type) {
+		this.type = type;
+	}
+
 
 }

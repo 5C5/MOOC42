@@ -34,7 +34,7 @@ public abstract class Generateur {
 		this.connecteur.setHoverPaintStyle("{strokeStyle:'#20282b'}");
 	}
 
-	public abstract void generer(final List<String> portes, final boolean drag);
+	public abstract void generer(final List<String> portes, final boolean drag, final int type);
 
 	public DefaultDiagramModel getExercice() {
 		return this.exercice;
@@ -117,8 +117,8 @@ public abstract class Generateur {
 		return null;
 	}
 
-	public int valider(final DefaultDiagramModel root) {
-		return 0;
+	public boolean valider(final DefaultDiagramModel root) {
+		return false;
 	}
 
 	public boolean convertToBoolean(final String entree) {

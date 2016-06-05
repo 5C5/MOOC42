@@ -9,7 +9,7 @@ public class GenerateurDifficile extends Generateur {
 	}
 
 	@Override
-	public void generer(final List<String> portes, final boolean drag) {
+	public void generer(final List<String> portes, final boolean drag, final int type) {
 		// TODO Auto-generated method stub
 
 	}

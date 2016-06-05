@@ -27,12 +27,14 @@
                      <pe:methodParam name="idElement"/>  
                 </pe:remoteCommand>  
                 
-       			<p:fieldset legend="#{fr['exercice.param']}">
+       			<p:fieldset legend="#{fr['exercice.param']}" id="param">
                 <h:panelGrid columns="3">
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="3">
                			<p:outputLabel for="notions" value="#{fr['exercice.notions']}"/>
                         
                         <p:outputLabel for="niveau" value="#{fr['exercice.niveau']}"/>
+                        
+                        <p:outputLabel for="type" value=" "/>
                         
                			<p:selectManyCheckbox id="notions" layout="grid" columns="2" style="padding:2px;padding-right:30px;" value="#{exerciceMBean.selectedNotions}" disabled="#{exerciceMBean.disabled}">
                             <f:selectItems value="#{exerciceMBean.notions}" var="notion" itemLabel="#{notion.nom}" itemValue="#{notion.id}" />
@@ -43,19 +45,29 @@
                             <f:selectItem itemLabel="#{fr['exercice.niveau.moyen']}" itemValue="2" />
                             <f:selectItem itemLabel="#{fr['exercice.niveau.difficile']}" itemValue="3" />
                         </p:selectOneRadio>
+                        
+                        <p:selectOneRadio id="type" layout="grid" columns="1" style="padding:2px" value="#{exerciceMBean.type}" disabled="#{exerciceMBean.disabled}">
+                            <f:selectItem itemLabel="#{fr['exercice.type.entree']}" itemValue="1" />
+                            <f:selectItem itemLabel="#{fr['exercice.type.porte']}" itemValue="2" />
+                            <p:ajax event="change" update="param" process="@form"/>
+                        </p:selectOneRadio>
        			
        			      </h:panelGrid>
                       
-                      <h:panelGrid columns="1" style="margin-left:50px;">
-                      <!-- Selection du type d'exercice -->
-                          <p:commandButton value="#{fr['exercice.type.entree']}" update="consigne" rendered="#{!exerciceMBean.disabled}"/>
-                          <p:commandButton value="#{fr['exercice.type.porte']}" update="consigne" rendered="#{!exerciceMBean.disabled}"/>
-                          <p:commandButton value="#{fr['exercice.type.sortie']}" update="consigne" rendered="#{!exerciceMBean.disabled}"/>
+<!--                       <h:panelGrid columns="1" style="margin-left:50px;"> -->
+<!--                       Selection du type d'exercice -->
+<!--                           <p:commandButton value="#{fr['exercice.type.entree']}" action="#{exerciceMBean.setTypeEntree}" update="consigneEntree, consignePorte" rendered="#{!exerciceMBean.disabled}"/> -->
+<!--                           <p:commandButton value="#{fr['exercice.type.porte']}" action="#{exerciceMBean.setTypePorte}" update="consigneEntree, consignePorte" rendered="#{!exerciceMBean.disabled}"/> -->
+<!--                       </h:panelGrid> -->
+                      
+                      <h:panelGrid columns="1" style="margin-left:50px;" id="consigneEntree" rendered="#{exerciceMBean.type == 1}">
+                      <!-- Affichage des consignes -->
+                            Consigne pour le type Entree
                       </h:panelGrid>
                       
-                      <h:panelGrid columns="1" style="margin-left:50px;" id="consigne">
+                      <h:panelGrid columns="1" style="margin-left:50px;" id="consignePorte" rendered="#{exerciceMBean.type == 2}">
                       <!-- Affichage des consignes -->
-                      Consignes
+                            Consigne pour le type Porte
                       </h:panelGrid>
                       
                   </h:panelGrid>
