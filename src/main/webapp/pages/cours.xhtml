@@ -11,9 +11,9 @@
     <ui:define name="title">#{fr['general.cours.title']}</ui:define>
 
     <ui:define name="body-site">
- 		<p:panel header="#{fr['general.cours.title']}" style="font-family:Helvetica;margin : auto; width:80%">
+ 		<p:panel header="#{fr['general.cours.title']}" style="font-family:Helvetica; width:100%">
        		<h:form >    
-                <p:accordionPanel multiple="true" style="margin-top : auto;" id="panelGeneral" >
+                <p:accordionPanel multiple="true"  id="panelGeneral" style="font-size: 16px;">
                     <p:tab title="#{fr['cours.intro.title']}" >
                         <h:panelGrid columns="1" style="width:100%;">
                             <p:outputPanel style="font-size: 16px;">
@@ -108,7 +108,21 @@
 								
 							</p:fieldset>
 							
-							<p:fieldset legend="#{fr['cours.introduction.quiz']}">
+							<p:fieldset legend="#{fr['cours.intro.quiz']}" toggleable="true" collapsed="#{!coursMBean.afficher}" 
+							style="font-size: 16px;" id="listeQuiz">
+								<ui:repeat value="#{coursMBean.questions}" var="el">
+									<h:panelGrid columns="1">
+									<p:outputLabel value="#{el.question}" for="quizz"/>
+									<p:selectOneRadio id="quizz" value="#{el.userAnswer}" layout="grid" columns="1">
+										<f:selectItem itemLabel="#{el.answer1}" itemValue="1" />
+										<f:selectItem itemLabel="#{el.answer2}" itemValue="2" />
+										<f:selectItem itemLabel="#{el.answer3}" itemValue="3" />
+									</p:selectOneRadio>
+									<p:outputLabel value="#{el.correction}" rendered="#{coursMBean.afficher}" style="color : #{el.couleur}"/>
+						
+									</h:panelGrid>
+								</ui:repeat>
+								<p:commandButton action="#{coursMBean.corriger}" update="listeQuiz" value="Vérifier"/>
 							</p:fieldset>
 			
 
@@ -118,7 +132,8 @@
                         <h:panelGrid columns="2" style="width:100%">
                         		<p:graphicImage name="img/opération_ET.png" title="Voici la table de vérité de l’opération ET :"/> 
                             <p:outputPanel>La porte AND (ou ET) correspond à l’opération ET de l’algèbre de Boole que nous avons vu dans l’introduction de ce cours.
-                             Comme pour les opérations booléennes, il est possible de présenter les résultats renvoyés par une porte logique dans une table de vérité.
+                             Comme pour les opérations booléennes, 
+                             il est possible de présenter les résultats renvoyés par une porte logique dans une table de vérité.
                             </p:outputPanel>
                         </h:panelGrid>
                      </p:tab>
@@ -129,6 +144,21 @@
 							<p:graphicImage name="img/opération_OU.png" title="Voici la table de vérité de l’opération OU :"/>
                             <p:outputPanel>#{fr['cours.ou.texte']}</p:outputPanel>
                         </h:panelGrid>
+                     </p:tab>
+                     
+                     <p:tab title="#{fr['cours.combinatoire.title']}">
+                     <h:panelGrid>
+                     	Pour réaliser des circuits électroniques complexes,
+                     	 on ne peut pas se contenter d’utiliser indépendamment les différentes portes. 
+                     	 Il peut être intéressant de les combiner pour réaliser des calculs plus complexes. 
+                     	Certaines portes sont même parfois des combinaisons d’autres portes (NAND = AND + NOT)
+                     </h:panelGrid>
+                     </p:tab>
+                     
+                     <p:tab title="#{fr['cours.further.title']}">
+                     	<h:panelGrid columns="1">
+                     		Les portes logiques sont donc des composants électroniques utilisés dans …. (lien vidéo Minecraft)
+                     	</h:panelGrid>
                      </p:tab>
                 </p:accordionPanel>
 	        </h:form> 
