@@ -2,6 +2,7 @@ package mooc.moteur;
 
 import java.util.List;
 
+import mooc.dto.LigneBacSableDto;
 import mooc.utils.Constants;
 
 import org.primefaces.model.diagram.Connection;
@@ -23,9 +24,7 @@ public abstract class Generateur {
 	private DefaultDiagramModel exercice;
 	private Connector connecteur;
 
-	protected Integer nbEntree;
-	protected Integer nbPorteUnaire;
-	protected Integer nbPorteBinaire;
+	protected List<LigneBacSableDto> table;
 
 	public Generateur() {
 		this.exercice = new DefaultDiagramModel();
@@ -102,28 +101,12 @@ public abstract class Generateur {
 		this.connecteur = connecteur;
 	}
 
-	public Integer getNbEntree() {
-		return this.nbEntree;
+	public List<LigneBacSableDto> getTable() {
+		return this.table;
 	}
 
-	public void setNbEntree(final Integer nbEntree) {
-		this.nbEntree = nbEntree;
-	}
-
-	public Integer getNbPorteUnaire() {
-		return this.nbPorteUnaire;
-	}
-
-	public void setNbPorteUnaire(final Integer nbPorteUnaire) {
-		this.nbPorteUnaire = nbPorteUnaire;
-	}
-
-	public Integer getNbPorteBinaire() {
-		return this.nbPorteBinaire;
-	}
-
-	public void setNbPorteBinaire(final Integer nbPorteBinaire) {
-		this.nbPorteBinaire = nbPorteBinaire;
+	public void setTable(final List<LigneBacSableDto> table) {
+		this.table = table;
 	}
 
 	public Boolean calculSortieSolution(final DefaultDiagramModel root) {

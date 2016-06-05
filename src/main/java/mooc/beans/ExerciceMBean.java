@@ -10,11 +10,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.primefaces.context.RequestContext;
-import org.primefaces.model.diagram.DefaultDiagramModel;
-import org.primefaces.model.diagram.Element;
-import org.springframework.context.annotation.Scope;
-
 import mooc.dto.NotionDto;
 import mooc.login.AbstractMBean;
 import mooc.moteur.Exercice;
@@ -22,6 +17,11 @@ import mooc.service.CompetenceService;
 import mooc.service.NotionService;
 import mooc.utils.Constants;
 import mooc.utils.Messages;
+
+import org.primefaces.context.RequestContext;
+import org.primefaces.model.diagram.DefaultDiagramModel;
+import org.primefaces.model.diagram.Element;
+import org.springframework.context.annotation.Scope;
 
 @ManagedBean
 @Scope("view")

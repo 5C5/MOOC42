@@ -1,6 +1,7 @@
 package mooc.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,15 +11,17 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import mooc.dto.LigneBacSableDto;
 import mooc.dto.NotionDto;
 import mooc.login.AbstractMBean;
 import mooc.moteur.Exercice;
+import mooc.moteur.Node;
+import mooc.moteur.Porte;
 import mooc.service.CompetenceService;
 import mooc.service.NotionService;
 import mooc.utils.Constants;
 import mooc.utils.Messages;
 
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.diagram.ConnectEvent;
 import org.primefaces.event.diagram.ConnectionChangeEvent;
 import org.primefaces.event.diagram.DisconnectEvent;
@@ -49,6 +52,8 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 	/** Exercice */
 	private Exercice exercice;
 
+	private boolean lock;
+
 	/** Parametrage */
 	/** Nombre d'entree */
 	private Integer nbEntree;
@@ -59,14 +64,21 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 	/** Parametres d'affichage */
 	private boolean disabled;
 
+	private List<LigneBacSableDto> table;
+
 	/** Utilisateur connecte ou non */
 	private boolean utilConn;
 
 	@PostConstruct
 	public void init() {
+		this.table = new ArrayList<LigneBacSableDto>();
+		this.table.add(new LigneBacSableDto());
+		this.table.add(new LigneBacSableDto());
+		this.table.add(new LigneBacSableDto());
+		this.table.add(new LigneBacSableDto());
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		this.exercice = (Exercice) request.getSession().getAttribute(Constants.BAC_SABLE);
 		Integer id = (Integer) request.getSession().getAttribute(Constants.UTILISATEUR_CONNECTE);
+		this.exercice = (Exercice) request.getSession().getAttribute(Constants.BAC_SABLE);
 		if(id == null){
 			this.utilConn = false;
 			this.addFacesMessage(FacesMessage.SEVERITY_WARN, Messages.message("general.erreur.utilisateur"));
@@ -85,11 +97,12 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 		this.exercice = new Exercice();
 		this.exercice.setNotions(this.notions);
 		this.exercice.setDifficulte(0);
-		this.exercice.generer(this.nbEntree, this.nbPorteUnaire, this.nbPorteBinaire);
+		this.exercice.generer(this.table);
 		System.out.println(this.exercice);
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		request.getSession().removeAttribute(Constants.BAC_SABLE);
 		request.getSession().setAttribute(Constants.BAC_SABLE, this.exercice);
+		this.disabled = true;
 	}
 
 
@@ -113,17 +126,21 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 		for (Element el : root.getElements()) {
 			if(Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass())){
 				Boolean sortieSolution = this.exercice.calculSortieSolution(root);
-				if(sortieSolution){
-					el.setData("1");
-				} else {
-					el.setData("0");
+				if (sortieSolution != null) {
+					if(sortieSolution){
+						el.setData("1");
+					} else {
+						el.setData("0");
+					}
 				}
 			} else if(Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
 				Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
-				if(sortieUtilisateur){
-					el.setData("1");
-				} else {
-					el.setData("0");
+				if (sortieUtilisateur != null) {
+					if (sortieUtilisateur) {
+						el.setData("1");
+					} else {
+						el.setData("0");
+					}
 				}
 			}
 		}
@@ -141,48 +158,54 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 		this.nbPorteBinaire = null;
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		request.getSession().removeAttribute(Constants.BAC_SABLE);
+		this.disabled = false;
+		this.table = new ArrayList<LigneBacSableDto>();
+		this.table.add(new LigneBacSableDto());
+		this.table.add(new LigneBacSableDto());
+		this.table.add(new LigneBacSableDto());
+		this.table.add(new LigneBacSableDto());
 	}
 
 	private boolean suspendEvent;
 	public void onConnect(final ConnectEvent event) {
 		if (!this.suspendEvent) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Connected", "From " + event.getSourceElement().getData()
-					+ " To " + event.getTargetElement().getData());
-
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-
-			RequestContext.getCurrentInstance().update("form:msgs");
+			String msg = "Connected "+ "From " + event.getSourceElement().getData()
+					+ " To " + event.getTargetElement().getData();
+			System.out.println(msg);
+			Porte porte = (Porte) event.getTargetElement();
+			porte.addEntree((Node) event.getSourceElement());
+			//			this.exercice.getRoot().connect(new Connection(event.getSourceElement().getEndPoints().get(0), event.getTargetElement().getEndPoints().get(0), this.exercice.getGenerateur().getConnecteur()));
 		} else {
 			this.suspendEvent = false;
 		}
 	}
 
 	public void onDisconnect(final DisconnectEvent event) {
-		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"Disconnected", "From " + event.getSourceElement().getData()
-				+ " To " + event.getTargetElement().getData());
-
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-
-		RequestContext.getCurrentInstance().update("form:msgs");
+		String msg = "Disconnected "+ "From " + event.getSourceElement().getData()
+				+ " To " + event.getTargetElement().getData();
+		System.out.println(msg);
+		//		this.exercice.getRoot().disconnect(new Connection(event.getSourceElement().getEndPoints().get(0), event.getTargetElement().getEndPoints().get(0), this.exercice.getGenerateur().getConnecteur()));
 	}
 
 	public void onConnectionChange(final ConnectionChangeEvent event) {
-		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"Connection Changed", "Original Source:"
-						+ event.getOriginalSourceElement().getData()
-						+ ", New Source: "
-						+ event.getNewSourceElement().getData()
-						+ ", Original Target: "
-						+ event.getOriginalTargetElement().getData()
-						+ ", New Target: "
-						+ event.getNewTargetElement().getData());
+		String msg = "Connection Changed " + " Original Source:"
+				+ event.getOriginalSourceElement().getData()
+				+ ", New Source: "
+				+ event.getNewSourceElement().getData()
+				+ ", Original Target: "
+				+ event.getOriginalTargetElement().getData()
+				+ ", New Target: "
+				+ event.getNewTargetElement().getData();
 
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		System.out.println(msg);
+		//		this.exercice.getRoot().disconnect(new Connection(event.getOriginalSourceElement().getEndPoints().get(0), event.getOriginalTargetElement().getEndPoints().get(0), this.exercice.getGenerateur().getConnecteur()));
+		//		this.exercice.getRoot().connect(new Connection(event.getNewSourceElement().getEndPoints().get(0), event.getNewTargetElement().getEndPoints().get(0), this.exercice.getGenerateur().getConnecteur()));
 
-		RequestContext.getCurrentInstance().update("form:msgs");
 		this.suspendEvent = true;
+	}
+
+	public void switchLock() {
+		System.out.println(this.lock);
 	}
 
 	public List<NotionDto> getNotions() {
@@ -257,5 +280,28 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 		this.nbPorteBinaire = nbPorteBinaire;
 	}
 
+	public boolean isLock() {
+		return this.lock;
+	}
+
+	public void setLock(final boolean lock) {
+		this.lock = lock;
+	}
+
+	public boolean isSuspendEvent() {
+		return this.suspendEvent;
+	}
+
+	public void setSuspendEvent(final boolean suspendEvent) {
+		this.suspendEvent = suspendEvent;
+	}
+
+	public List<LigneBacSableDto> getTable() {
+		return this.table;
+	}
+
+	public void setTable(final List<LigneBacSableDto> table) {
+		this.table = table;
+	}
 
 }

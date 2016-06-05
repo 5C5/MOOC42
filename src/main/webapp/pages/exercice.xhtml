@@ -28,6 +28,7 @@
                 </pe:remoteCommand>  
                 
        			<p:fieldset legend="#{fr['exercice.param']}">
+                <h:panelGrid columns="3">
                     <h:panelGrid columns="2">
                			<p:outputLabel for="notions" value="#{fr['exercice.notions']}"/>
                         
@@ -45,6 +46,19 @@
        			
        			      </h:panelGrid>
                       
+                      <h:panelGrid columns="1" style="margin-left:50px;">
+                      <!-- Selection du type d'exercice -->
+                          <p:commandButton value="#{fr['exercice.type.entree']}" update="consigne" rendered="#{!exerciceMBean.disabled}"/>
+                          <p:commandButton value="#{fr['exercice.type.porte']}" update="consigne" rendered="#{!exerciceMBean.disabled}"/>
+                          <p:commandButton value="#{fr['exercice.type.sortie']}" update="consigne" rendered="#{!exerciceMBean.disabled}"/>
+                      </h:panelGrid>
+                      
+                      <h:panelGrid columns="1" style="margin-left:50px;" id="consigne">
+                      <!-- Affichage des consignes -->
+                      Consignes
+                      </h:panelGrid>
+                      
+                  </h:panelGrid>
                       <p:commandButton value="#{fr['exercice.demarrer']}" action="#{exerciceMBean.generer}" update="@form" rendered="#{!exerciceMBean.disabled}"/>
        			      <p:commandButton value="#{fr['exercice.reset']}" action="#{exerciceMBean.reset}" update="@form" rendered="#{exerciceMBean.disabled}"/>
                 
