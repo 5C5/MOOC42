@@ -23,7 +23,7 @@ public class GenerateurBacSable extends Generateur {
 	 * Methode generant un exercice de difficulte moyenne (deux portes)
 	 */
 	@Override
-	public void generer(final List<String> portes, final boolean drag) {
+	public void generer(final List<String> portes, final boolean drag, final int type) {
 		int y = 5;
 		for (LigneBacSableDto ligne : this.table) {
 			if ("0".equalsIgnoreCase(ligne.getEntree())) {
@@ -103,7 +103,7 @@ public class GenerateurBacSable extends Generateur {
 	private void genererSortie(final boolean drag) {
 		Valeur sortieUtilisateur = null;
 		sortieUtilisateur = new Valeur("0", false, false);
-		sortieUtilisateur.setData("0");
+		sortieUtilisateur.setData("");
 		sortieUtilisateur.setX("100em");
 		sortieUtilisateur.setY("10em");
 		sortieUtilisateur.setDraggable(drag);

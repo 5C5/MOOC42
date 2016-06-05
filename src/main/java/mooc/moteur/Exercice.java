@@ -30,6 +30,9 @@ public class Exercice {
 	/** Niveau de difficulte de l'exercice */
 	private int difficulte;
 
+	/** Type de l'exercice */
+	private int type;
+
 	/** Constructeur vide */
 	public Exercice() {
 
@@ -55,7 +58,7 @@ public class Exercice {
 	 * Lance le générateur (remplit l'exercice)
 	 */
 	public void generer() {
-		this.generateur.generer(this.convertNotion(), false);
+		this.generateur.generer(this.convertNotion(), false, this.type);
 		this.root = this.generateur.getExercice();
 	}
 
@@ -67,7 +70,7 @@ public class Exercice {
 	public void generer(final List<LigneBacSableDto> table) {
 		this.generateur = new GenerateurBacSable();
 		this.generateur.setTable(table);
-		this.generateur.generer(this.convertNotion(), true);
+		this.generateur.generer(this.convertNotion(), true, this.type);
 		this.root = this.generateur.getExercice();
 	}
 
@@ -119,6 +122,14 @@ public class Exercice {
 		return this.difficulte;
 	}
 
+	public int getType() {
+		return this.type;
+	}
+
+	public void setType(final int type) {
+		this.type = type;
+	}
+
 	public void setDifficulte(final int difficulte) {
 		this.difficulte = difficulte;
 		if (this.difficulte == 1) {
@@ -159,38 +170,48 @@ public class Exercice {
 		String style = el.getStyleClass();
 		String data = (String) el.getData();
 		if (Constants.ENTREE.equalsIgnoreCase(style)) {
-			// Si entree, switch entre 0 et 1
-			if ("1".equalsIgnoreCase(data)) {
-				return "0";
-			} else {
-				return "1";
+			// Si il faut trouver les entrees, alors on peut les changer
+			if (this.type == 1) {
+				// Si entree, switch entre 0 et 1
+				if ("1".equalsIgnoreCase(data)) {
+					return "0";
+				} else {
+					return "1";
+				}
 			}
 		} else if (Constants.PORTE.equalsIgnoreCase(style)) {
-			// Si porte, switch entre les portes possibles
-			int i = 0;
-			if ("".equalsIgnoreCase(data)) {
-				return notionBinaire.get(0).getNom();
-			}
-			for (NotionDto notion : notionBinaire) {
-				if (notion.getNom().equalsIgnoreCase(data) && !Constants.NOT.equalsIgnoreCase(notion.getNom())) {
-					// On prend la notion suivante
-					if (i < notionBinaire.size() - 1) {
-						return notionBinaire.get(i + 1).getNom();
-					} else {
-						return notionBinaire.get(0).getNom();
-					}
+			// Si il faut trouver les portes, alors on peut les changer
+			if (this.type == 2) {
+				// Si porte, switch entre les portes possibles
+				int i = 0;
+				if ("".equalsIgnoreCase(data)) {
+					return notionBinaire.get(0).getNom();
 				}
-				i++;
+				for (NotionDto notion : notionBinaire) {
+					if (notion.getNom().equalsIgnoreCase(data)
+							&& !Constants.NOT.equalsIgnoreCase(notion.getNom())) {
+						// On prend la notion suivante
+						if (i < notionBinaire.size() - 1) {
+							return notionBinaire.get(i + 1).getNom();
+						} else {
+							return notionBinaire.get(0).getNom();
+						}
+					}
+					i++;
+				}
 			}
 		} else if (Constants.PORTE_NOT.equalsIgnoreCase(style)) {
-			// Si porte not, switch entre not et vide
-			if (Constants.NOT.equalsIgnoreCase(data)) {
-				return "";
-			} else {
-				return Constants.NOT;
+			// Si il faut trouver les portes, alors on peut les changer
+			if (this.type == 2) {
+				// Si porte not, switch entre not et vide
+				if (Constants.NOT.equalsIgnoreCase(data)) {
+					return Constants.EMPTY;
+				} else {
+					return Constants.NOT;
+				}
 			}
 		}
-		return null;
+		return data;
 	}
 
 	public Boolean calculSortieSolution(final DefaultDiagramModel root) {
@@ -201,7 +222,7 @@ public class Exercice {
 		return this.generateur.calculSortieUtilisateur(root);
 	}
 
-	public int valider(final DefaultDiagramModel root) {
+	public boolean valider(final DefaultDiagramModel root) {
 		return this.generateur.valider(root);
 	}
 }
