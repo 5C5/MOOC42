@@ -14,7 +14,7 @@
  		<p:panel header="#{fr['general.cours.title']}" style="font-family:Helvetica; width:100%">
        		<h:form >    
                 <p:accordionPanel multiple="true"  id="panelGeneral" style="font-size: 16px; padding: 8px; margin : 12px;">
-                    <p:tab title="#{fr['cours.intro.title']}" style="margin : auto;">
+                    <p:tab title="#{fr['cours.intro.title']}" style="padding: 8px; margin : 12px;">
                         <h:panelGrid columns="1" style="width:100%;">
                             <p:outputPanel style="font-size: 16px;">
                             Les portes logiques sont des composants électroniques qui constituent la base de tous les circuits électroniques. 
@@ -22,7 +22,7 @@
                             Ces composants sont des réalisations physiques de fonctions de l’algèbre de Boole, qui manipule des nombres binaires.
                             </p:outputPanel>
 
-                            <p:fieldset legend="#{fr['cours.intro.binary.title']}"  style="font-size: 16px;">
+                            <p:fieldset legend="#{fr['cours.intro.binary.title']}"  style="font-size: 16px; padding: 8px; margin : 12px;">
                       		A leur plus bas niveau, c’est à dire ceux de leurs composants, les appareils électroniques ne sont 
                       		capables que de “comprendre” et de manipuler qu’une seule informations, la présence (ou l’absence) 
                       		de courant électrique. La présence de courant électrique est matérialisée par une tension électrique 
@@ -38,7 +38,7 @@
 				vous pouvez consulter l’article <a href="https://fr.wikipedia.org/wiki/Syst%C3%A8me_binaire">Wikipédia</a> à ce sujet. 
 				</p:fieldset>
 				
-				<p:fieldset legend="L’algèbre de Boole, c’est quoi ?" style="font-size: 16px; margin : auto !important; padding:20 !important">
+				<p:fieldset legend="L’algèbre de Boole, c’est quoi ?" style="font-size: 16px; padding: 8px; margin : 12px;">
 
 				L’algèbre de Boole est une branche des mathématiques qui permet, à l’image de l’algèbre 
 				classique qui propose de réaliser des opérations mathématiques sur des nombres, de réaliser 
@@ -52,7 +52,7 @@
 				 
 				L’algèbre de Boole propose 3 opérations binaires : 
 					<!-- Conjonction -->
-					<p:fieldset legend="Conjonction (ET)" style="margin : 50 50 50 50 !important" toggleable="true" collapsed="true">
+					<p:fieldset legend="Conjonction (ET)" style="padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
 						<h:panelGrid columns="2">
 						La conjonction est une opération qui prend deux opérandes, 
 						c’est à dire deux valeurs, en entrée. Elle renvoie 1 seulement si les deux opérandes sont égales à 1. 
@@ -62,7 +62,7 @@
 					</p:fieldset>
 					
 					<!-- Disjonction -->
-					<p:fieldset legend="Disjonction (OU)" style="margin : 50 50 50 50 !important" toggleable="true" collapsed="true">
+					<p:fieldset legend="Disjonction (OU)" style="padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
 						<h:panelGrid columns="2">
 						La disjonction est une opération qui prend deux opérandes en entrée.
 						Elle renvoie 1 quand l’une des deux opérandes est égale à 1.
@@ -71,7 +71,7 @@
 					</p:fieldset>
 					
 					<!-- Negation -->
-					<p:fieldset legend="Négation (NON)" style="margin : 50 50 50 50 !important" toggleable="true" collapsed="true">
+					<p:fieldset legend="Négation (NON)" style="padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
 						<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
 						<p:column>
 							<p:graphicImage name="img/opération_NON.png" title="Voici la table de vérité de l’opération NON :"/> 
@@ -104,7 +104,7 @@
                         </h:panelGrid>
                      </p:tab>
                      <p:tab title="#{fr['cours.et.title']}" >
-                        <h:panelGrid columns="1" style="width:100%">
+                        <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
                             <p:outputPanel>La porte AND (ou ET) correspond à l’opération ET de l’algèbre de Boole que nous avons vu dans l’introduction de ce cours.
                              Comme pour les opérations booléennes, 
                              il est possible de présenter les résultats renvoyés par une porte logique dans une table de vérité.
@@ -115,7 +115,7 @@
                         </h:panelGrid>
                      </p:tab>
                     <p:tab title="#{fr['cours.ou.title']}" >
-                        <h:panelGrid columns="1" style="width:100%">
+                        <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
                             <p>
                             	La porte OR est la réalisation physique de la fonction booléenne OU.
                             </p>
