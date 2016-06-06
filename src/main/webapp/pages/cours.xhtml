@@ -13,15 +13,15 @@
     <ui:define name="body-site">
  		<p:panel header="#{fr['general.cours.title']}" style="font-family:Helvetica; width:100%">
        		<h:form >    
-                <p:accordionPanel multiple="true"  id="panelGeneral" style="font-size: 16px;">
-                    <p:tab title="#{fr['cours.intro.title']}" >
+                <p:accordionPanel multiple="true"  id="panelGeneral" style="font-size: 16px; padding: 8px; margin : 12px;">
+                    <p:tab title="#{fr['cours.intro.title']}" style="margin : auto;">
                         <h:panelGrid columns="1" style="width:100%;">
                             <p:outputPanel style="font-size: 16px;">
                             Les portes logiques sont des composants électroniques qui constituent la base de tous les circuits électroniques. 
                             On trouve par exemple des portes logiques dans ordinateurs, les téléphones, etc. 
                             Ces composants sont des réalisations physiques de fonctions de l'algèbre de Boole, qui manipule des chiffres binaires.
                             </p:outputPanel>
-                            <p:fieldset legend="#{fr['cours.intro.binary.title']}"  style="font-size: 16px;">
+                            <p:fieldset legend="#{fr['cours.intro.binary.title']}"  style="font-size: 16px; margin: 12px; padding : 8px">
                       		A leur plus bas niveau, c’est à dire ceux de leurs composants, 
                       		les appareils électroniques ne sont capables que de “comprendre” 
                       		et de manipuler qu’une seule informations, la présence (ou l’absence) de courant électrique. 
@@ -39,7 +39,7 @@
 							vous pouvez consulter l’article <a href="https://fr.wikipedia.org/wiki/Syst%C3%A8me_binaire">Wikipédia</a> à ce sujet. 
 							</p:fieldset>
 							
-							<p:fieldset legend="L’algèbre de Boole, c’est quoi ?" style="font-size: 16px; margin : auto !important; padding:20 !important">
+							<p:fieldset legend="L’algèbre de Boole, c’est quoi ?" style="font-size: 16px; margin : 12px; padding:8px">
 			
 							L’algèbre de Boole est une branche des mathématiques qui permet, 
 							à l’image de l’algèbre classique qui propose de réaliser des opérations mathématiques sur des nombres, 
@@ -54,7 +54,7 @@
 							 
 							L’algèbre de Boole propose 3 opérations binaires : 
 								<!-- Conjonction -->
-								<p:fieldset legend="Conjonction (ET)" style="margin : 50 50 50 50 !important" toggleable="true" collapsed="true">
+								<p:fieldset legend="Conjonction (ET)" style="margin : 12px; padding: 8px" toggleable="true" collapsed="true">
 								<h:panelGrid columns="2">
 								<p:graphicImage name="img/opération_ET.png" title="Voici la table de vérité de l’opération ET :"/> 
 								
@@ -65,7 +65,7 @@
 								</p:fieldset>
 								
 								<!-- Disjonction -->
-								<p:fieldset legend="Disjonction (OU)" style="margin : 50 50 50 50 !important" toggleable="true" collapsed="true">
+								<p:fieldset legend="Disjonction (OU)" style="margin : 12px; padding: 8px" toggleable="true" collapsed="true">
 								<h:panelGrid columns="2">
 									La disjonction est une opération qui prend deux opérandes en entrée.
 									Elle renvoie 1 quand l’une des deux opérandes est égale à 1.
@@ -76,7 +76,7 @@
 								</p:fieldset>
 								
 								<!-- Negation -->
-								<p:fieldset legend="Négation (NON)" style="margin : 50 50 50 50 !important" toggleable="true" collapsed="true">
+								<p:fieldset legend="Négation (NON)" style="margin : 12px; padding: 8px" toggleable="true" collapsed="true">
 								<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
 								
 								<p:column>

@@ -65,9 +65,9 @@
                         </h:outputText>
                     </p:column>
                     <p:column headerText="#{fr['profil.evolution.niveau']}" sortBy="#{ligne.niveau}" style="width:80px;">
-                        <h:outputText value="Facile" rendered="#{ligne.niveau == 1}"/>
-                        <h:outputText value="Moyen" rendered="#{ligne.niveau == 2}"/>
-                        <h:outputText value="Difficile" rendered="#{ligne.niveau == 3}"/>
+                        <h:outputText value="Facile" rendered="#{ligne.niveau == 1}" style="color : green"/>
+                        <h:outputText value="Moyen" rendered="#{ligne.niveau == 2}" style="color : orange"/>
+                        <h:outputText value="Difficile" rendered="#{ligne.niveau == 3}" style="color : red"/>
 <!--                         <p:rating value="#{ligne.niveau}" readonly="true" stars="3"/> -->
                     </p:column>
                     <p:column headerText="#{fr['profil.evolution.score']}" sortBy="#{ligne.score}" style="width:80px;">
@@ -153,7 +153,10 @@
                     </p:tab>
             </p:accordionPanel>   
          </p:panel>
-         </h:form> 
+         </h:form>
+         <p:panel header="#{fr['footer.title']}">
+		<p:outputLabel value="#{fr['footer.text']}" styleClass="value"/>
+		</p:panel>
 	    </ui:define>
 
 </ui:composition>

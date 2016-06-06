@@ -41,9 +41,9 @@
                			</p:selectManyCheckbox>
                         
                         <p:selectOneRadio id="niveau" layout="grid" columns="1" style="padding:2px" value="#{exerciceMBean.niveau}" disabled="#{exerciceMBean.disabled}">
-                            <f:selectItem itemLabel="#{fr['exercice.niveau.facile']}" itemValue="1" />
+                            <f:selectItem itemLabel="#{fr['exercice.niveau.facile']}" itemValue="1"/>
                             <f:selectItem itemLabel="#{fr['exercice.niveau.moyen']}" itemValue="2" />
-                            <f:selectItem itemLabel="#{fr['exercice.niveau.difficile']}" itemValue="3" />
+                            <!-- <f:selectItem itemLabel="#{fr['exercice.niveau.difficile']}" itemValue="3" disabled="true"/> -->
                         </p:selectOneRadio>
                         
                         <p:selectOneRadio id="type" layout="grid" columns="1" style="padding:2px" value="#{exerciceMBean.type}" disabled="#{exerciceMBean.disabled}">
@@ -106,18 +106,35 @@
     				        background-color: #404a4e;
     				        color: #cccccc;
         				}
-        				.porte {
+        				.porte, .porteNot {
         					color: #000000;
         					background-color: #7F91C3;
         					border: 1px solid #7F91C3;
     				        box-shadow: 0 5px 10px rgba(127, 145, 195, 0.8);
     				        
         				}
-        				.sortie-utilisateur {
+        				.sortieUtilisateur {
+        					color: #000000;
+        					background-color: #DD3F4C;
+        					border: 1px solid #DD3F4C;
+    				        box-shadow: 0 5px 10px rgba(201, 36, 50, 0.8);
         				}
      
-        				.ui-diagram-element:hover {
-            				background-color: #20282b;
+        				.porte:hover, .porteNot:hover {
+            				background-color: #5C6B94;
+        				}
+        				.entree {
+        					color: #000000;
+        					background-color: #7EE67C;
+        					border: 1px solid #7EE67C;
+    				        box-shadow: 0 5px 10px rgba(126, 230, 124, 0.8);
+        				}
+        				
+        				.sortieSolution{
+        					color: #000000;
+        					background-color: #E8A958;
+        					border: 1px solid #E8A958;
+    				        box-shadow: 0 5px 10px rgba(232, 169, 88, 0.8);
         				}
     				</style>
                     

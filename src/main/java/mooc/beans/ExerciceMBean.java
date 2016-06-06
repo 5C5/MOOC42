@@ -10,6 +10,11 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.primefaces.context.RequestContext;
+import org.primefaces.model.diagram.DefaultDiagramModel;
+import org.primefaces.model.diagram.Element;
+import org.springframework.context.annotation.Scope;
+
 import mooc.dto.NotionDto;
 import mooc.login.AbstractMBean;
 import mooc.moteur.Exercice;
@@ -17,11 +22,6 @@ import mooc.service.CompetenceService;
 import mooc.service.NotionService;
 import mooc.utils.Constants;
 import mooc.utils.Messages;
-
-import org.primefaces.context.RequestContext;
-import org.primefaces.model.diagram.DefaultDiagramModel;
-import org.primefaces.model.diagram.Element;
-import org.springframework.context.annotation.Scope;
 
 @ManagedBean
 @Scope("view")
@@ -70,6 +70,7 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		this.exercice = (Exercice) request.getSession().getAttribute(Constants.EXERCICE);
 		Integer id = (Integer) request.getSession().getAttribute(Constants.UTILISATEUR_CONNECTE);
+		this.notions = this.notionService.getAll();
 		if(id == null){
 			this.utilConn = false;
 			this.addFacesMessage(FacesMessage.SEVERITY_WARN, Messages.message("general.erreur.utilisateur"));
@@ -78,6 +79,8 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		}
 		if (this.exercice == null) {
 			this.disabled = false;
+			this.niveau = 1;
+
 		} else {
 			this.disabled = true;
 			int i = 0;
