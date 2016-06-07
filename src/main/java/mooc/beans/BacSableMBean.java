@@ -15,8 +15,6 @@ import mooc.dto.LigneBacSableDto;
 import mooc.dto.NotionDto;
 import mooc.login.AbstractMBean;
 import mooc.moteur.Exercice;
-import mooc.moteur.Node;
-import mooc.moteur.Porte;
 import mooc.service.CompetenceService;
 import mooc.service.NotionService;
 import mooc.utils.Constants;
@@ -134,13 +132,18 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 					}
 				}
 			} else if(Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
-				Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
-				if (sortieUtilisateur != null) {
-					if (sortieUtilisateur) {
-						el.setData("1");
-					} else {
-						el.setData("0");
+				try {
+					Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
+					// System.out.println("*** Solution " + sortieUtilisateur);
+					if (sortieUtilisateur != null) {
+						if (sortieUtilisateur) {
+							el.setData("1");
+						} else {
+							el.setData("0");
+						}
 					}
+				} catch (Exception e){
+					this.addFacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage());
 				}
 			}
 		}
@@ -169,22 +172,20 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 	private boolean suspendEvent;
 	public void onConnect(final ConnectEvent event) {
 		if (!this.suspendEvent) {
-			String msg = "Connected "+ "From " + event.getSourceElement().getData()
-					+ " To " + event.getTargetElement().getData();
-			System.out.println(msg);
-			Porte porte = (Porte) event.getTargetElement();
-			porte.addEntree((Node) event.getSourceElement());
-			//			this.exercice.getRoot().connect(new Connection(event.getSourceElement().getEndPoints().get(0), event.getTargetElement().getEndPoints().get(0), this.exercice.getGenerateur().getConnecteur()));
+			String msg = "Connected " + "From "
+					+ event.getSourceElement().getData() + " To "
+					+ event.getTargetElement().getData();
+			// System.out.println(msg);
 		} else {
 			this.suspendEvent = false;
 		}
 	}
 
 	public void onDisconnect(final DisconnectEvent event) {
-		String msg = "Disconnected "+ "From " + event.getSourceElement().getData()
-				+ " To " + event.getTargetElement().getData();
-		System.out.println(msg);
-		//		this.exercice.getRoot().disconnect(new Connection(event.getSourceElement().getEndPoints().get(0), event.getTargetElement().getEndPoints().get(0), this.exercice.getGenerateur().getConnecteur()));
+		String msg = "Disconnected " + "From "
+				+ event.getSourceElement().getData() + " To "
+				+ event.getTargetElement().getData();
+		// System.out.println(msg);
 	}
 
 	public void onConnectionChange(final ConnectionChangeEvent event) {
@@ -197,10 +198,7 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 				+ ", New Target: "
 				+ event.getNewTargetElement().getData();
 
-		System.out.println(msg);
-		//		this.exercice.getRoot().disconnect(new Connection(event.getOriginalSourceElement().getEndPoints().get(0), event.getOriginalTargetElement().getEndPoints().get(0), this.exercice.getGenerateur().getConnecteur()));
-		//		this.exercice.getRoot().connect(new Connection(event.getNewSourceElement().getEndPoints().get(0), event.getNewTargetElement().getEndPoints().get(0), this.exercice.getGenerateur().getConnecteur()));
-
+		// System.out.println(msg);
 		this.suspendEvent = true;
 	}
 

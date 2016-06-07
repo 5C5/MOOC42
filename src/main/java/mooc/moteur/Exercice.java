@@ -171,7 +171,7 @@ public class Exercice {
 		String data = (String) el.getData();
 		if (Constants.ENTREE.equalsIgnoreCase(style)) {
 			// Si il faut trouver les entrees, alors on peut les changer
-			if (this.type == 1) {
+			if (this.type == 1 || this.type == 0) {
 				// Si entree, switch entre 0 et 1
 				if ("1".equalsIgnoreCase(data)) {
 					return "0";
@@ -181,7 +181,7 @@ public class Exercice {
 			}
 		} else if (Constants.PORTE.equalsIgnoreCase(style)) {
 			// Si il faut trouver les portes, alors on peut les changer
-			if (this.type == 2) {
+			if (this.type == 2 || this.type == 0) {
 				// Si porte, switch entre les portes possibles
 				int i = 0;
 				if ("".equalsIgnoreCase(data)) {
@@ -202,7 +202,7 @@ public class Exercice {
 			}
 		} else if (Constants.PORTE_NOT.equalsIgnoreCase(style)) {
 			// Si il faut trouver les portes, alors on peut les changer
-			if (this.type == 2) {
+			if (this.type == 2 || this.type == 0) {
 				// Si porte not, switch entre not et vide
 				if (Constants.NOT.equalsIgnoreCase(data)) {
 					return Constants.EMPTY;
@@ -218,7 +218,7 @@ public class Exercice {
 		return this.generateur.calculSortieSolution(root);
 	}
 
-	public Boolean calculSortieUtilisateur(final DefaultDiagramModel root) {
+	public Boolean calculSortieUtilisateur(final DefaultDiagramModel root) throws Exception{
 		return this.generateur.calculSortieUtilisateur(root);
 	}
 

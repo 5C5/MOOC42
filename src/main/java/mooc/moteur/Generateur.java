@@ -113,7 +113,7 @@ public abstract class Generateur {
 		return null;
 	}
 
-	public Boolean calculSortieUtilisateur(final DefaultDiagramModel root) {
+	public Boolean calculSortieUtilisateur(final DefaultDiagramModel root) throws Exception {
 		return null;
 	}
 

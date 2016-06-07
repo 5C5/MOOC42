@@ -138,36 +138,117 @@ public class GenerateurBacSable extends Generateur {
 	}
 
 	@Override
-	public Boolean calculSortieUtilisateur(final DefaultDiagramModel root) {
+	public Boolean calculSortieUtilisateur(final DefaultDiagramModel root) throws Exception {
+		Element sortie = null;
 
 		// Affichage de tout ^^
 		for(Element el : root.getElements()){
-			System.out.println(el.getId()+" "+el.getStyleClass()+" "+el.getData());
-			for(EndPoint ep : el.getEndPoints()){
-				System.out.println(" - "+ep.getId());
+			String style = el.getStyleClass();
+			if (Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(style)) {
+				sortie = el;
 			}
-			try {
-				Porte porte = (Porte) el;
-				for (Node node : porte.getEntrees()) {
-					System.out.println(" - entree " + node.getId());
+			//			System.out.println(el.getId()+" "+el.getStyleClass()+" "+el.getData());
+			//			for(EndPoint ep : el.getEndPoints()){
+			//				System.out.println(" - "+ep.getId());
+			//			}
+			//			try {
+			//				Porte porte = (Porte) el;
+			//				for (Node node : porte.getEntrees()) {
+			//					System.out.println(" - entree " + node.getId());
+			//				}
+			//			} catch (Exception e) {
+			//
+			//			}
+		}
+		// for(Connection c : root.getConnections()){
+		// System.out.println(c.getSource().getId()+" -> "+c.getTarget().getId());
+		// }
+
+
+		//		System.out.println("************");
+		if(sortie != null){
+			boolean unique = true;
+			Boolean result = null;
+			for(EndPoint ep : sortie.getEndPoints()){
+				// System.out.println(" sortie <- "+ep.getId());
+				for(Connection c : root.getConnections()){
+					if(c.getTarget().getId().equals(ep.getId())){
+						if (!unique) {
+							throw new Exception("La sortie ne peut avoir qu'un seul lien.");
+						} else {
+							unique = false;
+							result = this.calculCascade(root, c.getSource().getId());
+						}
+					}
 				}
-			} catch (Exception e) {
-
 			}
+			return result;
 		}
-		for(Connection c : root.getConnections()){
-			System.out.println(c.getSource().getId()+" -> "+c.getTarget().getId());
-		}
-
 
 		return true;
+	}
+
+	public Boolean calculCascade(final DefaultDiagramModel root, final String endPoint) throws Exception{
+		//		System.out.println("Calcul de "+endPoint);
+		Element el = this.getElementByEndPoint(root, endPoint);
+		//		System.out.println(" -- "+el.getStyleClass()+" "+el.getData());
+		String data = (String) el.getData();
+		String style = el.getStyleClass();
+		int nbEntree = 0;
+		if (Constants.ENTREE.equalsIgnoreCase(style)) {
+			return "1".equals(data) ? true : false;
+		} else if (Constants.PORTE_NOT.equalsIgnoreCase(style)) {
+			Boolean entree = null;
+			for(EndPoint endPointSuivant : el.getEndPoints()){
+				for(Connection c : root.getConnections()){
+					if(c.getTarget().getId().equals(endPointSuivant.getId())){
+						//						System.out.println(" endPoint suivant : "+endPointSuivant.getId());
+						entree = this.calculCascade(root, c.getSource().getId());
+						nbEntree++;
+					}
+				}
+			}
+			if(nbEntree != 1){
+				throw new Exception("La porte "+data+" doit avoir uniquement une entrée.");
+			}
+			if(entree != null){
+				return this.calculPorte(entree, null, data);
+			} else {
+				throw new Exception("Une erreur s'est produite lors du calcul pour la porte "+Constants.PORTE_NOT+".");
+			}
+		} else if (Constants.PORTE.equalsIgnoreCase(style)) {
+			Boolean entree1 = null;
+			Boolean entree2 = null;
+			for(EndPoint endPointSuivant : el.getEndPoints()){
+				for(Connection c : root.getConnections()){
+					if(c.getTarget().getId().equals(endPointSuivant.getId())){
+						//						System.out.println(" endPoint suivant : "+endPointSuivant.getId());
+						nbEntree++;
+						if(entree1 == null){
+							entree1 = this.calculCascade(root, c.getSource().getId());
+						} else {
+							entree2 = this.calculCascade(root, c.getSource().getId());
+						}
+					}
+				}
+			}
+			if(nbEntree != 2){
+				throw new Exception("La porte "+data+" doit avoir uniquement deux entrées.");
+			}
+			if(entree1 != null && entree2 != null){
+				return this.calculPorte(entree1, entree2, data);
+			} else {
+				throw new Exception("Une erreur s'est produite lors du calcul pour la porte "+Constants.PORTE_NOT+".");
+			}
+		}
+		return false;
 	}
 
 	private Element getElementByEndPoint(final DefaultDiagramModel root, final String idEndPoint){
 		for(Element el : root.getElements()){
 			for(EndPoint ep : el.getEndPoints()){
 				if(ep.getId().equals(idEndPoint)){
-					System.out.println(el.getId()+" "+el.getStyleClass()+" "+el.getData());
+					// System.out.println(el.getId()+" "+el.getStyleClass()+" "+el.getData());
 					return el;
 				}
 			}

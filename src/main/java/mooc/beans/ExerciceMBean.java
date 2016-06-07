@@ -174,11 +174,15 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 					el.setData("0");
 				}
 			} else if(Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
-				Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
-				if(sortieUtilisateur){
-					el.setData("1");
-				} else {
-					el.setData("0");
+				try {
+					Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
+					if(sortieUtilisateur){
+						el.setData("1");
+					} else {
+						el.setData("0");
+					}
+				} catch (Exception e){
+					this.addFacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage());
 				}
 			}
 		}
