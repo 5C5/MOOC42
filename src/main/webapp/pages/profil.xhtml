@@ -58,7 +58,7 @@
                 </h:panelGrid>
                 
                 <p:panel header="#{fr['profil.evolution.competence']}">
-                <p:dataTable var="ligne" value="#{profilMBean.profil.evolution}">                 
+                <p:dataTable var="ligne" value="#{profilMBean.profil.evolution}" stickyHeader="true">                 
                     <p:column headerText="#{fr['profil.evolution.date']}" sortBy="#{ligne.date}"  style="width:150px;">
                         <h:outputText value="#{ligne.date}">
                             <f:convertDateTime pattern="dd/MM/yyyy" timeZone="Europe/Paris"/>
