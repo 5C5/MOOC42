@@ -53,12 +53,6 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 	private boolean lock;
 
 	/** Parametrage */
-	/** Nombre d'entree */
-	private Integer nbEntree;
-	/** Nombre de porte unaire */
-	private Integer nbPorteUnaire;
-	/** Nombre de porte binaire */
-	private Integer nbPorteBinaire;
 	/** Parametres d'affichage */
 	private boolean disabled;
 
@@ -156,9 +150,6 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 
 	public void reset(){
 		this.exercice = null;
-		this.nbEntree = null;
-		this.nbPorteUnaire = null;
-		this.nbPorteBinaire = null;
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		request.getSession().removeAttribute(Constants.BAC_SABLE);
 		this.disabled = false;
@@ -167,6 +158,10 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 		this.table.add(new LigneBacSableDto());
 		this.table.add(new LigneBacSableDto());
 		this.table.add(new LigneBacSableDto());
+	}
+
+	public void maj() {
+		this.generer();
 	}
 
 	private boolean suspendEvent;
@@ -252,30 +247,6 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 
 	public void setCompetenceService(final CompetenceService competenceService) {
 		this.competenceService = competenceService;
-	}
-
-	public Integer getNbEntree() {
-		return this.nbEntree;
-	}
-
-	public void setNbEntree(final Integer nbEntree) {
-		this.nbEntree = nbEntree;
-	}
-
-	public Integer getNbPorteUnaire() {
-		return this.nbPorteUnaire;
-	}
-
-	public void setNbPorteUnaire(final Integer nbPorteUnaire) {
-		this.nbPorteUnaire = nbPorteUnaire;
-	}
-
-	public Integer getNbPorteBinaire() {
-		return this.nbPorteBinaire;
-	}
-
-	public void setNbPorteBinaire(final Integer nbPorteBinaire) {
-		this.nbPorteBinaire = nbPorteBinaire;
 	}
 
 	public boolean isLock() {

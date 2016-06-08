@@ -23,17 +23,13 @@
                 </pe:remoteCommand>  
                 
        			<p:fieldset legend="#{fr['bac.parametre']}">
-                    <p:dataTable var="ligne" value="#{bacSableMBean.table}" style="margin : 20px;">
+                    <p:dataTable var="ligne" value="#{bacSableMBean.table}" style="margin : 20px;" >
                         <p:column headerText="Input" >
                             <p:selectOneButton value="#{ligne.entree}">
                                 <f:selectItem itemLabel="Entrée" itemValue="0" />
                             </p:selectOneButton>
                         </p:column>
                         <p:column headerText="Colonne 1">
-<!--                             <p:selectOneListbox value="#{ligne.col1}"> -->
-<!--                                 <f:selectItem itemLabel="Porte unaire" itemValue="1" /> -->
-<!--                                 <f:selectItem itemLabel="Porte binaire" itemValue="2" /> -->
-<!--                             </p:selectOneListbox> -->
                             <p:selectOneButton value="#{ligne.col1}">
                                 <f:selectItem itemLabel="Porte unaire" itemValue="1" />
                                 <f:selectItem itemLabel="Porte binaire" itemValue="2" />
@@ -56,6 +52,7 @@
                     
                       <p:commandButton value="#{fr['bac.demarrer']}" action="#{bacSableMBean.generer}" update="@form" rendered="#{!bacSableMBean.disabled}"/>
        			      <p:commandButton value="#{fr['bac.reset']}" action="#{bacSableMBean.reset}" update="@form" rendered="#{bacSableMBean.disabled}"/>
+                      <p:commandButton value="#{fr['bac.maj']}" action="#{bacSableMBean.maj}" update="@form" rendered="#{bacSableMBean.disabled}"/>
                 
                 </p:fieldset>
        			<p:panel id="panelDiag" header="#{fr['bac.title']}" rendered="#{bacSableMBean.disabled}">
