@@ -14,6 +14,39 @@
     <ui:define name="body-site">
         
  		<p:panel header="#{fr['general.bac.sable.title']}">
+ 			<p:outputPanel style="font-size: 16px;">
+ 			Bienvenue dans le Bac à Sable, un environnement où vous pouvez manipuler librement un certain nombre de portes
+ 			logiques.
+ 			<br/>
+ 			</p:outputPanel>
+			<p:fieldset legend="Mode d'emploi" style="padding: 8px; margin : 20px;" toggleable="true" collapsed="true">
+ 			<p:outputPanel style="font-size: 16px;">
+ 			<ul>
+ 			<li>Selectionnez le contenu souhaité pour votre bac à sable en cliquant sur les boutons entrées et 
+       		portes aux emplacements qui vous intéressent puis cliquez sur Démarrer pour faire apparaitre 
+         	les composants.</li>
+         	<br/>
+         	<li>
+         	Pour relier des composants, cliquez sur l'un des connecteur placé sur le premier composant puis glissez votre
+         	souris jusqu'au connecteur du second composant sans relacher le bouton.
+         	</li>
+         	<br/>
+         	<li>
+         	Pour faire varier les valeurs des elements entrées (<FONT color="#2E962C">en vert</FONT>) ou portes (<FONT color="#37497B">en bleu </FONT>), 
+         	cliquez dessus.
+         	</li>
+         	<br/>
+          	<li>Pour mettre en route le circuit, c'est à dire afficher le résultat du calcul dans la sortie du circuit 
+          	(<FONT color="#9D000C">en rouge</FONT>), cliquez sur l'une des entrées ou des portes du circuit.</li>
+	  		<br/>
+	  		<li>Si vous souhaitez changer la forme du circuit en l'utilisant, selectionnez les élement désirés 
+	  		dans l'interface de paramètrage et cliquez sur Mettre à jour. 
+	  		Les connexions entre elements seront reinitialisées.</li>
+	  		<br/>
+	  		<li>Si vous souhaitez effacer completement le Bac à Sable, vous pouvez cliquer sur Redémarrer.</li>
+	  		</ul>
+ 			</p:outputPanel>
+ 			</p:fieldset>
        		<h:form id="form_exer">
                 <h:outputScript library="js" name="diagram.js" />
                  <pe:remoteCommand id="solutionRecalculer" name="solutionRecalculer" process="@this" update=":form_exer:panelDiag" 
