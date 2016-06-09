@@ -62,12 +62,46 @@
                       
                       <h:panelGrid columns="1" style="margin-left:50px;" id="consigneEntree" rendered="#{exerciceMBean.type == 1}">
                       <!-- Affichage des consignes -->
-                            Consigne pour le type Entree
+                      		<p>
+                      		<b>Consigne de l'exercice : </b>
+                      		</p>
+                            <p>
+                      		Le but de cet exercice est de determiner les valeurs d'entrée 
+                      		(<FONT color="#7EE67C"> en vert</FONT>)
+                      		qui permettent d'aboutir
+                      		<BR/>
+                      		à la sortie indiquée (<FONT color="#E8A958">en orange</FONT>) en fonction des 
+                      		portes logiques (<FONT color="#7F91C3"> en bleu </FONT>) présentes 
+                      		dans le circuit.
+                      		</p>
+                      		<p>
+                            Pour modifier une entrée, cliquer sur le cercle la contenant.
+                      		</p>
+                      		<p>
+                            Pour vérifier les réponses, cliquer sur vérifier.
+                      		</p>
                       </h:panelGrid>
                       
                       <h:panelGrid columns="1" style="margin-left:50px;" id="consignePorte" rendered="#{exerciceMBean.type == 2}">
                       <!-- Affichage des consignes -->
-                            Consigne pour le type Porte
+                      		<p>
+                      		<b>Consigne de l'exercice : </b>
+                      		</p>
+                      		<p>
+                      		Le but de cet exercice est de determiner les portes logiques 
+                      		(<FONT color="#7F91C3"> en bleu </FONT>)
+                      		qui permettent d'aboutir
+                      		<BR/>
+                      		à la sortie indiquée (<FONT color="#E8A958">en orange</FONT>)
+                      	    en fonction des 
+                      		données présentées en entrée (<FONT color="#7EE67C"> en vert</FONT>).
+                      		</p>
+                      		<p>
+                            Pour modifier une entrée, cliquer sur le cercle la contenant.
+                      		</p>
+                      		<p>
+                            Pour vérifier les réponses, cliquer sur vérifier.
+                      		</p>
                       </h:panelGrid>
                       
                   </h:panelGrid>
