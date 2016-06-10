@@ -10,11 +10,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.primefaces.context.RequestContext;
-import org.primefaces.model.diagram.DefaultDiagramModel;
-import org.primefaces.model.diagram.Element;
-import org.springframework.context.annotation.Scope;
-
 import mooc.dto.NotionDto;
 import mooc.login.AbstractMBean;
 import mooc.moteur.Exercice;
@@ -22,6 +17,11 @@ import mooc.service.CompetenceService;
 import mooc.service.NotionService;
 import mooc.utils.Constants;
 import mooc.utils.Messages;
+
+import org.primefaces.context.RequestContext;
+import org.primefaces.model.diagram.DefaultDiagramModel;
+import org.primefaces.model.diagram.Element;
+import org.springframework.context.annotation.Scope;
 
 @ManagedBean
 @Scope("view")
@@ -80,6 +80,7 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		if (this.exercice == null) {
 			this.disabled = false;
 			this.niveau = 1;
+			this.type = "1";
 
 		} else {
 			this.disabled = true;
@@ -221,7 +222,8 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 	public void reset(){
 		this.exercice = null;
 		this.disabled = false;
-		this.niveau = 0;
+		this.niveau = 1;
+		this.type = "1";
 		this.selectedNotions = new String[this.notions.size()];
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		request.getSession().removeAttribute(Constants.EXERCICE);

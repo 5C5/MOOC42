@@ -167,7 +167,7 @@ public class GenerateurMoyen extends Generateur {
 		if(entrees == null){
 			entree3.setData("0");
 		} else {
-			entree3.setData(entrees.get(3));
+			entree3.setData(entrees.get(2));
 		}
 		entree3.setX("20em");
 		entree3.setY("25em");
