@@ -31,95 +31,113 @@
                 <p:accordionPanel multiple="true"  id="panelGeneral" style="font-size: 16px; padding: 8px; margin : 12px;">
                     <p:tab title="#{fr['cours.intro.title']}" style="padding: 8px; margin : 12px;">
                         <h:panelGrid columns="1" style="width:100%;">
-	                            <p:outputPanel style="font-size: 16px;">
-	                            Les portes logiques sont des composants électroniques qui constituent la base de tous les circuits électroniques. 
-	                            On trouve par exemple des portes logiques dans les ordinateurs, les téléphones, etc. 
-	                            Ces composants sont des réalisations physiques de fonctions de l’algèbre de Boole, qui manipule des nombres binaires.
-	                            </p:outputPanel>
-	
-	                            <p:fieldset legend="#{fr['cours.intro.binary.title']}"  style="font-size: 16px; padding: 8px; margin : 12px;">
-	                      		A leur plus bas niveau, c’est à dire ceux de leurs composants, les appareils électroniques ne sont 
-	                      		capables que de “comprendre” et de manipuler qu’une seule information, la présence (ou l’absence) 
-	                      		de courant électrique. La présence de courant électrique est matérialisée par une tension électrique 
-	                      		positive et l’absence de courant électrique est matérialisée par une tension nulle. Par convention, 
-	                      		une tension nulle est notée 0 et une tension positive est notée 1. 
-								<BR /><BR />
-								Pour réaliser les calculs nécessaires à leur fonctionnement, les circuits électroniques 
-								vont donc uniquement manipuler ces 0 et ces 1. On dit que ces composants électroniques 
-								fonctionnent en système binaire car il n’y a que deux valeurs possible pour les entrées 
-								et sorties des calculs, 0 et 1.
-								<BR /><BR />
-								Si vous voulez plus d’informations sur le système binaire, 
-								vous pouvez consulter l’article <a href="https://fr.wikipedia.org/wiki/Syst%C3%A8me_binaire">Wikipédia</a> à ce sujet. 
-								</p:fieldset>
-					
-								<p:fieldset legend="L’algèbre de Boole, c’est quoi ?" style="font-size: 16px; padding: 8px; margin : 12px;">
+	                    	<p:outputPanel style="font-size: 16px;">
+                            Les portes logiques sont des composants électroniques qui constituent la base de tous les circuits électroniques. 
+                            On trouve par exemple des portes logiques dans les ordinateurs, les téléphones, etc. 
+                            Ces composants sont des réalisations physiques de fonctions de l’algèbre de Boole, qui manipule des nombres binaires.
+                            </p:outputPanel>
+
+                            <p:fieldset legend="#{fr['cours.intro.binary.title']}"  style="font-size: 16px; padding: 8px; margin : 12px;">
+                      		A leur plus bas niveau, c’est à dire ceux de leurs composants, les appareils électroniques ne sont 
+                      		capables que de “comprendre” et de manipuler qu’une seule informations, la présence (ou l’absence) 
+                      		de courant électrique. La présence de courant électrique est matérialisée par une tension électrique 
+                      		positive et l’absence de courant électrique est matérialisée par une tension nulle. Par convention, 
+                      		une tension nulle est notée 0 et une tension positive est notée 1. 
+							<BR /><BR />
+							Pour réaliser les calculs nécessaires à leur fonctionnement, les circuits électroniques 
+							vont donc uniquement manipuler ces 0 et ces 1. On dit que ces composants électroniques 
+							fonctionnent en système binaire car il n’y a que deux valeurs possible pour les entrées 
+							et sorties des calculs, 0 et 1.
+							<BR /><BR />
+							Si vous voulez plus d’informations sur le système binaire, 
+							vous pouvez consulter l’article <a href="https://fr.wikipedia.org/wiki/Syst%C3%A8me_binaire">Wikipédia</a> à ce sujet. 
+							</p:fieldset>
 				
-								L’algèbre de Boole est une branche des mathématiques qui permet, à l’image de l’algèbre 
-								classique qui propose de réaliser des opérations mathématiques sur des nombres, de réaliser 
-								des calculs sur des variables logiques. Les variables logiques sont des variables qui ne peuvent 
-								prendre que deux valeurs, VRAI ou FAUX  (1 ou 0). L’algèbre de Boole permet donc, par extension, 
-								de réaliser des calculs en binaire puisque dans ce système, il n’existe que des 0 et des 1.
+
+							<p:fieldset legend="L’algèbre de Boole, c’est quoi ?" style="font-size: 16px; padding: 8px; margin : 12px;">
+			
+							L’algèbre de Boole est une branche des mathématiques qui permet, à l’image de l’algèbre 
+							classique qui propose de réaliser des opérations mathématiques sur des nombres, de réaliser 
+							des calculs sur des variables logiques. Les variables logiques sont des variables qui ne peuvent 
+							prendre que deux valeurs, VRAI ou FAUX  ( 1 ou 0). L’algèbre de Boole permet donc, par extension, 
+							de réaliser des calculs en binaire puisque dans ce système, il n’existe que des 0 et des 1.
+							<BR/>
+							Étant donné le faible nombre de combinaisons possibles d’entrées, 
+							on utilise pour décrire une opération un tableau nommé table de vérité qui 
+							comporte toutes les combinaisons possibles d’entrées et les résultats associés.
+							 
+							L’algèbre de Boole propose 3 opérations binaires : 
+							<!-- Conjonction -->
+							<p:fieldset legend="Conjonction (ET)" style="padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
+								<h:panelGrid columns="1">
+								<p>La conjonction est une opération qui prend deux opérandes, 
+								c’est à dire deux valeurs, en entrée. Elle renvoie 1 seulement si les deux opérandes sont égales à 1. 
+								Dans les autres cas, elle renvoie le résultat 0.</p>
+								<p>Voici la table de vérité de l'opération ET : </p>
 								<BR/>
-								Étant donné le faible nombre de combinaisons possibles d’entrées, 
-								on utilise pour décrire une opération un tableau nommé table de vérité qui 
-								comporte toutes les combinaisons possibles d’entrées et les résultats associés.
-								 
-								L’algèbre de Boole propose 3 opérations binaires : 
-								<!-- Conjonction -->
-								<p:fieldset legend="Conjonction (ET)" style="padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
-									<h:panelGrid columns="1">
-									<p>La conjonction est une opération qui prend deux opérandes, 
-									c’est à dire deux valeurs, en entrée. Elle renvoie 1 seulement si les deux opérandes sont égales à 1. 
-									Dans les autres cas, elle renvoie le résultat 0.</p>
-									<p>Voici la table de vérité de l'opération ET : </p>
-									<BR/>
-									<p:graphicImage name="img/operation_ET.png" title="table de vérité de l'opération ET"/>
-									<BR/>
-									</h:panelGrid>
+								<p:graphicImage name="img/operation_ET.png" title="Symbole porte AND"/>
+								<BR/>
+								</h:panelGrid>
+							</p:fieldset>
+							
+							<!-- Disjonction -->
+							<p:fieldset legend="Disjonction (OU)" style="padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
+								<h:panelGrid columns="1">
+								<p>La disjonction est une opération qui prend deux opérandes en entrée.
+								Elle renvoie 1 quand l’une des deux opérandes est égale à 1.</p>
+								<p>Voici la table de vérité de l'opération OU : </p>
+								<BR/>
+			    				<p:graphicImage name="img/operation_OU.png" title="table de vérité de l'opération OU"/>
+			    				<BR/>
+								</h:panelGrid>
+							</p:fieldset>
+							
+							<!-- Negation -->
+							<p:fieldset legend="Négation (NON)" style="padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
+								<h:panelGrid columns="1" cellspacing="2" cellpadding="2">
+								<p>La négation est une opération qui ne prend qu’une seule opérande. 
+								Elle a pour but de renvoyer l’inverse de la valeur d’entrée, 
+								c’est à dire qu’elle renverra 0 si l’entrée est 1 et 1 si l’entrée est 0.</p>
+								<p>Voici la table de vérité de l'opération NON : </p>
+								<BR/>
+								<p:graphicImage name="img/operation_NON.png" title="table de vérité de l'opération NON"/> 
+								<BR/>
+								</h:panelGrid>
+							</p:fieldset>
+
+							Si vous voulez plus d’informations sur l’algèbre de Boole, 
+							vous pouvez consulter l’article <a href="https://fr.wikipedia.org/wiki/Alg%C3%A8bre_de_Boole_(logique)">Wikipédia</a> à ce sujet.
+							<br/>
+							<br/>
+							</p:fieldset>
+							Les portes logiques sont des réalisations physiques de ces opérateurs booléens, 
+							elles vont, en fonction des tensions électriques présentes aux entrées et de l’opération que l’on cherche à réaliser, 
+							faire passer ou non le courant pour signifier le résultat du calcul.
+							<br/>
+							<br/>
+							Elles vont permettre aux circuits électroniques de réaliser les calculs nécessaires à l’accomplissement de leurs tâches.
+							Il existe différentes portes logiques correspondant aux différentes opérations de l’algèbre de Boole.
+							<br/>
+							<br/>
+							Dans ce cours, nous allons présenter les différentes portes logiques existantes et vous apprendre à les manipuler.
+							<br/>
+							<br/>
+							<p:fieldset legend="#{fr['cours.intro.quiz']}" toggleable="true" collapsed="#{!coursMBean.afficher}" 
+								style="font-size: 16px;" id="listeQuiz">
+									<ui:repeat value="#{coursMBean.questions}" var="el">
+										<h:panelGrid columns="1" cellspacing="8px">
+											<p:outputLabel value="#{el.question}" for="quizz"/>
+											<p:selectOneRadio id="quizz" value="#{el.userAnswer}" layout="grid" columns="1" >
+												<f:selectItem itemLabel="#{el.answer1}" itemValue="1" />
+												<f:selectItem itemLabel="#{el.answer2}" itemValue="2" />
+												<f:selectItem itemLabel="#{el.answer3}" itemValue="3" />
+											</p:selectOneRadio>
+											<p:outputLabel value="#{el.correction}" rendered="#{coursMBean.afficher}" style="color : #{el.couleur}"/>
+					
+										</h:panelGrid>
+									</ui:repeat>
+									<p:commandButton action="#{coursMBean.corriger}" update="listeQuiz" value="Vérifier"/>
 								</p:fieldset>
-								
-								<!-- Disjonction -->
-								<p:fieldset legend="Disjonction (OU)" style="padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
-									<h:panelGrid columns="1">
-									<p>La disjonction est une opération qui prend deux opérandes en entrée.
-									Elle renvoie 1 quand l’une des deux opérandes est égale à 1.</p>
-									<p>Voici la table de vérité de l'opération OU : </p>
-									<BR/>
-				    				<p:graphicImage name="img/operation_OU.png" title="table de vérité de l'opération OU"/>
-				    				<BR/>
-									</h:panelGrid>
-								</p:fieldset>
-								
-								<!-- Negation -->
-								<p:fieldset legend="Négation (NON)" style="padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
-									<h:panelGrid columns="1" cellspacing="2" cellpadding="2">
-									<p>La négation est une opération qui ne prend qu’une seule opérande. 
-									Elle a pour but de renvoyer l’inverse de la valeur d’entrée, 
-									c’est à dire qu’elle renverra 0 si l’entrée est 1 et 1 si l’entrée est 0.</p>
-									<p>Voici la table de vérité de l'opération NON : </p>
-									<BR/>
-									<p:graphicImage name="img/operation_NON.png" title="table de vérité de l'opération NON"/> 
-									<BR/>
-									</h:panelGrid>
-								</p:fieldset>
-						
-								Si vous voulez plus d’informations sur l’algèbre de Boole, 
-								vous pouvez consulter l’article <a href="https://fr.wikipedia.org/wiki/Alg%C3%A8bre_de_Boole_(logique)">Wikipédia</a> à ce sujet.
-								<br/>
-								<br/>
-								</p:fieldset>
-								
-						Les portes logiques sont des réalisations physiques de ces opérateurs booléens, 
-						elles vont, en fonction des tensions électriques présentes aux entrées et de l’opération que l’on cherche à réaliser, 
-						faire passer ou non le courant pour signifier le résultat du calcul.
-						<br/>
-						<br/>
-						Elles vont permettre aux circuits électroniques de réaliser les calculs nécessaires à l’accomplissement de leurs tâches.
-						Il existe différentes portes logiques correspondant aux différentes opérations de l’algèbre de Boole.
-						<br/>
-						<br/>
-						Dans ce cours, nous allons présenter les différentes portes logiques existantes et vous apprendre à les manipuler.
 	                    </h:panelGrid>
                     </p:tab>
                      
@@ -207,7 +225,10 @@
 		        		    		</p:outputPanel>
 	                    		</h:panelGrid>
 							</p:fieldset>
-                     
+                     		
+                     		<!-- Bon, ben ici, tu l'a mis, c'est nickel
+                     		
+                     		 -->
                             <p:commandButton value="#{fr['cours.demarrer']} #{coursMBean.numExercice}" action="#{coursMBean.genererExo1}" 
                                 rendered="#{coursMBean.numExercice == 0 or coursMBean.numExercice == null}" update="@form"/>
        			      
@@ -246,6 +267,12 @@
 					 La porte OR prend donc en entrée 0 et 1 et renvoie comme résultat 1.
                      </p:outputPanel>
                      </h:panelGrid>
+                     
+                     <!--
+                     //TODO
+                     	Ici il faut mettre trois exercices, de type difficile
+                     	avec un exercice qui comprend au moins une des trois porte NOT, AND, et OR
+                       -->
                      
                      </p:tab>
                      
@@ -387,6 +414,12 @@
 						 </h:panelGrid> 
 					 </p:fieldset>					 
                      </h:panelGrid>
+                     
+                     <!--
+                     //TODO  
+                     	Et ici, de nouveau, quatres exercice de type faciles, 
+                     	qui comprennent chacun l'une des 4 nouvelles portes, XOR, NAND, NOR, XNOR
+                     	-->
                      </p:tab>
                      
                      <p:tab title="#{fr['cours.further.title']}">
@@ -467,9 +500,9 @@
                                 </p:commandButton>
                             </h:panelGrid>
                         </ui:repeat>
-                        <p:commandButton  value="#{fr['menu.profil']}" action="profil"/>
                     </h:panelGrid>
                     </p:panel>
+                    <p:commandButton  value="#{fr['menu.profil']}" action="profil"/>
             </h:form>
             </p:layoutUnit>
          
