@@ -44,16 +44,28 @@
                     
                     <!-- Notions -->
                     <p:panel header="#{fr['profil.niveau.title']}">
+                    <h:panelGrid columns="2" cellpadding="5">
                         <ui:repeat var="niv" value="#{profilMBean.profil.niveaux}" >
                             <h:panelGrid columns="3" cellpadding="5">
                                 <h:outputText value="#{niv.nom}"/>
-                                <p:rating value="#{niv.niveau}" readonly="true" stars="3"/>
+                                <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
                                 <p:commandButton id="levelUp" value="Level up" action="#{profilMBean.levelUp}" update="@form">
                                     <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.id}" />
                                     <f:setPropertyActionListener target="#{profilMBean.connaissanceLevel}" value="#{niv.niveau}" />
                                 </p:commandButton>
                             </h:panelGrid>
                         </ui:repeat>
+                        <ui:repeat var="niv" value="#{profilMBean.profil.niveauxComplexes}" >
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <h:outputText value="#{niv.nom}"/>
+                                <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
+                                <p:commandButton id="levelUp" value="Level up" action="#{profilMBean.levelUp}" update="@form">
+                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.id}" />
+                                    <f:setPropertyActionListener target="#{profilMBean.connaissanceLevel}" value="#{niv.niveau}" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </ui:repeat>
+                    </h:panelGrid>
                     </p:panel>
                 </h:panelGrid>
                 
@@ -65,9 +77,9 @@
                         </h:outputText>
                     </p:column>
                     <p:column headerText="#{fr['profil.evolution.niveau']}" sortBy="#{ligne.niveau}" style="width:80px;">
-                        <h:outputText value="Facile" rendered="#{ligne.niveau == 1}" style="color : green"/>
-                        <h:outputText value="Moyen" rendered="#{ligne.niveau == 2}" style="color : orange"/>
-                        <h:outputText value="Difficile" rendered="#{ligne.niveau == 3}" style="color : red"/>
+                        <h:outputText value="Facile" rendered="#{ligne.niveau == 1}" />
+<!--                         <h:outputText value="Moyen" rendered="#{ligne.niveau == 2}" /> -->
+                        <h:outputText value="Difficile" rendered="#{ligne.niveau == 2}" />
 <!--                         <p:rating value="#{ligne.niveau}" readonly="true" stars="3"/> -->
                     </p:column>
                     <p:column headerText="#{fr['profil.evolution.score']}" sortBy="#{ligne.score}" style="width:80px;">
@@ -105,16 +117,25 @@
                     <h:outputText value="#{ligne.nomApprenant} #{ligne.prenomApprenant}"/>
                 </p:column>
                 <p:column headerText="#{fr['porte.ou']}" sortBy="#{ligne.niveauOU}">
-                    <p:rating value="#{ligne.niveauOU}" readonly="true" stars="3"/>
+                    <p:rating value="#{ligne.niveauOU}" readonly="true" stars="2"/>
                 </p:column>
                 <p:column headerText="#{fr['porte.et']}" sortBy="#{ligne.niveauET}">
-                    <p:rating value="#{ligne.niveauET}" readonly="true" stars="3" />
+                    <p:rating value="#{ligne.niveauET}" readonly="true" stars="2" />
                 </p:column>
                 <p:column headerText="#{fr['porte.not']}" sortBy="#{ligne.niveauNOT}">
-                    <p:rating value="#{ligne.niveauNOT}" readonly="true" stars="3" />
+                    <p:rating value="#{ligne.niveauNOT}" readonly="true" stars="2" />
                 </p:column>
                 <p:column headerText="#{fr['porte.xor']}" sortBy="#{ligne.niveauXOR}">
-                    <p:rating value="#{ligne.niveauXOR}" readonly="true" stars="3"/>
+                    <p:rating value="#{ligne.niveauXOR}" readonly="true" stars="2"/>
+                </p:column>
+                <p:column headerText="#{fr['porte.nand']}" sortBy="#{ligne.niveauNAND}">
+                    <p:rating value="#{ligne.niveauNAND}" readonly="true" stars="2"/>
+                </p:column>
+                <p:column headerText="#{fr['porte.nor']}" sortBy="#{ligne.niveauNOR}">
+                    <p:rating value="#{ligne.niveauNOR}" readonly="true" stars="2"/>
+                </p:column>
+                <p:column headerText="#{fr['porte.xnor']}" sortBy="#{ligne.niveauXNOR}">
+                    <p:rating value="#{ligne.niveauXNOR}" readonly="true" stars="2"/>
                 </p:column>
             </p:dataTable>
             <p:accordionPanel multiple="true" style="margin-top : auto;" var="profil" value="#{profilMBean.profil.listeProfil}">
@@ -122,12 +143,20 @@
                         <h:panelGrid columns="1" >                    
                             <!-- Notions -->
                             <p:panel header="#{fr['profil.niveau.title']}" style="width:30%;">
-                                <ui:repeat var="niv" value="#{profil.niveaux}" >
-                                    <h:panelGrid columns="3" cellpadding="5">
-                                        <h:outputText value="#{niv.nom}"/>
-                                        <p:rating value="#{niv.niveau}" readonly="true" stars="3"/>
-                                    </h:panelGrid>
-                                </ui:repeat>
+                                <h:panelGrid columns="2" cellpadding="10">
+                                    <ui:repeat var="niv" value="#{profil.niveaux}" >
+                                        <h:panelGrid columns="3" cellpadding="5">
+                                            <h:outputText value="#{niv.nom}"/>
+                                            <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
+                                        </h:panelGrid>
+                                    </ui:repeat>
+                                    <ui:repeat var="niv" value="#{profil.niveauxComplexes}" >
+                                        <h:panelGrid columns="3" cellpadding="5">
+                                            <h:outputText value="#{niv.nom}"/>
+                                            <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
+                                        </h:panelGrid>
+                                    </ui:repeat>
+                                </h:panelGrid>
                             </p:panel>
                         
                             <p:panel header="#{fr['profil.evolution.competence']}">
@@ -138,7 +167,8 @@
                                 </h:outputText>
                                 </p:column>
                                 <p:column headerText="#{fr['profil.evolution.niveau']}" sortBy="#{ligne.niveau}" style="width:80px;">
-                                    <p:rating value="#{ligne.niveau}" readonly="true" stars="3"/>
+                                    <h:outputText value="Facile" rendered="#{ligne.niveau == 1}" />
+                                    <h:outputText value="Difficile" rendered="#{ligne.niveau == 2}" />
                                 </p:column>
                                 <p:column headerText="#{fr['profil.evolution.score']}" sortBy="#{ligne.score}" style="width:80px;">
                                     <h:outputText value="#{ligne.score}" />
@@ -154,9 +184,6 @@
             </p:accordionPanel>   
          </p:panel>
          </h:form>
-         <p:panel header="#{fr['footer.title']}">
-		<p:outputLabel value="#{fr['footer.text']}" styleClass="value"/>
-		</p:panel>
 	    </ui:define>
 
 </ui:composition>

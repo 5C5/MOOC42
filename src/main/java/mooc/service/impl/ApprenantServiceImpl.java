@@ -140,14 +140,20 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
 		// Notions
 		List<Connaissance> connaissances = this.connaissanceDAO.loadConnaissance(apprenant.getIdApprenant());
 		List<NiveauDeverouilleDto> niveaux = new ArrayList<NiveauDeverouilleDto>();
+		List<NiveauDeverouilleDto> niveauxComplexes = new ArrayList<NiveauDeverouilleDto>();
 		for (Connaissance connaissance : connaissances) {
 			NiveauDeverouilleDto niveau = new NiveauDeverouilleDto();
 			niveau.setId(connaissance.getIdConnaissance());
 			niveau.setNom(connaissance.getNotion().getNomNotion());
 			niveau.setNiveau(connaissance.getNiveau());
-			niveaux.add(niveau);
+			if (connaissance.isComplexe()) {
+				niveauxComplexes.add(niveau);
+			} else {
+				niveaux.add(niveau);
+			}
 		}
 		profil.setNiveaux(niveaux);
+		profil.setNiveauxComplexes(niveauxComplexes);
 
 		// Evolution des competences
 		List<Competence> competences = this.competenceDAO.loadCompetence(apprenant.getIdApprenant());

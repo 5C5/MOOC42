@@ -118,6 +118,12 @@ public class ProfilMBean extends AbstractMBean implements Serializable {
 						ligne.setNiveauNOT(niveau.getNiveau());
 					} else if (Constants.XOR.equalsIgnoreCase(niveau.getNom())) {
 						ligne.setNiveauXOR(niveau.getNiveau());
+					} else if (Constants.NAND.equalsIgnoreCase(niveau.getNom())) {
+						ligne.setNiveauNAND(niveau.getNiveau());
+					} else if (Constants.NOR.equalsIgnoreCase(niveau.getNom())) {
+						ligne.setNiveauNOR(niveau.getNiveau());
+					} else if (Constants.XNOR.equalsIgnoreCase(niveau.getNom())) {
+						ligne.setNiveauXNOR(niveau.getNiveau());
 					}
 				}
 				this.lignes.add(ligne);
