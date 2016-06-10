@@ -118,7 +118,8 @@
            				<p:notificationBar position="bottom" effect="slide" styleClass="bottom" widgetVar="reussite">
     						<h:panelGrid columns="2">
     							<h:outputText value="Bravo!" style="font-size:25px;" />
-    							<p:commandButton value="#{fr['exercice.ack']}" action="#{exerciceMBean.refermer}" update="@form"/>
+    							<p:commandButton value="#{fr['exercice.ack']}" onclick="PF('reussite').hide()" actionListener="#{exerciceMBean.refermer}" 
+                                    update="@form"/>
     						</h:panelGrid>
 						</p:notificationBar>
 						<!-- Notification en cas d'échec -->

@@ -178,27 +178,27 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 			}
 		}
 		// Recalcule des solutions
-//		for (Element el : root.getElements()) {
-//			if(Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass())){
-//				Boolean sortieSolution = this.exercice.calculSortieSolution(root);
-//				if(sortieSolution){
-//					el.setData("1");
-//				} else {
-//					el.setData("0");
-//				}
-//			} else if(Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
-//				try {
-//					Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
-//					if(sortieUtilisateur){
-//						el.setData("1");
-//					} else {
-//						el.setData("0");
-//					}
-//				} catch (Exception e){
-//					this.addFacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage());
-//				}
-//			}
-//		}
+		//		for (Element el : root.getElements()) {
+		//			if(Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass())){
+		//				Boolean sortieSolution = this.exercice.calculSortieSolution(root);
+		//				if(sortieSolution){
+		//					el.setData("1");
+		//				} else {
+		//					el.setData("0");
+		//				}
+		//			} else if(Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
+		//				try {
+		//					Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
+		//					if(sortieUtilisateur){
+		//						el.setData("1");
+		//					} else {
+		//						el.setData("0");
+		//					}
+		//				} catch (Exception e){
+		//					this.addFacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage());
+		//				}
+		//			}
+		//		}
 
 		// Modification de l'exercice
 		this.exercice.setRoot(root);
@@ -221,7 +221,7 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 				// Enregistrement de l'exercice pour l'apprenant
 				this.competenceService.ajouterExercice(id, this.exercice.getNotions(), this.exercice.getDifficulte(), 100/this.exercice.getNbEssai());
 			}
-			// this.reset();
+			this.reset();
 			//this.addFacesMessage(FacesMessage.SEVERITY_INFO, Messages.message("exercice.reussi"));
 			context.execute("PF('reussite').show();");
 
@@ -244,9 +244,9 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 
 	public void refermer() {
 		this.reset();
-		RequestContext context = RequestContext.getCurrentInstance();
-		context.execute("PF('reussite').hide();");
-		System.out.println("Plop back");
+		// RequestContext context = RequestContext.getCurrentInstance();
+		// context.execute("PF('reussite').hide();");
+		// System.out.println("Plop back");
 	}
 
 	public List<NotionDto> getNotions() {
