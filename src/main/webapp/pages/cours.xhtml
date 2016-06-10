@@ -22,9 +22,11 @@
                     <pe:methodSignature parameters="java.lang.String" />  
                      <pe:methodParam name="idElement"/>  
                 </pe:remoteCommand> 
-                
        			<p:outputPanel style="font-size: 16px;">
-       			Bienvenue sur ce cours du MOOC42 consacré aux portes logiques.
+       			<BR/>
+       			Bienvenue dans dans ce cours du MOOC42 sur les portes logiques. Ici vous trouverez des explications sur les 
+       			portes logiques, ainsi que des exercices vous permettant de mettre en application les connaissances
+       			acquises.
        			</p:outputPanel>
                 <p:accordionPanel multiple="true"  id="panelGeneral" style="font-size: 16px; padding: 8px; margin : 12px;">
                     <p:tab title="#{fr['cours.intro.title']}" style="padding: 8px; margin : 12px;">
@@ -153,10 +155,11 @@
 		                            <p:outputPanel style="margin : 0 auto;">
 		                            <BR/>
 		                            <p:graphicImage name="img/porte_AND.png" title="table de vérité AND"/>
-		                            <BR/>
 		                            </p:outputPanel>
+		                            <BR/>
 		        		    		<p:outputPanel>
-		        		    		La porte AND prend deux valeurs en entrée et donne une valeur en sortie.
+		        		    		La porte AND prend deux valeurs en entrée et donne une valeur en sortie, c'est une porte
+		        		    		binaire.
 		        		    		</p:outputPanel>
 	        		  			</h:panelGrid>
                         	</p:fieldset>
@@ -165,7 +168,7 @@
 	                    		<h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
 		                            <p:outputPanel>
 		                            La porte OR est la réalisation physique de la fonction booléenne OU, 
-		                            elle est représentée par le symbole suivant : 
+		                            elle peut être représentée par le symbole suivant : 
 		                           </p:outputPanel>
 		                           <BR/>
 		                            <p:graphicImage name="img/symbole_OR.png" title="Symbole de la porte OR"/>
@@ -177,7 +180,8 @@
 					    			<p:graphicImage name="img/porte_OR.png" title="Voici la table de vérité de l’opération OU :"/>
 	                    			<BR/>
 	                    			<p:outputPanel>
-		        		    		La porte OR prend deux valeurs en entrée et donne une valeur en sortie.
+		        		    		La porte OR prend deux valeurs en entrée et donne une valeur en sortie, c'est une porte
+		        		    		binaire.
 		        		    		</p:outputPanel>
 	                    		</h:panelGrid>
 							</p:fieldset>
@@ -186,7 +190,7 @@
 	                    		<h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
 		                            <p:outputPanel>
 		                            La porte NOT est la réalisation physique de la fonction booléenne NON, 
-		                            elle est représentée par le symbole suivant :
+		                            elle peut être représentée par le symbole suivant :
 		                            </p:outputPanel>
 		                            <BR/>
 		                            <p:graphicImage name="img/symbole_OR.png" title="Symbole de la porte OR"/>
@@ -198,7 +202,8 @@
 					    			<p:graphicImage name="img/porte_OR.png" title="Voici la table de vérité de l’opération OU :"/>
 	                    			<BR/>
 	                    			<p:outputPanel>
-		        		    		La porte NOT prend une valeur en entrée et donne une valeur en sortie.
+		        		    		La porte NOT prend une valeur en entrée et donne une valeur en sortie, c'est une porte
+		        		    		unaire.
 		        		    		</p:outputPanel>
 	                    		</h:panelGrid>
 							</p:fieldset>
@@ -268,7 +273,7 @@
 			                 </p:outputPanel>
 							 <BR/>
 							 <p:outputPanel>
-							 La porte NAND est représentée par le symbole suivant : 
+							 La porte NAND peut être représentée par le symbole suivant : 
 			                 </p:outputPanel>
 			                 <BR/>
 			                 <p:graphicImage name="img/symbole_NAND.png" title="combinaison de portes"/>
@@ -280,7 +285,8 @@
 			                 <p:graphicImage name="img/porte_NAND.png" title="combinaison de portes"/>
 			                 <BR/>
 			                 <p:outputPanel>
-			                 La porte NAND prend deux valeurs en entrée et donne une valeur en sortie.
+			                 La porte NAND prend deux valeurs en entrée et donne une valeur en sortie, c'est une porte
+		        		     binaire.
 			                 </p:outputPanel>
 						 </h:panelGrid> 
 					 </p:fieldset>
@@ -294,7 +300,7 @@
 			                 </p:outputPanel>
 							 <BR/>
 							 <p:outputPanel>
-							 La porte NOR est représentée par le symbole suivant :
+							 La porte NOR peut être représentée par le symbole suivant :
 			                 </p:outputPanel>
 			                 <BR/>
 			                 <p:graphicImage name="img/symbole_NOR.png" title="combinaison de portes"/>
@@ -306,7 +312,8 @@
 			                 <p:graphicImage name="img/porte_NOR.png" title="combinaison de portes"/>
 			                 <BR/>
 			                 <p:outputPanel>
-			                 La porte NOR prend deux valeurs en entrée et donne une valeur en sortie.
+			                 La porte NOR prend deux valeurs en entrée et donne une valeur en sortie, c'est une porte
+		        		     binaire.
 			                 </p:outputPanel>
 						 </h:panelGrid> 
 					 </p:fieldset>
@@ -335,7 +342,7 @@
 					 		 <p:graphicImage name="img/XOR_NOR.png" title="combinaison de portes"/>
 							 <BR/>
 							 <p:outputPanel>
-							 La porte XOR est représentée par le symbole suivant :
+							 La porte XOR peut être représentée par le symbole suivant :
 			                 </p:outputPanel>
 			                 <BR/>
 			                 <p:graphicImage name="img/symbole_XOR.png" title="combinaison de portes"/>
@@ -347,7 +354,8 @@
 			                 <p:graphicImage name="img/porte_XOR.png" title="combinaison de portes"/>
 			                 <BR/>
 			                 <p:outputPanel>
-			                 La porte XOR prend deux valeurs en entrée et donne une valeur en sortie.
+			                 La porte XOR prend deux valeurs en entrée et donne une valeur en sortie, c'est une porte
+		        		     binaire.
 			                 </p:outputPanel>
 						 </h:panelGrid> 
 					 </p:fieldset>
@@ -361,7 +369,7 @@
 			                 </p:outputPanel>
 							 <BR/>
 							 <p:outputPanel>
-							 La porte XNOR est représentée par le symbole suivant :
+							 La porte XNOR peut être représentée par le symbole suivant :
 			                 </p:outputPanel>
 			                 <BR/>
 			                 <p:graphicImage name="img/symbole_XNOR.png" title="combinaison de portes"/>
@@ -373,7 +381,8 @@
 			                 <p:graphicImage name="img/porte_XNOR.png" title="combinaison de portes"/>
 			                 <BR/>
 			                 <p:outputPanel>
-			                 La porte XNOR prend deux valeurs en entrée et donne une valeur en sortie.
+			                 La porte XNOR prend deux valeurs en entrée et donne une valeur en sortie, c'est une porte
+		        		     binaire.
 			                 </p:outputPanel>
 						 </h:panelGrid> 
 					 </p:fieldset>					 
