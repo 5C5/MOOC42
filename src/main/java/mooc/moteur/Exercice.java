@@ -34,7 +34,7 @@ public class Exercice {
 	private int type;
 
 	/** Nombre d'essai */
-	private final int nbEssai;
+	private int nbEssai;
 
 	/** Constructeur vide */
 	public Exercice() {
@@ -124,6 +124,10 @@ public class Exercice {
 
 	public int getNbEssai() {
 		return this.nbEssai;
+	}
+
+	public void setNbEssai(final int nbEssai) {
+		this.nbEssai = nbEssai;
 	}
 
 	public int getDifficulte() {

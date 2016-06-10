@@ -210,6 +210,7 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		Integer id = (Integer) request.getSession().getAttribute(Constants.UTILISATEUR_CONNECTE);
 		this.exercice = (Exercice) request.getSession().getAttribute(Constants.EXERCICE);
+		this.exercice.setNbEssai(this.exercice.getNbEssai() + 1);
 		// Verification si la solution utilisateur est correcte
 		boolean verif = this.exercice.valider(this.exercice.getRoot());
 		RequestContext context = RequestContext.getCurrentInstance();
@@ -218,7 +219,7 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		if (verif) {
 			if (id != null) {
 				// Enregistrement de l'exercice pour l'apprenant
-				this.competenceService.ajouterExercice(id, this.exercice.getNotions(), this.exercice.getDifficulte(), 0);
+				this.competenceService.ajouterExercice(id, this.exercice.getNotions(), this.exercice.getDifficulte(), 100/this.exercice.getNbEssai());
 			}
 			// this.reset();
 			//this.addFacesMessage(FacesMessage.SEVERITY_INFO, Messages.message("exercice.reussi"));
