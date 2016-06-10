@@ -38,6 +38,18 @@ public final class Constants {
 	public static final String EXERCICE = "Exercice";
 	/** Bac a sable */
 	public static final String BAC_SABLE = "BacSable";
+	public static final String BAC_SABLE_TABLE = "BacSableTable";
+	/** Cours */
+	public static final String COURS = "Cours";
+	public static final String COURS_NUM_EXERCICE = "CoursNumExercice";
+	public static final String COURS_NB_EXERCICE = "CoursNbExercice";
+	public static final String COURS_NB_EXERCICE_RESTANT = "CoursNbExerciceRestant";
+
+	/** Pré-parametrage de l'exercice */
+	/** Niveau */
+	public static final String PRE_NIVEAU = "PreNiveau";
+	/** Notion */
+	public static final String PRE_NOTION = "PreNotion";
 
 	/**
 	 * ********************* Portes Logiques ******************
@@ -52,6 +64,12 @@ public final class Constants {
 	public static final String XOR = "XOR";
 	/** Vide, ne fait rien */
 	public static final String EMPTY = "EMPTY";
+	/** NAND */
+	public static final String NAND = "NAND";
+	/** NOR */
+	public static final String NOR = "NOR";
+	/** XNOR */
+	public static final String XNOR = "XNOR";
 
 	/** Constantes pour la resolution d'exercice */
 	/** Porte */

@@ -52,13 +52,13 @@ public class GenerateurMoyen extends Generateur {
 
 		if(binaire1 && binaire2){
 			// Creation du modele 1 : contient trois entrees et deux portes binaires
-			this.creerModele1(porteAlea1, porteAlea2, drag, true, type);
+			this.creerModele1(porteAlea1, porteAlea2, drag, false, type);
 		} else if(!binaire1 && binaire2){
 			// Creation du modele 2 : contient deux entrees et deux portes (la premiere unaire et la seconde binaire)
-			this.creerModele2(porteAlea1, porteAlea2, drag, true, type);
+			this.creerModele2(porteAlea1, porteAlea2, drag, false, type);
 		} else if(binaire1 && !binaire2){
 			// Creation du modele 3 : contient deux entrees et deux portes (la premiere binaire et la seconde unaire)
-			this.creerModele3(porteAlea1, porteAlea2, drag, true, type);
+			this.creerModele3(porteAlea1, porteAlea2, drag, false, type);
 		}
 
 	}
@@ -92,10 +92,8 @@ public class GenerateurMoyen extends Generateur {
 	 */
 	private void creerModele1(final String porteAlea1, final String porteAlea2, final boolean drag, final boolean solution, final int type) {
 		List<String> entrees = null;
-		if(type == 2){
-			// Si il faut trouver les portes, alors on fixe les entrees pour que le resultat soit 1
-			entrees = this.trouverSolutionEntree(porteAlea1, porteAlea2, 1);
-		}
+		// Si il faut trouver les portes, alors on fixe les entrees pour que le resultat soit 1
+		entrees = this.trouverSolutionEntree(porteAlea1, porteAlea2, 1);
 
 		// Modele 1 contient trois entrees et deux portes binaires
 		Porte porte1 = null;
@@ -134,7 +132,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de l'entree une */
 		entree1 = new Valeur("0", true, false);
-		if(entrees == null){
+		if (type == 1) {
 			entree1.setData("0");
 		} else {
 			entree1.setData(entrees.get(0));
@@ -149,7 +147,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de l'entree deux */
 		entree2 = new Valeur("0", true, false);
-		if(entrees == null){
+		if (type == 1) {
 			entree2.setData("0");
 		} else {
 			entree2.setData(entrees.get(1));
@@ -164,10 +162,10 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de l'entree trois */
 		entree3 = new Valeur("0", true, false);
-		if(entrees == null){
+		if (type == 1) {
 			entree3.setData("0");
 		} else {
-			entree3.setData(entrees.get(3));
+			entree3.setData(entrees.get(2));
 		}
 		entree3.setX("20em");
 		entree3.setY("25em");
@@ -186,7 +184,8 @@ public class GenerateurMoyen extends Generateur {
 		 * l'utilisateur, dite sortie utilisateur
 		 */
 		sortieUtilisateur = new Valeur("0", false, false);
-		sortieUtilisateur.setData("0");
+		boolean sortieData = this.calculPorte(this.convertToBoolean(entrees.get(0)), this.convertToBoolean(entrees.get(1)), Boolean.parseBoolean(entrees.get(2)), porteAlea1, porteAlea2);
+		sortieUtilisateur.setData(sortieData ? "1" : "0");
 		sortieUtilisateur.setX("80em");
 		sortieUtilisateur.setY("20em");
 		sortieUtilisateur.setDraggable(drag);
@@ -233,10 +232,9 @@ public class GenerateurMoyen extends Generateur {
 	 */
 	private void creerModele2(final String porteAlea1, final String porteAlea2, final boolean drag, final boolean solution, final int type) {
 		List<String> entrees = null;
-		if(type == 2){
-			// Si il faut trouver les portes, alors on fixe les entrees pour que le resultat soit 1
-			entrees = this.trouverSolutionEntree(porteAlea1, porteAlea2, 2);
-		}
+		// Si il faut trouver les portes, alors on fixe les entrees pour que le resultat soit 1
+		entrees = this.trouverSolutionEntree(porteAlea1, porteAlea2, 2);
+
 		Porte porte1 = null;
 		Porte porte2 = null;
 		Valeur entree1 = null;
@@ -272,7 +270,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de l'entree une */
 		entree1 = new Valeur("0", true, false);
-		if(entrees == null){
+		if (type == 1) {
 			entree1.setData("0");
 		} else {
 			entree1.setData(entrees.get(0));
@@ -285,7 +283,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de l'entree deux */
 		entree2 = new Valeur("0", true, false);
-		if(entrees == null){
+		if (type == 1) {
 			entree2.setData("0");
 		} else {
 			entree2.setData(entrees.get(1));
@@ -309,7 +307,8 @@ public class GenerateurMoyen extends Generateur {
 		 * l'utilisateur, dite sortie utilisateur
 		 */
 		sortieUtilisateur = new Valeur("0", false, false);
-		sortieUtilisateur.setData("0");
+		boolean sortieData = this.calculPorte(this.convertToBoolean(entrees.get(0)), null, this.convertToBoolean(entrees.get(1)), porteAlea1, porteAlea2);
+		sortieUtilisateur.setData(sortieData ? "1" : "0");
 		sortieUtilisateur.setX("80em");
 		sortieUtilisateur.setY("15em");
 		sortieUtilisateur.setDraggable(drag);
@@ -356,10 +355,9 @@ public class GenerateurMoyen extends Generateur {
 	 */
 	private void creerModele3(final String porteAlea1, final String porteAlea2, final boolean drag, final boolean solution, final int type) {
 		List<String> entrees = null;
-		if(type == 2){
-			// Si il faut trouver les portes, alors on fixe les entrees pour que le resultat soit 1
-			entrees = this.trouverSolutionEntree(porteAlea1, porteAlea2, 3);
-		}
+		// Si il faut trouver les portes, alors on fixe les entrees pour que le resultat soit 1
+		entrees = this.trouverSolutionEntree(porteAlea1, porteAlea2, 3);
+
 		Porte porte1 = null;
 		Porte porte2 = null;
 		Valeur entree1 = null;
@@ -395,7 +393,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de l'entree une */
 		entree1 = new Valeur("0", true, false);
-		if(entrees == null){
+		if (type == 1) {
 			entree1.setData("0");
 		} else {
 			entree1.setData(entrees.get(0));
@@ -408,7 +406,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de l'entree deux */
 		entree2 = new Valeur("0", true, false);
-		if(entrees == null){
+		if (type == 1) {
 			entree2.setData("0");
 		} else {
 			entree2.setData(entrees.get(1));
@@ -431,7 +429,8 @@ public class GenerateurMoyen extends Generateur {
 		 * l'utilisateur, dite sortie utilisateur
 		 */
 		sortieUtilisateur = new Valeur("0", false, false);
-		sortieUtilisateur.setData("0");
+		boolean sortieData = this.calculPorte(this.convertToBoolean(entrees.get(0)), this.convertToBoolean(entrees.get(1)), null, porteAlea1, porteAlea2);
+		sortieUtilisateur.setData(sortieData ? "1" : "0");
 		sortieUtilisateur.setX("80em");
 		sortieUtilisateur.setY("15em");
 		sortieUtilisateur.setDraggable(drag);
@@ -605,84 +604,84 @@ public class GenerateurMoyen extends Generateur {
 
 	@Override
 	public boolean valider(final DefaultDiagramModel root) {
-			
+
 		return this.calculSortieSolution(root);
-			
-//		int combi = 0;
-//		String porte1 = null;
-//		String porte2 = null;
-//		String porteReel1 = null;
-//		String porteReel2 = null;
-//		Boolean binaire1 = null;
-//		Boolean binaire2 = null;
-//
-//		for (Element el : root.getElements()) {
-//			String style = el.getStyleClass();
-//			String data = (String) el.getData();
-//			if (Constants.PORTE.equalsIgnoreCase(style)) {
-//				if(porte1 == null){
-//					porte1 = data;
-//					porteReel1 = ((Porte) el).getRealValue();
-//					binaire1 = true;
-//				} else {
-//					porte2 = data;
-//					porteReel2 = ((Porte) el).getRealValue();
-//					binaire2 = true;
-//				}
-//			} else if (Constants.PORTE_NOT.equalsIgnoreCase(style)) {
-//				if(porte1 == null){
-//					porte1 = data;
-//					porteReel1 = ((Porte) el).getRealValue();
-//					binaire1 = false;
-//				} else {
-//					porte2 = data;
-//					porteReel2 = ((Porte) el).getRealValue();
-//					binaire2 = false;
-//				}
-//			}
-//		}
-//
-//		System.out.println("Solution : " + porteReel1 + " " + porteReel2);
-//
-//		if(binaire1 && binaire2){
-//			/* Modele 1 */
-//			for (int i = 0; i <= 1; i++) {
-//				boolean entree1 = i == 0 ? true : false;
-//				for (int j = 0; j <= 1; j++) {
-//					boolean entree2 = j == 0 ? true : false;
-//					for(int k = 0 ; k<=1; k++){
-//						boolean entree3 = k == 0 ? true : false;
-//						if (!this.calculDiffPorte(entree1, entree2, entree3, porte1, porte2, porteReel1, porteReel2)) {
-//							combi++;
-//						}
-//					}
-//				}
-//			}
-//		} else if(!binaire1 && binaire2){
-//			/* Modele 2 */
-//			for (int i = 0; i <= 1; i++) {
-//				boolean entree1 = i == 0 ? true : false;
-//				for (int j = 0; j <= 1; j++) {
-//					boolean entree3 = j == 0 ? true : false;
-//					if (!this.calculDiffPorte(entree1, null, entree3, porte1, porte2, porteReel1, porteReel2)) {
-//						combi++;
-//					}
-//				}
-//			}
-//		} else if(binaire1 && !binaire2){
-//			/* Modele 3 */
-//			for (int i = 0; i <= 1; i++) {
-//				boolean entree1 = i == 0 ? true : false;
-//				for (int j = 0; j <= 1; j++) {
-//					boolean entree2 = j == 0 ? true : false;
-//					if (!this.calculDiffPorte(entree1, entree2, null, porte1, porte2, porteReel1, porteReel2)) {
-//						combi++;
-//					}
-//				}
-//			}
-//		}
-//
-//		return combi;
+
+		//		int combi = 0;
+		//		String porte1 = null;
+		//		String porte2 = null;
+		//		String porteReel1 = null;
+		//		String porteReel2 = null;
+		//		Boolean binaire1 = null;
+		//		Boolean binaire2 = null;
+		//
+		//		for (Element el : root.getElements()) {
+		//			String style = el.getStyleClass();
+		//			String data = (String) el.getData();
+		//			if (Constants.PORTE.equalsIgnoreCase(style)) {
+		//				if(porte1 == null){
+		//					porte1 = data;
+		//					porteReel1 = ((Porte) el).getRealValue();
+		//					binaire1 = true;
+		//				} else {
+		//					porte2 = data;
+		//					porteReel2 = ((Porte) el).getRealValue();
+		//					binaire2 = true;
+		//				}
+		//			} else if (Constants.PORTE_NOT.equalsIgnoreCase(style)) {
+		//				if(porte1 == null){
+		//					porte1 = data;
+		//					porteReel1 = ((Porte) el).getRealValue();
+		//					binaire1 = false;
+		//				} else {
+		//					porte2 = data;
+		//					porteReel2 = ((Porte) el).getRealValue();
+		//					binaire2 = false;
+		//				}
+		//			}
+		//		}
+		//
+		//		System.out.println("Solution : " + porteReel1 + " " + porteReel2);
+		//
+		//		if(binaire1 && binaire2){
+		//			/* Modele 1 */
+		//			for (int i = 0; i <= 1; i++) {
+		//				boolean entree1 = i == 0 ? true : false;
+		//				for (int j = 0; j <= 1; j++) {
+		//					boolean entree2 = j == 0 ? true : false;
+		//					for(int k = 0 ; k<=1; k++){
+		//						boolean entree3 = k == 0 ? true : false;
+		//						if (!this.calculDiffPorte(entree1, entree2, entree3, porte1, porte2, porteReel1, porteReel2)) {
+		//							combi++;
+		//						}
+		//					}
+		//				}
+		//			}
+		//		} else if(!binaire1 && binaire2){
+		//			/* Modele 2 */
+		//			for (int i = 0; i <= 1; i++) {
+		//				boolean entree1 = i == 0 ? true : false;
+		//				for (int j = 0; j <= 1; j++) {
+		//					boolean entree3 = j == 0 ? true : false;
+		//					if (!this.calculDiffPorte(entree1, null, entree3, porte1, porte2, porteReel1, porteReel2)) {
+		//						combi++;
+		//					}
+		//				}
+		//			}
+		//		} else if(binaire1 && !binaire2){
+		//			/* Modele 3 */
+		//			for (int i = 0; i <= 1; i++) {
+		//				boolean entree1 = i == 0 ? true : false;
+		//				for (int j = 0; j <= 1; j++) {
+		//					boolean entree2 = j == 0 ? true : false;
+		//					if (!this.calculDiffPorte(entree1, entree2, null, porte1, porte2, porteReel1, porteReel2)) {
+		//						combi++;
+		//					}
+		//				}
+		//			}
+		//		}
+		//
+		//		return combi;
 	}
 
 	public List<String> trouverSolutionEntree(final String porteAlea1, final String porteAlea2, final int modele){
@@ -734,6 +733,10 @@ public class GenerateurMoyen extends Generateur {
 				}
 			}
 		}
-		return null;
+
+		entrees.add(Integer.toString((int) (Math.random() * 2)));
+		entrees.add(Integer.toString((int) (Math.random() * 2)));
+		entrees.add(Integer.toString((int) (Math.random() * 2)));
+		return entrees;
 	}
 }

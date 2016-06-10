@@ -98,7 +98,7 @@ public class LoginMBean extends AbstractMBean implements Serializable {
 		}
 
 		this.setParamUtilisateur(request, id);
-		return "accueil";
+		return "cours";
 	}
 
 	/**
@@ -139,7 +139,7 @@ public class LoginMBean extends AbstractMBean implements Serializable {
 		}
 
 		this.setParamUtilisateur(request, id);
-		return "accueil";
+		return "cours";
 	}
 
 	/**

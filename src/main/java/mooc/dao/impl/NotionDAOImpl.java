@@ -51,4 +51,23 @@ public class NotionDAOImpl extends AbstractDAO<Notion> implements NotionDAO {
 		return resultList;
 	}
 
+	@Override
+	public Notion getByLibelle(final String libelle) {
+		Session session = this.getSession();
+		Transaction tx = session.beginTransaction();
+
+		final Criteria criteria = session.createCriteria(Notion.class, "notion");
+		criteria.add(Restrictions.eq("notion.nomNotion", libelle));
+
+		List<Object> resultList = criteria.list();
+		Notion notion = null;
+
+		if (resultList != null && !resultList.isEmpty()) {
+			notion = (Notion) resultList.get(0);
+		}
+
+		tx.commit();
+		return notion;
+	}
+
 }

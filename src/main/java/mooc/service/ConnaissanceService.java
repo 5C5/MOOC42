@@ -26,5 +26,13 @@ public interface ConnaissanceService {
 	 * @return List des NiveauDeverouilleDto
 	 */
 	public List<NiveauDeverouilleDto> reloadNiveau(final int idApprenant);
+	
+	/**
+	 * Recharger la liste des niveaux (connaissances) de l'apprenant
+	 * 
+	 * @param idApprenant Id de l'apprenant
+	 * @return List des NiveauDeverouilleDto
+	 */
+	public List<NiveauDeverouilleDto> reloadNiveauComplexes(final int idApprenant);
 
 }

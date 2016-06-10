@@ -10,11 +10,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.primefaces.context.RequestContext;
-import org.primefaces.model.diagram.DefaultDiagramModel;
-import org.primefaces.model.diagram.Element;
-import org.springframework.context.annotation.Scope;
-
 import mooc.dto.NotionDto;
 import mooc.login.AbstractMBean;
 import mooc.moteur.Exercice;
@@ -22,6 +17,11 @@ import mooc.service.CompetenceService;
 import mooc.service.NotionService;
 import mooc.utils.Constants;
 import mooc.utils.Messages;
+
+import org.primefaces.context.RequestContext;
+import org.primefaces.model.diagram.DefaultDiagramModel;
+import org.primefaces.model.diagram.Element;
+import org.springframework.context.annotation.Scope;
 
 @ManagedBean
 @Scope("view")
@@ -62,6 +62,9 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 	/** Portes utilisees pour l'exercice */
 	// private List<String> notionsExercice;
 
+	/** Score final */
+	private int score;
+
 	/** Utilisateur connecte ou non */
 	private boolean utilConn;
 
@@ -79,7 +82,20 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		}
 		if (this.exercice == null) {
 			this.disabled = false;
-			this.niveau = 1;
+			Integer preNiveau = (Integer) request.getSession().getAttribute(Constants.PRE_NIVEAU);
+			if(preNiveau == null){
+				this.niveau = 1;
+			} else {
+				this.niveau = preNiveau;
+			}
+			String idNotion = (String) request.getSession().getAttribute(Constants.PRE_NOTION);
+			if(idNotion != null){
+				this.selectedNotions = new String[this.notionService.getAll().size()];
+				this.selectedNotions[Integer.parseInt(idNotion)-1] = idNotion;
+			}
+			request.getSession().removeAttribute(Constants.PRE_NIVEAU);
+			request.getSession().removeAttribute(Constants.PRE_NOTION);
+			this.type = "1";
 
 		} else {
 			this.disabled = true;
@@ -165,27 +181,27 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 			}
 		}
 		// Recalcule des solutions
-		for (Element el : root.getElements()) {
-			if(Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass())){
-				Boolean sortieSolution = this.exercice.calculSortieSolution(root);
-				if(sortieSolution){
-					el.setData("1");
-				} else {
-					el.setData("0");
-				}
-			} else if(Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
-				try {
-					Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
-					if(sortieUtilisateur){
-						el.setData("1");
-					} else {
-						el.setData("0");
-					}
-				} catch (Exception e){
-					this.addFacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage());
-				}
-			}
-		}
+		//		for (Element el : root.getElements()) {
+		//			if(Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass())){
+		//				Boolean sortieSolution = this.exercice.calculSortieSolution(root);
+		//				if(sortieSolution){
+		//					el.setData("1");
+		//				} else {
+		//					el.setData("0");
+		//				}
+		//			} else if(Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
+		//				try {
+		//					Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
+		//					if(sortieUtilisateur){
+		//						el.setData("1");
+		//					} else {
+		//						el.setData("0");
+		//					}
+		//				} catch (Exception e){
+		//					this.addFacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage());
+		//				}
+		//			}
+		//		}
 
 		// Modification de l'exercice
 		this.exercice.setRoot(root);
@@ -197,6 +213,7 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		Integer id = (Integer) request.getSession().getAttribute(Constants.UTILISATEUR_CONNECTE);
 		this.exercice = (Exercice) request.getSession().getAttribute(Constants.EXERCICE);
+		this.exercice.setNbEssai(this.exercice.getNbEssai() + 1);
 		// Verification si la solution utilisateur est correcte
 		boolean verif = this.exercice.valider(this.exercice.getRoot());
 		RequestContext context = RequestContext.getCurrentInstance();
@@ -205,11 +222,13 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		if (verif) {
 			if (id != null) {
 				// Enregistrement de l'exercice pour l'apprenant
-				this.competenceService.ajouterExercice(id, this.exercice.getNotions(), this.exercice.getDifficulte(), 0);
+				this.competenceService.ajouterExercice(id, this.exercice.getNotions(), this.exercice.getDifficulte(), 100/this.exercice.getNbEssai());
 			}
-			// this.reset();
+			this.score = 100 / this.exercice.getNbEssai();
+
 			//this.addFacesMessage(FacesMessage.SEVERITY_INFO, Messages.message("exercice.reussi"));
 			context.execute("PF('reussite').show();");
+			this.reset();
 
 		} else {
 			//this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("exercice.erreur.validation", new Object[] { verif }));
@@ -221,7 +240,8 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 	public void reset(){
 		this.exercice = null;
 		this.disabled = false;
-		this.niveau = 0;
+		this.niveau = 1;
+		this.type = "1";
 		this.selectedNotions = new String[this.notions.size()];
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		request.getSession().removeAttribute(Constants.EXERCICE);
@@ -229,9 +249,9 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 
 	public void refermer() {
 		this.reset();
-		RequestContext context = RequestContext.getCurrentInstance();
-		context.execute("PF('reussite').hide();");
-		System.out.println("Plop back");
+		// RequestContext context = RequestContext.getCurrentInstance();
+		// context.execute("PF('reussite').hide();");
+		// System.out.println("Plop back");
 	}
 
 	public List<NotionDto> getNotions() {
@@ -310,5 +330,12 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		this.type = type;
 	}
 
+	public int getScore() {
+		return this.score;
+	}
+
+	public void setScore(final int score) {
+		this.score = score;
+	}
 
 }

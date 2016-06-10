@@ -15,6 +15,9 @@ public class ApprenantNotionDto {
 	private int niveauET;
 	private int niveauNOT;
 	private int niveauXOR;
+	private int niveauNAND;
+	private int niveauNOR;
+	private int niveauXNOR;
 
 	public int getIdApprenant() {
 		return this.idApprenant;
@@ -70,6 +73,30 @@ public class ApprenantNotionDto {
 
 	public void setNiveauXOR(final int niveauXOR) {
 		this.niveauXOR = niveauXOR;
+	}
+
+	public int getNiveauNAND() {
+		return this.niveauNAND;
+	}
+
+	public void setNiveauNAND(final int niveauNAND) {
+		this.niveauNAND = niveauNAND;
+	}
+
+	public int getNiveauNOR() {
+		return this.niveauNOR;
+	}
+
+	public void setNiveauNOR(final int niveauNOR) {
+		this.niveauNOR = niveauNOR;
+	}
+
+	public int getNiveauXNOR() {
+		return this.niveauXNOR;
+	}
+
+	public void setNiveauXNOR(final int niveauXNOR) {
+		this.niveauXNOR = niveauXNOR;
 	}
 
 }

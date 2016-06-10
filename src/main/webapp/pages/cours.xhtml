@@ -4,6 +4,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
                 template="/templates/template.xhtml">
 
     <ui:define name="head"></ui:define>
@@ -11,155 +12,478 @@
     <ui:define name="title">#{fr['general.cours.title']}</ui:define>
 
     <ui:define name="body-site">
- 		<p:panel header="#{fr['general.cours.title']}" style="font-family:Helvetica; width:100%">
-       		<h:form >    
+    <p:layout style="height:850px;">
+        <p:layoutUnit position="center" header="#{fr['general.cours.title']}" style="font-family:Helvetica; ">
+       		<h:form  id="form_exer">    
+                <h:outputScript library="js" name="diagram.js" />
+                 <pe:remoteCommand id="solutionRecalculer" name="solutionRecalculer" process="@this" 
+                    update="@form"
+                    actionListener="#{coursMBean.solutionRecalculer}" >  
+                    <pe:methodSignature parameters="java.lang.String" />  
+                     <pe:methodParam name="idElement"/>  
+                </pe:remoteCommand> 
+                
+       			<p:outputPanel style="font-size: 16px;">
+       			Bienvenue sur ce cours du MOOC42 consacré aux portes logiques.
+       			</p:outputPanel>
                 <p:accordionPanel multiple="true"  id="panelGeneral" style="font-size: 16px; padding: 8px; margin : 12px;">
                     <p:tab title="#{fr['cours.intro.title']}" style="padding: 8px; margin : 12px;">
                         <h:panelGrid columns="1" style="width:100%;">
-                            <p:outputPanel style="font-size: 16px;">
-                            Les portes logiques sont des composants électroniques qui constituent la base de tous les circuits électroniques. 
-                            On trouve par exemple des portes logiques dans ordinateurs, les téléphones, etc. 
-                            Ces composants sont des réalisations physiques de fonctions de l’algèbre de Boole, qui manipule des nombres binaires.
-                            </p:outputPanel>
+	                            <p:outputPanel style="font-size: 16px;">
+	                            Les portes logiques sont des composants électroniques qui constituent la base de tous les circuits électroniques. 
+	                            On trouve par exemple des portes logiques dans ordinateurs, les téléphones, etc. 
+	                            Ces composants sont des réalisations physiques de fonctions de l’algèbre de Boole, qui manipule des nombres binaires.
+	                            </p:outputPanel>
+	
+	                            <p:fieldset legend="#{fr['cours.intro.binary.title']}"  style="font-size: 16px; padding: 8px; margin : 12px;">
+	                      		A leur plus bas niveau, c’est à dire ceux de leurs composants, les appareils électroniques ne sont 
+	                      		capables que de “comprendre” et de manipuler qu’une seule informations, la présence (ou l’absence) 
+	                      		de courant électrique. La présence de courant électrique est matérialisée par une tension électrique 
+	                      		positive et l’absence de courant électrique est matérialisée par une tension nulle. Par convention, 
+	                      		une tension nulle est notée 0 et une tension positive est notée 1. 
+								<BR /><BR />
+								Pour réaliser les calculs nécessaires à leur fonctionnement, les circuits électroniques 
+								vont donc uniquement manipuler ces 0 et ces 1. On dit que ces composants électroniques 
+								fonctionnent en système binaire car il n’y a que deux valeurs possible pour les entrées 
+								et sorties des calculs, 0 et 1.
+								<BR /><BR />
+								Si vous voulez plus d’informations sur le système binaire, 
+								vous pouvez consulter l’article <a href="https://fr.wikipedia.org/wiki/Syst%C3%A8me_binaire">Wikipédia</a> à ce sujet. 
+								</p:fieldset>
+					
 
-                            <p:fieldset legend="#{fr['cours.intro.binary.title']}"  style="font-size: 16px; padding: 8px; margin : 12px;">
-                      		A leur plus bas niveau, c’est à dire ceux de leurs composants, les appareils électroniques ne sont 
-                      		capables que de “comprendre” et de manipuler qu’une seule informations, la présence (ou l’absence) 
-                      		de courant électrique. La présence de courant électrique est matérialisée par une tension électrique 
-                      		positive et l’absence de courant électrique est matérialisée par une tension nulle. Par convention, 
-                      		une tension nulle est notée 0 et une tension positive est notée 1. 
-				<BR /><BR />
-				Pour réaliser les calculs nécessaires à leur fonctionnement, les circuits électroniques 
-				vont donc uniquement manipuler ces 0 et ces 1. On dit que ces composants électroniques 
-				fonctionnent en système binaire car il n’y a que deux valeurs possible pour les entrées 
-				et sorties des calculs, 0 et 1.
-				<BR /><BR />
-				Si vous voulez plus d’informations sur le système binaire, 
-				vous pouvez consulter l’article <a href="https://fr.wikipedia.org/wiki/Syst%C3%A8me_binaire">Wikipédia</a> à ce sujet. 
-				</p:fieldset>
+								<p:fieldset legend="L’algèbre de Boole, c’est quoi ?" style="font-size: 16px; padding: 8px; margin : 12px;">
 				
-				<p:fieldset legend="L’algèbre de Boole, c’est quoi ?" style="font-size: 16px; padding: 8px; margin : 12px;">
+								L’algèbre de Boole est une branche des mathématiques qui permet, à l’image de l’algèbre 
+								classique qui propose de réaliser des opérations mathématiques sur des nombres, de réaliser 
+								des calculs sur des variables logiques. Les variables logiques sont des variables qui ne peuvent 
+								prendre que deux valeurs, VRAI ou FAUX  ( 1 ou 0). L’algèbre de Boole permet donc, par extension, 
+								de réaliser des calculs en binaire puisque dans ce système, il n’existe que des 0 et des 1.
+								<BR/>
+								Étant donné le faible nombre de combinaisons possibles d’entrées, 
+								on utilise pour décrire une opération un tableau nommé table de vérité qui 
+								comporte toutes les combinaisons possibles d’entrées et les résultats associés.
+								 
+								L’algèbre de Boole propose 3 opérations binaires : 
+								<!-- Conjonction -->
+								<p:fieldset legend="Conjonction (ET)" style="padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
+									<h:panelGrid columns="1">
+									<p>La conjonction est une opération qui prend deux opérandes, 
+									c’est à dire deux valeurs, en entrée. Elle renvoie 1 seulement si les deux opérandes sont égales à 1. 
+									Dans les autres cas, elle renvoie le résultat 0.</p>
+									<p>Voici la table de vérité de l'opération ET : </p>
+									<BR/>
+									<p:graphicImage name="img/operation_ET.png" title="Symbole porte AND"/>
+									<BR/>
+									</h:panelGrid>
+								</p:fieldset>
+								
+								<!-- Disjonction -->
+								<p:fieldset legend="Disjonction (OU)" style="padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
+									<h:panelGrid columns="1">
+									<p>La disjonction est une opération qui prend deux opérandes en entrée.
+									Elle renvoie 1 quand l’une des deux opérandes est égale à 1.</p>
+									<p>Voici la table de vérité de l'opération OU : </p>
+									<BR/>
+				    				<p:graphicImage name="img/operation_OU.png" title="table de vérité de l'opération OU"/>
+				    				<BR/>
+									</h:panelGrid>
+								</p:fieldset>
+								
+								<!-- Negation -->
+								<p:fieldset legend="Négation (NON)" style="padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
+									<h:panelGrid columns="1" cellspacing="2" cellpadding="2">
+									<p>La négation est une opération qui ne prend qu’une seule opérande. 
+									Elle a pour but de renvoyer l’inverse de la valeur d’entrée, 
+									c’est à dire qu’elle renverra 0 si l’entrée est 1 et 1 si l’entrée est 0.</p>
+									<p>Voici la table de vérité de l'opération NON : </p>
+									<BR/>
+									<p:graphicImage name="img/operation_NON.png" title="table de vérité de l'opération NON"/> 
+									<BR/>
+									</h:panelGrid>
+								</p:fieldset>
+								<p:fieldset legend="#{fr['cours.intro.quiz']}" toggleable="true" collapsed="#{!coursMBean.afficher}" 
+								style="font-size: 16px;" id="listeQuiz">
+									<ui:repeat value="#{coursMBean.questions}" var="el">
+										<h:panelGrid columns="1" cellspacing="8px">
+											<p:outputLabel value="#{el.question}" for="quizz"/>
+											<p:selectOneRadio id="quizz" value="#{el.userAnswer}" layout="grid" columns="1" >
+												<f:selectItem itemLabel="#{el.answer1}" itemValue="1" />
+												<f:selectItem itemLabel="#{el.answer2}" itemValue="2" />
+												<f:selectItem itemLabel="#{el.answer3}" itemValue="3" />
+											</p:selectOneRadio>
+											<p:outputLabel value="#{el.correction}" rendered="#{coursMBean.afficher}" style="color : #{el.couleur}"/>
+						
+										</h:panelGrid>
+									</ui:repeat>
+									<p:commandButton action="#{coursMBean.corriger}" update="listeQuiz" value="Vérifier"/>
+								</p:fieldset>
 
-				L’algèbre de Boole est une branche des mathématiques qui permet, à l’image de l’algèbre 
-				classique qui propose de réaliser des opérations mathématiques sur des nombres, de réaliser 
-				des calculs sur des variables logiques. Les variables logiques sont des variables qui ne peuvent 
-				prendre que deux valeurs, VRAI ou FAUX  ( 1 ou 0). L’algèbre de Boole permet donc, par extension, 
-				de réaliser des calculs en binaire puisque dans ce système, il n’existe que des 0 et des 1.
-				<BR/>
-				Étant donné le faible nombre de combinaisons possibles d’entrées, 
-				on utilise pour décrire une opération un tableau nommé table de vérité qui 
-				comporte toutes les combinaisons possibles d’entrées et les résultats associés.
-				 
-				L’algèbre de Boole propose 3 opérations binaires : 
-					<!-- Conjonction -->
-					<p:fieldset legend="Conjonction (ET)" style="padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
-						<h:panelGrid columns="2">
-						La conjonction est une opération qui prend deux opérandes, 
-						c’est à dire deux valeurs, en entrée. Elle renvoie 1 seulement si les deux opérandes sont égales à 1. 
-						Dans les autres cas, elle renvoie le résultat 0.
-						<p:graphicImage name="img/opération_ET.png" title="Voici la table de vérité de l’opération ET :"/>
-						</h:panelGrid>
-					</p:fieldset>
-					
-					<!-- Disjonction -->
-					<p:fieldset legend="Disjonction (OU)" style="padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
-						<h:panelGrid columns="2">
-						La disjonction est une opération qui prend deux opérandes en entrée.
-						Elle renvoie 1 quand l’une des deux opérandes est égale à 1.
-	    					<p:graphicImage name="img/opération_OU.png" title="Voici la table de vérité de l’opération OU :"/>
-						</h:panelGrid>
-					</p:fieldset>
-					
-					<!-- Negation -->
-					<p:fieldset legend="Négation (NON)" style="padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
-						<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
-						<p:column>
-							<p:graphicImage name="img/opération_NON.png" title="Voici la table de vérité de l’opération NON :"/> 
-						</p:column>
-						<p:column>
-							La négation est une opération qui ne prend qu’une seule opérande. 
-							Elle a pour but de renvoyer l’inverse de la valeur d’entrée, 
-							c’est à dire qu’elle renverra 0 si l’entrée est 1 et 1 si l’entrée est 0.
-						</p:column>
-						</h:panelGrid>
-					</p:fieldset>
-					
-					Si vous voulez plus d’informations sur l’algèbre de Boole, 
-					vous pouvez consulter l’article <a href="https://fr.wikipedia.org/wiki/Alg%C3%A8bre_de_Boole_(logique)">Wikipédia</a> à ce sujet.
-					<br/>
-					<br/>
-					Les portes logiques sont des réalisations physiques de ces opérateurs booléens, 
-					elles vont, en fonction des tensions électriques présentes aux entrées et de l’opération que l’on cherche à réaliser, 
-					faire passer ou non le courant pour signifier le résultat du calcul.
-					<br/>
-					<br/>
-					Elles vont permettre aux circuits électroniques de réaliser les calculs nécessaires à l’accomplissement de leurs tâches.
-					Il existe différentes portes logiques correspondant aux différentes opérations de l’algèbre de Boole.
-					<br/>
-					<br/>
-					Dans ce cours, nous allons présenter les différentes portes logiques existantes et vous apprendre à les manipuler.
-				</p:fieldset>
-				<p:fieldset legend="#{fr['cours.intro.quiz']}" toggleable="true" collapsed="#{!coursMBean.afficher}" 
-					style="font-size: 16px;" id="listeQuiz">
-					<ui:repeat value="#{coursMBean.questions}" var="el">
-						<h:panelGrid columns="1" cellspacing="8px">
-						<p:outputLabel value="#{el.question}" for="quizz"/>
-						<p:selectOneRadio id="quizz" value="#{el.userAnswer}" layout="grid" columns="1" >
-							<f:selectItem itemLabel="#{el.answer1}" itemValue="1" />
-							<f:selectItem itemLabel="#{el.answer2}" itemValue="2" />
-							<f:selectItem itemLabel="#{el.answer3}" itemValue="3" />
-						</p:selectOneRadio>
-						<p:outputLabel value="#{el.correction}" rendered="#{coursMBean.afficher}" style="color : #{el.couleur}"/>
-			
-						</h:panelGrid>
-					</ui:repeat>
-					<p:commandButton action="#{coursMBean.corriger}" update="listeQuiz" value="Vérifier"/>
-				</p:fieldset>
-
-
-                        </h:panelGrid>
+						
+								Si vous voulez plus d’informations sur l’algèbre de Boole, 
+								vous pouvez consulter l’article <a href="https://fr.wikipedia.org/wiki/Alg%C3%A8bre_de_Boole_(logique)">Wikipédia</a> à ce sujet.
+								<br/>
+								<br/>
+								</p:fieldset>
+								
+						Les portes logiques sont des réalisations physiques de ces opérateurs booléens, 
+						elles vont, en fonction des tensions électriques présentes aux entrées et de l’opération que l’on cherche à réaliser, 
+						faire passer ou non le courant pour signifier le résultat du calcul.
+						<br/>
+						<br/>
+						Elles vont permettre aux circuits électroniques de réaliser les calculs nécessaires à l’accomplissement de leurs tâches.
+						Il existe différentes portes logiques correspondant aux différentes opérations de l’algèbre de Boole.
+						<br/>
+						<br/>
+						Dans ce cours, nous allons présenter les différentes portes logiques existantes et vous apprendre à les manipuler.
+	                    </h:panelGrid>
+                    </p:tab>
+                     
+                     <p:tab title="#{fr['cours.portes_fond.title']}" >
+                        <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
+                        	<p:outputPanel>
+                        	Dans un premier temps, nous allons présenter les portes logiques les plus "simples", 
+                        	c'est à dire celle qui correspondent directement aux opérations booléennes présentées plus
+                        	haut. 
+                        	</p:outputPanel>
+                        	<p:outputPanel>
+                        	Elles sont au nombre de trois, AND, OR et NOT.
+                        	</p:outputPanel>
+                        	<p:fieldset legend="La porte AND"  style="font-size: 16px; padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
+	                        	<h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
+		                        	<p:outputPanel>
+		                            La porte AND (ou ET) correspond à l’opération ET de l’algèbre de Boole.
+		                            Comme pour les opérations booléennes, 
+		                            il est possible de présenter les résultats renvoyés par une porte logique dans une table de vérité.
+		                            </p:outputPanel>
+		                            <p:outputPanel>
+		                            La porte AND peut-être représentée par ce symbole : 
+		                            </p:outputPanel>
+		                            <BR/>
+		                            <p:graphicImage name="img/symbole_AND.png" title="Symbole porte AND"/>
+		                            <BR/>
+		                             <p:outputPanel>
+		                            Tout comme pour les fonctions booléennes, le meilleur moyen de décrire le 
+		                            fonctionnement d’une porte logique est de donner sa table de vérité. 
+		                            Voici donc la table de vérité de la porte AND, on peut constater qu’elle est 
+		                            identique à celle de la fonction ET.
+		                            </p:outputPanel>
+		                            <p:outputPanel style="margin : 0 auto;">
+		                            <BR/>
+		                            <p:graphicImage name="img/porte_AND.png" title="table de vérité AND"/>
+		                            <BR/>
+		                            </p:outputPanel>
+		        		    		<p:outputPanel>
+		        		    		La porte AND prend deux valeurs en entrée et donne une valeur en sortie.
+		        		    		</p:outputPanel>
+	        		  			</h:panelGrid>
+                        	</p:fieldset>
+                        
+                        	<p:fieldset legend="La porte OR"  style="font-size: 16px; padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
+	                    		<h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
+		                            <p:outputPanel>
+		                            La porte OR est la réalisation physique de la fonction booléenne OU, 
+		                            elle est représentée par le symbole suivant : 
+		                           </p:outputPanel>
+		                           <BR/>
+		                            <p:graphicImage name="img/symbole_OR.png" title="Symbole de la porte OR"/>
+		                            <BR/>
+		                            <p:outputPanel>
+		                            Voici sa table de vérité : 
+		                            </p:outputPanel>
+		                            <BR/>
+					    			<p:graphicImage name="img/porte_OR.png" title="Voici la table de vérité de l’opération OU :"/>
+	                    			<BR/>
+	                    			<p:outputPanel>
+		        		    		La porte OR prend deux valeurs en entrée et donne une valeur en sortie.
+		        		    		</p:outputPanel>
+	                    		</h:panelGrid>
+							</p:fieldset>
+							
+							<p:fieldset legend="La porte NOT"  style="font-size: 16px; padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
+	                    		<h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
+		                            <p:outputPanel>
+		                            La porte NOT est la réalisation physique de la fonction booléenne NON, 
+		                            elle est représentée par le symbole suivant :
+		                            </p:outputPanel>
+		                            <BR/>
+		                            <p:graphicImage name="img/symbole_OR.png" title="Symbole de la porte OR"/>
+		                            <BR/>
+		                            <p:outputPanel>
+		                            Voici sa table de vérité : 
+		                            </p:outputPanel>
+		                            <BR/>
+					    			<p:graphicImage name="img/porte_OR.png" title="Voici la table de vérité de l’opération OU :"/>
+	                    			<BR/>
+	                    			<p:outputPanel>
+		        		    		La porte NOT prend une valeur en entrée et donne une valeur en sortie.
+		        		    		</p:outputPanel>
+	                    		</h:panelGrid>
+							</p:fieldset>
+                     
+                            <p:commandButton value="#{fr['cours.demarrer']} #{coursMBean.numExercice}" action="#{coursMBean.genererExo1}" 
+                                rendered="#{coursMBean.numExercice == 0 or coursMBean.numExercice == null}" update="@form"/>
+       			      
+                            <p:panel id="panelDiag1" header="#{fr['exercice.title']}" rendered="#{coursMBean.numExercice == 1}">
+                                <p:diagram id="diag1" value="#{coursMBean.exercice.root}" style="height:35em" styleClass="ui-widget-content" >
+                                </p:diagram>
+                            </p:panel>
+                     </h:panelGrid>
+                     
                      </p:tab>
-                     <p:tab title="#{fr['cours.fondamental.title']}">
-                     	<p:fieldset legend="#{fr['cours.et.title']}" >
-                        <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
-                            <p:outputPanel>La porte AND (ou ET) correspond à l’opération ET de l’algèbre de Boole que nous avons vu dans l’introduction de ce cours.
-                             Comme pour les opérations booléennes, 
-                             il est possible de présenter les résultats renvoyés par une porte logique dans une table de vérité.
-
-                            </p:outputPanel>
-                            <p:graphicImage name="img/symbole_AND.png" title="Symbole de la porte AND"/>
-        		    <p:graphicImage name="img/porte_AND.png" title="Voici la table de vérité de l’opération ET :"/> 
-                        </h:panelGrid>
-                     </p:fieldset>
-                    <p:fieldset legend="#{fr['cours.ou.title']}" >
-                        <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
-                            <p>
-                            	La porte OR est la réalisation physique de la fonction booléenne OU.
-                            </p>
-                            <p:graphicImage name="img/symbole_OR.png" title="Symbole de la porte OR"/>
-			    <p:graphicImage name="img/porte_OR.png" title="Voici la table de vérité de l’opération OU :"/>
-                        </h:panelGrid>
-                     </p:fieldset>
-                     </p:tab >
+                    
+                     <p:tab title="#{fr['cours.combinaisons.title']}">
+                     <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
+                     <p:outputPanel>
+                     Une porte logique permet de réaliser un calcul simple qui prend une ou deux variables en entrée pour en 
+                     retourner une. Pour réaliser des calculs plus complexes ou prenant en compte plus de variables, on 
+                     peut réaliser des combinaisons de portes. Elles sont alors branchées les unes aux autres et les sorties 
+                     des premières portes sont les entrées des suivantes.
+                     </p:outputPanel>
+                     <BR/>
+                     <p:outputPanel>
+                     On peut voir ci-dessous par exemple une porte AND dont la sortie est branchée sur 
+                     une porte OR.
+                     </p:outputPanel>
+                     <br/>
+                     <p:graphicImage name="img/combi.png" title="combinaison de portes"/>
+                     <br/>
+                     <p:outputPanel>
+                     Pour savoir quel sera le résultat de cette combinaison de porte en fonction des entrées, il suffit de 
+                     considérer chaque porte dans l’ordre, d’examiner son résultat pour savoir quelle sera sa sortie et ainsi 
+                     en déduire l”entrée de la porte à laquelle elle est branchée.
+                     </p:outputPanel>
+                     <br/>
+                     <p:outputPanel>
+					 Dans le schéma ci dessus par exemple, la porte AND prend en entrée 1 et 0, ce qui donne 1 en sotie. 
+					 La porte OR prend donc en entrée 0 et 1 et renvoie comme résultat 1.
+                     </p:outputPanel>
+                     </h:panelGrid>
                      
+                     </p:tab>
                      
-                     <p:tab title="#{fr['cours.combinatoire.title']}">
+                     <p:tab title="#{fr['cours.portes_complx.title']}">
                      <h:panelGrid>
-                     	Pour réaliser des circuits électroniques complexes,
-                     	 on ne peut pas se contenter d’utiliser indépendamment les différentes portes. 
-                     	 Il peut être intéressant de les combiner pour réaliser des calculs plus complexes. 
-                     	Certaines portes sont même parfois des combinaisons d’autres portes (NAND = AND + NOT)
+                     <p:outputPanel>
+                     Les combinaisons de portes présentés dans la leçon précédente prennent par définition plus 
+                     de place sur le circuit électronique qu’une porte seule. C’est pour cette raison que des portes 
+                     permettant d’implémenter directement des combinaisons de portes utilisées très régulièrement ont 
+                     été mises au point.
+					 C’est le cas des portes que nous allons présenter maintenant.
+					 </p:outputPanel>
+					 <BR/>
+					 
+					 <p:fieldset legend="La porte NAND"  style="font-size: 16px; padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
+		                 <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
+			                 <p:outputPanel>
+			                 La porte NAND (ou NON-ET) correspond à une combinaison de la porte AND et de la porte NOT. 
+							 La fonction ET est d’abord appliquée aux entrées, puis la fonction NON est appliquée à la sortie.
+			                 </p:outputPanel>
+			             	 <BR/>
+							 <p:outputPanel>
+							 Remarque : Il est intéressant de noter que l'on peut arriver au même résultat en appliquant
+							 le raisonnement inverse (appliquer la fonction NON aux entrées puis la fonction ET).
+			                 </p:outputPanel>
+							 <BR/>
+							 <p:outputPanel>
+							 La porte NAND est représentée par le symbole suivant : 
+			                 </p:outputPanel>
+			                 <BR/>
+			                 <p:graphicImage name="img/symbole_NAND.png" title="combinaison de portes"/>
+			                 <BR/>
+			                 <p:outputPanel>
+			                 Voici sa table de vérité :
+			                 </p:outputPanel>
+			                 <BR/>
+			                 <p:graphicImage name="img/porte_NAND.png" title="combinaison de portes"/>
+			                 <BR/>
+			                 <p:outputPanel>
+			                 La porte NAND prend deux valeurs en entrée et donne une valeur en sortie.
+			                 </p:outputPanel>
+						 </h:panelGrid> 
+					 </p:fieldset>
+					 
+					 <p:fieldset legend="La porte NOR"  style="font-size: 16px; padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
+		                 <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
+			                 <p:outputPanel>
+			                 La porte NOR (ou NON-OU) correspond à une combinaison de la porte OR et de la porte NOT. 
+							 La fonction OU est d’abord appliquée aux entrées, puis la fonction NON est
+							 appliquée à la sortie.
+			                 </p:outputPanel>
+							 <BR/>
+							 <p:outputPanel>
+							 La porte NOR est représentée par le symbole suivant :
+			                 </p:outputPanel>
+			                 <BR/>
+			                 <p:graphicImage name="img/symbole_NOR.png" title="combinaison de portes"/>
+			                 <BR/>
+			                 <p:outputPanel>
+			                 Voici sa table de vérité :
+			                 </p:outputPanel>
+			                 <BR/>
+			                 <p:graphicImage name="img/porte_NOR.png" title="combinaison de portes"/>
+			                 <BR/>
+			                 <p:outputPanel>
+			                 La porte NOR prend deux valeurs en entrée et donne une valeur en sortie.
+			                 </p:outputPanel>
+						 </h:panelGrid> 
+					 </p:fieldset>
+					 
+					 <p:fieldset legend="La porte XOR"  style="font-size: 16px; padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
+		                 <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
+			                 <p:outputPanel>
+			                 La porte XOR est un peu plus complexe que les précédentes. 
+			                 Elle permet de réaliser une opération booléenne nommée “OU-EXCLUSIF”. 
+			                 Il s’agit d’une opération qui renvoie 1 uniquement quand les deux entrées sont 
+			                 différentes et 0 sinon. Elle correspond donc à un OU exclusif car on accepte d’avoir 
+			                 l’une ou l’autre des entrées à 1 mais pas les deux.
+			                 </p:outputPanel>
+			                 <BR/>
+			                 <p:outputPanel>
+			                 On peut créer une porte XOR en combinant les portes logiques de différentes façon, 
+					 		 voici un exemple de porte XOR réalisée avec des portes NAND : 
+			                 </p:outputPanel>
+			                 <BR/>
+					 		 <p:graphicImage name="img/XOR_NAND.png" title="combinaison de portes"/>
+							 <BR/>
+					 		 <p:outputPanel>
+					 		 Un autre exemple avec des portes NOR :
+					 		 </p:outputPanel>
+					 		 <BR/>
+					 		 <p:graphicImage name="img/XOR_NOR.png" title="combinaison de portes"/>
+							 <BR/>
+							 <p:outputPanel>
+							 La porte XOR est représentée par le symbole suivant :
+			                 </p:outputPanel>
+			                 <BR/>
+			                 <p:graphicImage name="img/symbole_XOR.png" title="combinaison de portes"/>
+			                 <BR/>
+			                 <p:outputPanel>
+			                 Voici sa table de vérité :
+			                 </p:outputPanel>
+			                 <BR/>
+			                 <p:graphicImage name="img/porte_XOR.png" title="combinaison de portes"/>
+			                 <BR/>
+			                 <p:outputPanel>
+			                 La porte XOR prend deux valeurs en entrée et donne une valeur en sortie.
+			                 </p:outputPanel>
+						 </h:panelGrid> 
+					 </p:fieldset>
+					 
+					 <p:fieldset legend="La porte XNOR"  style="font-size: 16px; padding: 8px; margin : 12px;" toggleable="true" collapsed="true">
+		                 <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
+			                 <p:outputPanel>
+			                  La porte XNOR correspond à la combinaison de la porte XOR et de la porte NOT. 
+			                  L’opération OU-EXCLUSIF est d’abord appliquée aux entrées, puis la fonction NON 
+			                  est appliquée à la sortie.
+			                 </p:outputPanel>
+							 <BR/>
+							 <p:outputPanel>
+							 La porte XNOR est représentée par le symbole suivant :
+			                 </p:outputPanel>
+			                 <BR/>
+			                 <p:graphicImage name="img/symbole_XNOR.png" title="combinaison de portes"/>
+			                 <BR/>
+			                 <p:outputPanel>
+			                 Voici sa table de vérité :
+			                 </p:outputPanel>
+			                 <BR/>
+			                 <p:graphicImage name="img/porte_XNOR.png" title="combinaison de portes"/>
+			                 <BR/>
+			                 <p:outputPanel>
+			                 La porte XNOR prend deux valeurs en entrée et donne une valeur en sortie.
+			                 </p:outputPanel>
+						 </h:panelGrid> 
+					 </p:fieldset>					 
                      </h:panelGrid>
                      </p:tab>
                      
                      <p:tab title="#{fr['cours.further.title']}">
                      	<h:panelGrid columns="1">
-                     		Les portes logiques sont donc des composants électroniques utilisés dans …. (lien vidéo Minecraft)
+                     		<p:outputPanel>
+                     		Merci d'avoir suivi ce cours sur les portes logiques !
+                     		</p:outputPanel>
+                     		<p:outputPanel>
+                     		Pour aller plus loin, vous pouvez expérimenter plus en détails le fonctionnement de ces 
+              				portes dans le Bac à Sable !
+                     		</p:outputPanel>
+                     		<p:outputPanel>
+                     		N'hésitez pas à chercher sur Internet des plans de circuits à réaliser !
+                     		</p:outputPanel>
+                     		<BR/>
+                     		<p:outputPanel>
+                     		Cependant, si vous voulez expérimenter de façon un peu plus concrète et surtout fun, 
+                     		vous pouvez vous tourner vers les jeux vidéos ! En effet, le principe des portes logiques est parfois employé ailleurs que dans les circuits 
+                     		electroniques. 
+                     		</p:outputPanel>
+                     		<p:outputPanel>
+                     		Dans le jeu Minecraft par exemple, il est possible de de concevoir des systèmes s’apparentant
+                     	    à des circuits électroniques en utilisant un élément du jeu nommé  Redstone. Le fonctionnement
+                     	    de la Redstone est en tout point similaire avec celui des portes logiques.
+                     	    </p:outputPanel>
+                     		<BR/>
+                     		<p:outputPanel>
+                     		Aussi, si vous souhaitez allez plus loin dans ce domaine et mettre en pratiques vos nouvelles
+							connaissances, vous pouvez regarder ces tutoriels sur le fonctionnement de la Redstone et
+							vous lancer dans la conception de systèmes dynamiques dans Minecraft ! : 
+							<ul>
+							  <li>Vidéo 1 : <a href="https://youtu.be/Q5ldG49bIYw?t=21s">Tutoriel Redstone par Arno00</a></li>
+							  <li>Vidéo 2 : <a href="https://www.youtube.com/watch?v=Hr-RAeyppt0">Tutoriel Restone par Aypierre</a></li>
+							</ul>
+                     		</p:outputPanel>
+						</h:panelGrid>
+                     </p:tab>
+                     
+                     <p:tab title="#{fr['cours.biblio.title']}">
+                     	<h:panelGrid columns="1">
+                     		Pour réaliser ce cours sur les portes logiques, nous avons utilisé les ressources suivantes :
+                     		<br/>
+                     		<ul>
+							  <li><a href="https://fr.wikipedia.org/wiki/Syst%C3%A8me_binaire">Système binaire - Wikipédia</a></li>
+							  <li><a href="https://fr.wikipedia.org/wiki/Alg%C3%A8bre_de_Boole_(logique)">Algèbre de Boole - Wikipédia</a></li>
+							  <li><a href="https://fr.wikipedia.org/wiki/Fonction_logique">Fonctions Logiques - Wikipédia</a></li>
+							</ul>
                      	</h:panelGrid>
                      </p:tab>
                 </p:accordionPanel>
 	        </h:form> 
-	     </p:panel>  
+         </p:layoutUnit>
+         
+         <p:layoutUnit position="east" resizable="true" collapsible="true" 
+            header="#{fr['general.profil.title']} de #{profilMBean.profil.prenom} #{profilMBean.profil.nom} " 
+            rendered="#{profilMBean.rapprenant or profilMBean.radmin}">
+            <h:form >    
+                <!-- Notions -->
+                <p:panel header="#{fr['profil.niveau.title']}" rendered="#{profilMBean.rapprenant}">
+                    <h:panelGrid columns="1" cellpadding="5">
+                        <ui:repeat var="niv" value="#{profilMBean.profil.niveaux}" >
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <h:outputText value="#{niv.nom}"/>
+                                <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
+                                <p:commandButton id="levelUp" value="Level up" action="#{profilMBean.levelUp}" update="@form">
+                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.id}" />
+                                    <f:setPropertyActionListener target="#{profilMBean.connaissanceLevel}" value="#{niv.niveau}" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </ui:repeat>
+                        <ui:repeat var="niv" value="#{profilMBean.profil.niveauxComplexes}" >
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <h:outputText value="#{niv.nom}"/>
+                                <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
+                                <p:commandButton id="levelUp" value="Level up" action="#{profilMBean.levelUp}" update="@form">
+                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.id}" />
+                                    <f:setPropertyActionListener target="#{profilMBean.connaissanceLevel}" value="#{niv.niveau}" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </ui:repeat>
+                        <p:commandButton  value="#{fr['menu.profil']}" action="profil"/>
+                    </h:panelGrid>
+                    </p:panel>
+            </h:form>
+            </p:layoutUnit>
+         
+         </p:layout>
+           
 	    </ui:define>
 
 </ui:composition>

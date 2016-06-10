@@ -18,7 +18,6 @@ import mooc.moteur.Exercice;
 import mooc.service.CompetenceService;
 import mooc.service.NotionService;
 import mooc.utils.Constants;
-import mooc.utils.Messages;
 
 import org.primefaces.event.diagram.ConnectEvent;
 import org.primefaces.event.diagram.ConnectionChangeEvent;
@@ -63,22 +62,16 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 
 	@PostConstruct
 	public void init() {
-		this.table = new ArrayList<LigneBacSableDto>();
-		this.table.add(new LigneBacSableDto());
-		this.table.add(new LigneBacSableDto());
-		this.table.add(new LigneBacSableDto());
-		this.table.add(new LigneBacSableDto());
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		Integer id = (Integer) request.getSession().getAttribute(Constants.UTILISATEUR_CONNECTE);
 		this.exercice = (Exercice) request.getSession().getAttribute(Constants.BAC_SABLE);
-		if(id == null){
-			this.utilConn = false;
-			this.addFacesMessage(FacesMessage.SEVERITY_WARN, Messages.message("general.erreur.utilisateur"));
-		} else {
-			this.utilConn = true;
-		}
+		this.table = (ArrayList<LigneBacSableDto>) request.getSession().getAttribute(Constants.BAC_SABLE_TABLE);
 		if (this.exercice == null) {
 			this.disabled = false;
+			this.table = new ArrayList<LigneBacSableDto>();
+			this.table.add(new LigneBacSableDto());
+			this.table.add(new LigneBacSableDto());
+			this.table.add(new LigneBacSableDto());
+			this.table.add(new LigneBacSableDto());
 		} else {
 			this.disabled = true;
 		}
@@ -90,10 +83,11 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 		this.exercice.setNotions(this.notions);
 		this.exercice.setDifficulte(0);
 		this.exercice.generer(this.table);
-		System.out.println(this.exercice);
+//		System.out.println(this.exercice);
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		request.getSession().removeAttribute(Constants.BAC_SABLE);
 		request.getSession().setAttribute(Constants.BAC_SABLE, this.exercice);
+		request.getSession().setAttribute(Constants.BAC_SABLE_TABLE, this.table);
 		this.disabled = true;
 	}
 

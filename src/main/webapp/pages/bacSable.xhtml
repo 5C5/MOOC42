@@ -12,8 +12,41 @@
     <ui:define name="title">#{fr['general.bac.sable.title']}</ui:define>
 
     <ui:define name="body-site">
-        
- 		<p:panel header="#{fr['general.bac.sable.title']}">
+    <p:layout style="height:1100px;">
+        <p:layoutUnit position="center"  header="#{fr['general.bac.sable.title']}">    
+ 			<p:outputPanel style="font-size: 16px;">
+ 			Bienvenue dans le Bac à Sable, un environnement où vous pouvez manipuler librement un certain nombre de portes
+ 			logiques.
+ 			<br/>
+ 			</p:outputPanel>
+			<p:fieldset legend="Mode d'emploi" style="padding: 8px; margin : 20px;" toggleable="true" collapsed="true">
+ 			<p:outputPanel style="font-size: 16px;">
+ 			<ul>
+ 			<li>Sélectionnez le contenu souhaité pour votre bac à sable en cliquant sur les boutons Entrée et 
+       		Porte aux emplacements qui vous intéressent puis cliquez sur Démarrer pour faire apparaître 
+         	les composants.</li>
+         	<br/>
+         	<li>
+         	Pour relier des composants, cliquez sur l'un des connecteur placé sur le premier composant puis glissez votre
+         	souris jusqu'au connecteur du second composant sans relacher le bouton.
+         	</li>
+         	<br/>
+         	<li>
+         	Pour faire varier les valeurs des éléments entrées (<FONT color="#2E962C">en vert</FONT>) ou portes (<FONT color="#37497B">en bleu </FONT>), 
+         	cliquez dessus.
+         	</li>
+         	<br/>
+          	<li>Pour mettre en route le circuit, c'est à dire afficher le résultat du calcul dans la sortie du circuit 
+          	(<FONT color="#9D000C">en rouge</FONT>), cliquez sur l'une des entrées ou des portes du circuit.</li>
+	  		<br/>
+	  		<li>Si vous souhaitez changer la forme du circuit en l'utilisant, sélectionnez les éléments désirés 
+	  		dans l'interface de paramètrage et cliquez sur Mettre à jour. 
+	  		Les connexions entre éléments seront réinitialisées.</li>
+	  		<br/>
+	  		<li>Si vous souhaitez effacer complètement le Bac à Sable, vous pouvez cliquer sur Redémarrer.</li>
+	  		</ul>
+ 			</p:outputPanel>
+ 			</p:fieldset>
        		<h:form id="form_exer">
                 <h:outputScript library="js" name="diagram.js" />
                  <pe:remoteCommand id="solutionRecalculer" name="solutionRecalculer" process="@this" update=":form_exer:panelDiag" 
@@ -25,9 +58,10 @@
        			<p:fieldset legend="#{fr['bac.parametre']}">
                     <p:dataTable var="ligne" value="#{bacSableMBean.table}" style="margin : 20px;" >
                         <p:column headerText="Input" >
-                            <p:selectOneButton value="#{ligne.entree}">
-                                <f:selectItem itemLabel="Entrée" itemValue="0" />
-                            </p:selectOneButton>
+                            <p:selectBooleanButton value="#{ligne.entree}" onLabel="Entrée" offLabel="Rien" style="width:70px" />
+<!--                             <p:selectOneButton value="#{ligne.entree}"> -->
+<!--                                 <f:selectItem itemLabel="Entrée" itemValue="0" /> -->
+<!--                             </p:selectOneButton> -->
                         </p:column>
                         <p:column headerText="Colonne 1">
                             <p:selectOneButton value="#{ligne.col1}">
@@ -61,55 +95,47 @@
                         <p:ajax event="disconnect" listener="#{bacSableMBean.onDisconnect}" />
                         <p:ajax event="connectionChange" listener="#{bacSableMBean.onConnectionChange}" />
                     </p:diagram>
-           			<style type="text/css">
-        				.ui-diagram-element {   
-          		  			width:5em; 
-    				        height:5em;
-    				        line-height:5em;
-    				        text-align: center;
-    				        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
-    				        border-radius: 5em;
-    				        border: 1px solid #404a4e;
-    				        background-color: #404a4e;
-    				        color: #cccccc;
-        				}
-     
-        				}
-        				.porte, .porteNot {
-        					color: #000000;
-        					background-color: #7F91C3;
-        					border: 1px solid #7F91C3;
-    				        box-shadow: 0 5px 10px rgba(127, 145, 195, 0.8);
-    				        
-        				}
-        				.sortieUtilisateur {
-        					color: #000000;
-        					background-color: #DD3F4C;
-        					border: 1px solid #DD3F4C;
-    				        box-shadow: 0 5px 10px rgba(201, 36, 50, 0.8);
-        				}
-     
-        				.porte:hover, .porteNot:hover{
-            				background-color: #5C6B94;
-        				}
-        				.entree {
-        					color: #000000;
-        					background-color: #7EE67C;
-        					border: 1px solid #7EE67C;
-    				        box-shadow: 0 5px 10px rgba(126, 230, 124, 0.8);
-        				}
-        				
-        				.sortieSolution{
-        					color: #000000;
-        					background-color: #E8A958;
-        					border: 1px solid #E8A958;
-    				        box-shadow: 0 5px 10px rgba(232, 169, 88, 0.8);
-        				}
-    				</style>
                       
        			</p:panel>
 	        </h:form> 
-	     </p:panel>  
+            </p:layoutUnit>
+         
+         <p:layoutUnit position="east" resizable="true" collapsible="true" 
+            header="#{fr['general.profil.title']} de #{profilMBean.profil.prenom} #{profilMBean.profil.nom} " 
+            rendered="#{profilMBean.rapprenant or profilMBean.radmin}">
+            <h:form >    
+                <!-- Notions -->
+                <p:panel header="#{fr['profil.niveau.title']}" rendered="#{profilMBean.rapprenant}"
+                style="width-min:250px;">
+                    <h:panelGrid columns="1" cellpadding="5">
+                        <ui:repeat var="niv" value="#{profilMBean.profil.niveaux}" >
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <h:outputText value="#{niv.nom}"/>
+                                <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
+                                <p:commandButton id="levelUp" value="Level up" action="#{profilMBean.levelUp}" update="@form">
+                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.id}" />
+                                    <f:setPropertyActionListener target="#{profilMBean.connaissanceLevel}" value="#{niv.niveau}" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </ui:repeat>
+                        <ui:repeat var="niv" value="#{profilMBean.profil.niveauxComplexes}" >
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <h:outputText value="#{niv.nom}"/>
+                                <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
+                                <p:commandButton id="levelUp" value="Level up" action="#{profilMBean.levelUp}" update="@form">
+                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.id}" />
+                                    <f:setPropertyActionListener target="#{profilMBean.connaissanceLevel}" value="#{niv.niveau}" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </ui:repeat>
+                        <p:commandButton  value="#{fr['menu.profil']}" action="profil"/>
+                    </h:panelGrid>
+                    </p:panel>
+            </h:form>
+            </p:layoutUnit>
+         
+         </p:layout>
+           
 	    </ui:define>
 
 </ui:composition>

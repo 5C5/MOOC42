@@ -15,6 +15,7 @@ import mooc.dto.ApprenantNotionDto;
 import mooc.dto.NiveauDeverouilleDto;
 import mooc.dto.ProfilDto;
 import mooc.login.AbstractMBean;
+import mooc.moteur.Exercice;
 import mooc.service.ApprenantService;
 import mooc.service.ConnaissanceService;
 import mooc.service.NotionService;
@@ -90,7 +91,7 @@ public class ProfilMBean extends AbstractMBean implements Serializable {
 		}
 		if (this.profil == null) {
 			// Personne n'est connecte
-			this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("profil.erreur.session"));
+			//			this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("profil.erreur.session"));
 			return;
 		}
 
@@ -118,6 +119,12 @@ public class ProfilMBean extends AbstractMBean implements Serializable {
 						ligne.setNiveauNOT(niveau.getNiveau());
 					} else if (Constants.XOR.equalsIgnoreCase(niveau.getNom())) {
 						ligne.setNiveauXOR(niveau.getNiveau());
+					} else if (Constants.NAND.equalsIgnoreCase(niveau.getNom())) {
+						ligne.setNiveauNAND(niveau.getNiveau());
+					} else if (Constants.NOR.equalsIgnoreCase(niveau.getNom())) {
+						ligne.setNiveauNOR(niveau.getNiveau());
+					} else if (Constants.XNOR.equalsIgnoreCase(niveau.getNom())) {
+						ligne.setNiveauXNOR(niveau.getNiveau());
 					}
 				}
 				this.lignes.add(ligne);
@@ -204,12 +211,21 @@ public class ProfilMBean extends AbstractMBean implements Serializable {
 	/**
 	 * Methode appelee pour monter le niveau d'une connaissance de l'apprenant
 	 */
-	public void levelUp() {
-		this.connaissanceService.changerNiveauConnaissance(this.idConnaissanceLevelUp, this.connaissanceLevel+1);
+	public String levelUp() {
+//		this.connaissanceService.changerNiveauConnaissance(this.idConnaissanceLevelUp, this.connaissanceLevel+1);
 
 		// Mise à jour des niveaux
-		List<NiveauDeverouilleDto> niveauxUpdated = this.connaissanceService.reloadNiveau(this.profil.getId());
-		this.profil.setNiveaux(niveauxUpdated);
+//		List<NiveauDeverouilleDto> niveauxUpdated = this.connaissanceService.reloadNiveau(this.profil.getId());
+//		this.profil.setNiveaux(niveauxUpdated);
+//		List<NiveauDeverouilleDto> niveauxUpdatedComplexes = this.connaissanceService.reloadNiveauComplexes(this.profil.getId());
+//		this.profil.setNiveauxComplexes(niveauxUpdatedComplexes);
+
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		request.getSession().removeAttribute(Constants.PRE_NIVEAU);
+		request.getSession().removeAttribute(Constants.PRE_NOTION);
+		request.getSession().setAttribute(Constants.PRE_NIVEAU, this.connaissanceLevel+1);
+		request.getSession().setAttribute(Constants.PRE_NOTION, Integer.toString(this.idConnaissanceLevelUp));
+		return "exercice";
 	}
 
 	public ApprenantService getApprenantService() {

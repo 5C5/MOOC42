@@ -12,9 +12,10 @@
     <ui:define name="title">#{fr['general.exercice.title']}</ui:define>
 
     <ui:define name="body-site">
-        
- 		<p:panel header="#{fr['general.exercice.title']}">
-       		<h:form id="form_exer">
+    <h:form id="form_exer">
+    <p:layout style="height:850px;">
+        <p:layoutUnit position="center" header="#{fr['general.exercice.title']}" >
+       		
                 <h:outputScript library="js" name="diagram.js" />
 <!--                 <input type="hidden" id="notionSwitch" value="#{exerciceMBean.notionSwitch}"/> -->
                  <pe:remoteCommand id="solutionRecalculer" name="solutionRecalculer" process="@this" update=":form_exer:panelDiag" 
@@ -42,7 +43,7 @@
                         
                         <p:selectOneRadio id="niveau" layout="grid" columns="1" style="padding:2px" value="#{exerciceMBean.niveau}" disabled="#{exerciceMBean.disabled}">
                             <f:selectItem itemLabel="#{fr['exercice.niveau.facile']}" itemValue="1"/>
-                            <f:selectItem itemLabel="#{fr['exercice.niveau.moyen']}" itemValue="2" />
+                            <f:selectItem itemLabel="#{fr['exercice.niveau.difficile']}" itemValue="2" />
                             <!-- <f:selectItem itemLabel="#{fr['exercice.niveau.difficile']}" itemValue="3" disabled="true"/> -->
                         </p:selectOneRadio>
                         
@@ -62,12 +63,46 @@
                       
                       <h:panelGrid columns="1" style="margin-left:50px;" id="consigneEntree" rendered="#{exerciceMBean.type == 1}">
                       <!-- Affichage des consignes -->
-                            Consigne pour le type Entree
+                      		<p>
+                      		<b>Consigne de l'exercice : </b>
+                      		</p>
+                            <p>
+                      		Le but de cet exercice est de determiner les valeurs d'entrée 
+                      		(<FONT color="#2E962C">en vert</FONT>)
+                      		qui permettent d'aboutir
+                      		<BR/>
+                      		à la sortie indiquée (<FONT color="#9D000C">en rouge</FONT>) en fonction des 
+                      		portes logiques (<FONT color="#37497B">en bleu </FONT>) présentes 
+                      		dans le circuit.
+                      		</p>
+                      		<p>
+                            Pour modifier une entrée, cliquer sur le cercle la contenant.
+                      		</p>
+                      		<p>
+                            Pour vérifier les réponses, cliquer sur vérifier.
+                      		</p>
                       </h:panelGrid>
                       
                       <h:panelGrid columns="1" style="margin-left:50px;" id="consignePorte" rendered="#{exerciceMBean.type == 2}">
                       <!-- Affichage des consignes -->
-                            Consigne pour le type Porte
+                      		<p>
+                      		<b>Consigne de l'exercice : </b>
+                      		</p>
+                      		<p>
+                      		Le but de cet exercice est de determiner les portes logiques 
+                      		(<FONT color="#37497B">en bleu </FONT>)
+                      		qui permettent d'aboutir
+                      		<BR/>
+                      		à la sortie indiquée (<FONT color="#9D000C">en rouge</FONT>)
+                      	    en fonction des 
+                      		données présentées en entrée (<FONT color="#2E962C">en vert</FONT>).
+                      		</p>
+                      		<p>
+                            Pour modifier une entrée, cliquer sur le cercle la contenant.
+                      		</p>
+                      		<p>
+                            Pour vérifier les réponses, cliquer sur vérifier.
+                      		</p>
                       </h:panelGrid>
                       
                   </h:panelGrid>
@@ -77,72 +112,68 @@
                 </p:fieldset>
        			<p:panel id="panelDiag" header="#{fr['exercice.title']}" rendered="#{exerciceMBean.disabled}">
                 <!-- rendered="#{exerciceMBean.disabled}" -->
-           			<p:diagram id="diag" value="#{exerciceMBean.exercice.root}" style="height:35em" styleClass="ui-widget-content" >
+                
+                    <p:commandButton value="#{fr['exercice.verifier']}" action="#{exerciceMBean.valider}" />
+                    
+           			<p:diagram id="diag" value="#{exerciceMBean.exercice.root}" style="height:35em; margin-top:10px;" styleClass="ui-widget-content" >
            				
            				<!-- Notification en cas de réussite -->
            				<p:notificationBar position="bottom" effect="slide" styleClass="bottom" widgetVar="reussite">
-    						<h:panelGrid columns="2">
-    							<h:outputText value="Bravo!" style="font-size:25px;" />
-    							<p:commandButton value="#{fr['exercice.ack']}" action="#{exerciceMBean.refermer}" update="@form"/>
+    						<h:panelGrid columns="1" style="margin:0 auto;">
+    							<h:outputText value="Bravo ! Vous avez réussi l'exercice." style="font-size:25px;" />
+    							<p:commandButton value="#{fr['exercice.ack']}" onclick="PF('reussite').hide()" actionListener="#{exerciceMBean.refermer}" 
+                                    update="@form"/>
     						</h:panelGrid>
 						</p:notificationBar>
 						<!-- Notification en cas d'échec -->
 						<p:notificationBar position="bottom" effect="slide" styleClass="bottom" widgetVar="echec">
-    						<h:panelGrid columns="2">
-    							<h:outputText value="Attention : il reste des erreurs" style="font-size:26px;" />
+    						<h:panelGrid columns="1" style="margin:0 auto;">
+    							<h:outputText value="Attention ! Il reste des erreurs." style="font-size:26px;" />
     							<p:commandButton value="#{fr['exercice.ack']}" onclick="PF('echec').hide()" />
     						</h:panelGrid>
 						</p:notificationBar>
                     </p:diagram>
-           			<style type="text/css">
-        				.ui-diagram-element {   
-          		  			width:6em; 
-    				        height:6em;
-    				        line-height:6em;
-    				        text-align: center;
-    				        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
-    				        border-radius: 5em;
-    				        border: 1px solid #404a4e;
-    				        background-color: #404a4e;
-    				        color: #cccccc;
-        				}
-        				.porte, .porteNot {
-        					color: #000000;
-        					background-color: #7F91C3;
-        					border: 1px solid #7F91C3;
-    				        box-shadow: 0 5px 10px rgba(127, 145, 195, 0.8);
-    				        
-        				}
-        				.sortieUtilisateur {
-        					color: #000000;
-        					background-color: #DD3F4C;
-        					border: 1px solid #DD3F4C;
-    				        box-shadow: 0 5px 10px rgba(201, 36, 50, 0.8);
-        				}
-     
-        				.porte:hover, .porteNot:hover {
-            				background-color: #5C6B94;
-        				}
-        				.entree {
-        					color: #000000;
-        					background-color: #7EE67C;
-        					border: 1px solid #7EE67C;
-    				        box-shadow: 0 5px 10px rgba(126, 230, 124, 0.8);
-        				}
-        				
-        				.sortieSolution{
-        					color: #000000;
-        					background-color: #E8A958;
-        					border: 1px solid #E8A958;
-    				        box-shadow: 0 5px 10px rgba(232, 169, 88, 0.8);
-        				}
-    				</style>
-                    
-                    <p:commandButton value="#{fr['exercice.verifier']}" action="#{exerciceMBean.valider}" />
+           			
                       
        			</p:panel>
-	        </h:form> 
-	     </p:panel>  
+	        
+	     </p:layoutUnit>
+         
+         <p:layoutUnit position="east" resizable="true" collapsible="true" 
+            header="#{fr['general.profil.title']} de #{profilMBean.profil.prenom} #{profilMBean.profil.nom} " 
+            rendered="#{profilMBean.rapprenant or profilMBean.radmin}">
+             
+                <!-- Notions -->
+                <p:panel header="#{fr['profil.niveau.title']}" rendered="#{profilMBean.rapprenant}">
+                    <h:panelGrid columns="1" cellpadding="5">
+                        <ui:repeat var="niv" value="#{profilMBean.profil.niveaux}" >
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <h:outputText value="#{niv.nom}"/>
+                                <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
+                                <p:commandButton id="levelUp" value="Level up" action="#{profilMBean.levelUp}" update="@form">
+                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.id}" />
+                                    <f:setPropertyActionListener target="#{profilMBean.connaissanceLevel}" value="#{niv.niveau}" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </ui:repeat>
+                        <ui:repeat var="niv" value="#{profilMBean.profil.niveauxComplexes}" >
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <h:outputText value="#{niv.nom}"/>
+                                <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
+                                <p:commandButton id="levelUp" value="Level up" action="#{profilMBean.levelUp}" update="@form">
+                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.id}" />
+                                    <f:setPropertyActionListener target="#{profilMBean.connaissanceLevel}" value="#{niv.niveau}" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </ui:repeat>
+                        <p:commandButton  value="#{fr['menu.profil']}" action="profil"/>
+                    </h:panelGrid>
+                    </p:panel>
+            
+            </p:layoutUnit>
+         
+         </p:layout>
+          </h:form>
 	    </ui:define>
 
 </ui:composition>

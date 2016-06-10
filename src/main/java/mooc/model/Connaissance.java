@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import mooc.utils.Constants;
+
 /**
  * @author colas Consultation des cours
  */
@@ -15,40 +17,40 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Connaissance {
 
-    /** ID de la connaissance */
-    @Id
-    @GeneratedValue
-    @Column(name = "id_connaissance", unique = true, nullable = false)
-    private int idConnaissance;
+	/** ID de la connaissance */
+	@Id
+	@GeneratedValue
+	@Column(name = "id_connaissance", unique = true, nullable = false)
+	private int idConnaissance;
 
-    /** Apprenant ayant lu le cours */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_apprenant", nullable = false)
-    private Apprenant apprenant;
+	/** Apprenant ayant lu le cours */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_apprenant", nullable = false)
+	private Apprenant apprenant;
 
-    /** Notion lue */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_notion", nullable = false)
-    private Notion notion;
+	/** Notion lue */
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_notion", nullable = false)
+	private Notion notion;
 
-    /** Niveau */
-    @Column(name = "niveau")
-    private int niveau;
+	/** Niveau */
+	@Column(name = "niveau")
+	private int niveau;
 
-    /**
-     * Constructeur complet
-     *
-     * @param apprenant
-     * @param notion
-     */
-    public Connaissance(final Apprenant apprenant, final Notion notion) {
-        this.apprenant = apprenant;
-        this.notion = notion;
-    }
+	/**
+	 * Constructeur complet
+	 *
+	 * @param apprenant
+	 * @param notion
+	 */
+	public Connaissance(final Apprenant apprenant, final Notion notion) {
+		this.apprenant = apprenant;
+		this.notion = notion;
+	}
 
-    public Connaissance() {
+	public Connaissance() {
 
-    }
+	}
 
 	public int getIdConnaissance() {
 		return this.idConnaissance;
@@ -82,4 +84,14 @@ public class Connaissance {
 		this.niveau = niveau;
 	}
 
+	public boolean isComplexe() {
+		if (Constants.NOT.equalsIgnoreCase(this.notion.getNomNotion())) {
+			return false;
+		} else if (Constants.AND.equalsIgnoreCase(this.notion.getNomNotion())) {
+			return false;
+		} else if (Constants.OR.equalsIgnoreCase(this.notion.getNomNotion())) {
+			return false;
+		}
+		return true;
+	}
 }

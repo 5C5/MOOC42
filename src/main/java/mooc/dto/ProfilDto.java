@@ -20,6 +20,7 @@ public class ProfilDto {
 
 	/** Niveaux */
 	private List<NiveauDeverouilleDto> niveaux;
+	private List<NiveauDeverouilleDto> niveauxComplexes;
 
 	/** Evolution des competences */
 	private List<EvolutionCompetenceDto> evolution;
@@ -89,6 +90,14 @@ public class ProfilDto {
 
 	public void setListeProfil(final List<ProfilDto> listeProfil) {
 		this.listeProfil = listeProfil;
+	}
+
+	public List<NiveauDeverouilleDto> getNiveauxComplexes() {
+		return niveauxComplexes;
+	}
+
+	public void setNiveauxComplexes(List<NiveauDeverouilleDto> niveauxComplexes) {
+		this.niveauxComplexes = niveauxComplexes;
 	}
 
 }

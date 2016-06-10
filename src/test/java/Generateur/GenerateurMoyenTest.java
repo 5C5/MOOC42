@@ -18,7 +18,7 @@ public class GenerateurMoyenTest {
 		Exercice exercice = new Exercice();
 		exercice.setNotions(new ArrayList<NotionDto>());
 		GenerateurMoyen generateur = new GenerateurMoyen();
-		generateur.genererModele1(Constants.AND, Constants.OR, false, true);
+		generateur.genererModele1(Constants.AND, Constants.OR, false, true, 0);
 
 		String idEntree1 = null;
 		String idEntree2 = null;
