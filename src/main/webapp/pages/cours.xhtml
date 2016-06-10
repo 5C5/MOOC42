@@ -99,11 +99,28 @@
 					<br/>
 					Dans ce cours, nous allons présenter les différentes portes logiques existantes et vous apprendre à les manipuler.
 				</p:fieldset>
+				<p:fieldset legend="#{fr['cours.intro.quiz']}" toggleable="true" collapsed="#{!coursMBean.afficher}" 
+					style="font-size: 16px;" id="listeQuiz">
+					<ui:repeat value="#{coursMBean.questions}" var="el">
+						<h:panelGrid columns="1" cellspacing="8px">
+						<p:outputLabel value="#{el.question}" for="quizz"/>
+						<p:selectOneRadio id="quizz" value="#{el.userAnswer}" layout="grid" columns="1" >
+							<f:selectItem itemLabel="#{el.answer1}" itemValue="1" />
+							<f:selectItem itemLabel="#{el.answer2}" itemValue="2" />
+							<f:selectItem itemLabel="#{el.answer3}" itemValue="3" />
+						</p:selectOneRadio>
+						<p:outputLabel value="#{el.correction}" rendered="#{coursMBean.afficher}" style="color : #{el.couleur}"/>
+			
+						</h:panelGrid>
+					</ui:repeat>
+					<p:commandButton action="#{coursMBean.corriger}" update="listeQuiz" value="Vérifier"/>
+				</p:fieldset>
 
 
                         </h:panelGrid>
                      </p:tab>
-                     <p:tab title="#{fr['cours.et.title']}" >
+                     <p:tab title="#{fr['cours.fondamental.title']}">
+                     	<p:fieldset legend="#{fr['cours.et.title']}" >
                         <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
                             <p:outputPanel>La porte AND (ou ET) correspond à l’opération ET de l’algèbre de Boole que nous avons vu dans l’introduction de ce cours.
                              Comme pour les opérations booléennes, 
@@ -113,8 +130,8 @@
                             <p:graphicImage name="img/symbole_AND.png" title="Symbole de la porte AND"/>
         		    <p:graphicImage name="img/porte_AND.png" title="Voici la table de vérité de l’opération ET :"/> 
                         </h:panelGrid>
-                     </p:tab>
-                    <p:tab title="#{fr['cours.ou.title']}" >
+                     </p:fieldset>
+                    <p:fieldset legend="#{fr['cours.ou.title']}" >
                         <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
                             <p>
                             	La porte OR est la réalisation physique de la fonction booléenne OU.
@@ -122,7 +139,9 @@
                             <p:graphicImage name="img/symbole_OR.png" title="Symbole de la porte OR"/>
 			    <p:graphicImage name="img/porte_OR.png" title="Voici la table de vérité de l’opération OU :"/>
                         </h:panelGrid>
-                     </p:tab>
+                     </p:fieldset>
+                     </p:tab >
+                     
                      
                      <p:tab title="#{fr['cours.combinatoire.title']}">
                      <h:panelGrid>

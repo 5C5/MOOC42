@@ -65,8 +65,8 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 
 		QuestionQuizDTO q2 = new QuestionQuizDTO();
 		q2.setQuestion("Question 2 : Sur quel système numérique fonctionnent les portes logiques ?");
-		q2.setAnswer1("le système binaire");
-		q2.setAnswer2("le système décimal");
+		q2.setAnswer1("Le système binaire");
+		q2.setAnswer2("Le système décimal");
 		q2.setAnswer3("Le système digestif");
 		q2.setCorrectAnswer(1);
 		q2.setCorrect1("Bravo! C'est la bonne réponse!");
@@ -126,9 +126,9 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 
 		QuestionQuizDTO q7 = new QuestionQuizDTO();
 		q7.setQuestion("Question 7 : A quel conjonction de coordination est associée l’opération de disjonction ?");
-		q7.setAnswer1("ou");
-		q7.setAnswer2("et");
-		q7.setAnswer3("ni");
+		q7.setAnswer1("Ou");
+		q7.setAnswer2("Et");
+		q7.setAnswer3("Ni");
 		q7.setCorrectAnswer(1);
 		q7.setCorrect1("Bravo! C'est la bonne réponse!");
 		q7.setCorrect2("Attention! Relis bien");
@@ -138,9 +138,9 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 
 		QuestionQuizDTO q8 = new QuestionQuizDTO();
 		q8.setQuestion("Question 8 : A quel conjonction de coordination est associée l’opération de conjonction ?");
-		q8.setAnswer1("ou");
-		q8.setAnswer2("et");
-		q8.setAnswer3("car");
+		q8.setAnswer1("Ou");
+		q8.setAnswer2("Et");
+		q8.setAnswer3("Car");
 		q8.setCorrectAnswer(2);
 		q8.setCorrect2("Bravo! C'est la bonne réponse!");
 		q8.setCorrect1("Attention! Relis bien");
@@ -150,9 +150,9 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 
 		QuestionQuizDTO q9 = new QuestionQuizDTO();
 		q9.setQuestion("Question 9 : A quel expression est associée l’opération de négation ?");
-		q9.setAnswer1("peut-être");
-		q9.setAnswer2("oui");
-		q9.setAnswer3("non");
+		q9.setAnswer1("Peut-être");
+		q9.setAnswer2("Oui");
+		q9.setAnswer3("Non");
 		q9.setCorrectAnswer(3);
 		q9.setCorrect3("Bravo! C'est la bonne réponse!");
 		q9.setCorrect2("Attention! Relis bien");
