@@ -90,7 +90,7 @@ public class ProfilMBean extends AbstractMBean implements Serializable {
 		}
 		if (this.profil == null) {
 			// Personne n'est connecte
-			this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("profil.erreur.session"));
+//			this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("profil.erreur.session"));
 			return;
 		}
 

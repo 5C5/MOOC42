@@ -41,11 +41,6 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
             <redirect />
         </navigation-case>
         <navigation-case>
-			<from-outcome>accueil</from-outcome>
-			<to-view-id>/pages/accueil.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-        <navigation-case>
             <from-outcome>cours</from-outcome>
             <to-view-id>/pages/cours.xhtml</to-view-id>
             <redirect />

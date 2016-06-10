@@ -12,8 +12,8 @@
     <ui:define name="title">#{fr['general.bac.sable.title']}</ui:define>
 
     <ui:define name="body-site">
-        
- 		<p:panel header="#{fr['general.bac.sable.title']}">
+    <p:layout style="height:1100px;">
+        <p:layoutUnit position="center"  header="#{fr['general.bac.sable.title']}">    
  			<p:outputPanel style="font-size: 16px;">
  			Bienvenue dans le Bac à Sable, un environnement où vous pouvez manipuler librement un certain nombre de portes
  			logiques.
@@ -98,7 +98,44 @@
                       
        			</p:panel>
 	        </h:form> 
-	     </p:panel>  
+            </p:layoutUnit>
+         
+         <p:layoutUnit position="east" resizable="true" collapsible="true" 
+            header="#{fr['general.profil.title']} de #{profilMBean.profil.prenom} #{profilMBean.profil.nom} " 
+            rendered="#{profilMBean.rapprenant or profilMBean.radmin}">
+            <h:form >    
+                <!-- Notions -->
+                <p:panel header="#{fr['profil.niveau.title']}" rendered="#{profilMBean.rapprenant}"
+                style="width-min:250px;">
+                    <h:panelGrid columns="1" cellpadding="5">
+                        <ui:repeat var="niv" value="#{profilMBean.profil.niveaux}" >
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <h:outputText value="#{niv.nom}"/>
+                                <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
+                                <p:commandButton id="levelUp" value="Level up" action="#{profilMBean.levelUp}" update="@form">
+                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.id}" />
+                                    <f:setPropertyActionListener target="#{profilMBean.connaissanceLevel}" value="#{niv.niveau}" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </ui:repeat>
+                        <ui:repeat var="niv" value="#{profilMBean.profil.niveauxComplexes}" >
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <h:outputText value="#{niv.nom}"/>
+                                <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
+                                <p:commandButton id="levelUp" value="Level up" action="#{profilMBean.levelUp}" update="@form">
+                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.id}" />
+                                    <f:setPropertyActionListener target="#{profilMBean.connaissanceLevel}" value="#{niv.niveau}" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </ui:repeat>
+                        <p:commandButton  value="#{fr['menu.profil']}" action="profil"/>
+                    </h:panelGrid>
+                    </p:panel>
+            </h:form>
+            </p:layoutUnit>
+         
+         </p:layout>
+           
 	    </ui:define>
 
 </ui:composition>
