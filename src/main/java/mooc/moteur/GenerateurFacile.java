@@ -30,9 +30,9 @@ public class GenerateurFacile extends Generateur {
 		}
 
 		if (binaire) {
-			this.creerModele1(porteAlea, drag, true, type);
+			this.creerModele1(porteAlea, drag, false, type);
 		} else {
-			this.creerModele2(porteAlea, drag, true, type);
+			this.creerModele2(porteAlea, drag, false, type);
 		}
 
 	}
@@ -296,50 +296,50 @@ public class GenerateurFacile extends Generateur {
 
 	@Override
 	public boolean valider(final DefaultDiagramModel root) {
-		
+
 		return this.calculSortieSolution(root);
-		
-//		int combi = 0;
-//		String porte = null;
-//		String porteReel = null;
-//		Boolean binaire = null;
-//
-//		for (Element el : root.getElements()) {
-//			String style = el.getStyleClass();
-//			String data = (String) el.getData();
-//			if (Constants.PORTE.equalsIgnoreCase(style)) {
-//				porteReel = ((Porte) el).getRealValue();
-//				porte = data;
-//				binaire = true;
-//			} else if (Constants.PORTE_NOT.equalsIgnoreCase(style)) {
-//				porteReel = ((Porte) el).getRealValue();
-//				porte = data;
-//				binaire = false;
-//			}
-//		}
-//
-//		System.out.println("Solution : " + porteReel);
 
-//		if (binaire) {
-//			for (int i = 0; i <= 1; i++) {
-//				boolean entree1 = i == 0 ? true : false;
-//				for (int j = 0; j <= 1; j++) {
-//					boolean entree2 = j == 0 ? true : false;
-//					if (!this.calculDiffPorte(entree1, entree2, porte, porteReel)) {
-//						combi++;
-//					}
-//				}
-//			}
-//		} else {
-//			for (int i = 0; i <= 1; i++) {
-//				boolean entree1 = i == 0 ? true : false;
-//				if (!this.calculDiffPorte(entree1, null, porte, porteReel)) {
-//					combi++;
-//				}
-//			}
-//		}
+		//		int combi = 0;
+		//		String porte = null;
+		//		String porteReel = null;
+		//		Boolean binaire = null;
+		//
+		//		for (Element el : root.getElements()) {
+		//			String style = el.getStyleClass();
+		//			String data = (String) el.getData();
+		//			if (Constants.PORTE.equalsIgnoreCase(style)) {
+		//				porteReel = ((Porte) el).getRealValue();
+		//				porte = data;
+		//				binaire = true;
+		//			} else if (Constants.PORTE_NOT.equalsIgnoreCase(style)) {
+		//				porteReel = ((Porte) el).getRealValue();
+		//				porte = data;
+		//				binaire = false;
+		//			}
+		//		}
+		//
+		//		System.out.println("Solution : " + porteReel);
 
-//		return combi;
+		//		if (binaire) {
+		//			for (int i = 0; i <= 1; i++) {
+		//				boolean entree1 = i == 0 ? true : false;
+		//				for (int j = 0; j <= 1; j++) {
+		//					boolean entree2 = j == 0 ? true : false;
+		//					if (!this.calculDiffPorte(entree1, entree2, porte, porteReel)) {
+		//						combi++;
+		//					}
+		//				}
+		//			}
+		//		} else {
+		//			for (int i = 0; i <= 1; i++) {
+		//				boolean entree1 = i == 0 ? true : false;
+		//				if (!this.calculDiffPorte(entree1, null, porte, porteReel)) {
+		//					combi++;
+		//				}
+		//			}
+		//		}
+
+		//		return combi;
 	}
 
 	public List<String> trouverSolutionEntree(final String porteAlea, final int modele){
