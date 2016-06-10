@@ -33,13 +33,17 @@ public class Exercice {
 	/** Type de l'exercice */
 	private int type;
 
+	/** Nombre d'essai */
+	private final int nbEssai;
+
 	/** Constructeur vide */
 	public Exercice() {
-
+		this.nbEssai = 0;
 	}
 
 	/** Constructeur avec arguments */
 	public Exercice(final List<NotionDto> notions, final int difficulte) {
+		this.nbEssai = 0;
 		this.notions = notions;
 		if (difficulte > 3 || difficulte == 3) {
 			this.difficulte = 3;
@@ -116,6 +120,10 @@ public class Exercice {
 
 	public void setNotions(final List<NotionDto> notions) {
 		this.notions = notions;
+	}
+
+	public int getNbEssai() {
+		return this.nbEssai;
 	}
 
 	public int getDifficulte() {

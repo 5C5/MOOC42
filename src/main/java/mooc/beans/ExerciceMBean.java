@@ -79,7 +79,19 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		}
 		if (this.exercice == null) {
 			this.disabled = false;
-			this.niveau = 1;
+			Integer preNiveau = (Integer) request.getSession().getAttribute(Constants.PRE_NIVEAU);
+			if(preNiveau == null){
+				this.niveau = 1;
+			} else {
+				this.niveau = preNiveau;
+			}
+			String idNotion = (String) request.getSession().getAttribute(Constants.PRE_NOTION);
+			if(idNotion != null){
+				this.selectedNotions = new String[this.notionService.getAll().size()];
+				this.selectedNotions[Integer.parseInt(idNotion)-1] = idNotion;
+			}
+			request.getSession().removeAttribute(Constants.PRE_NIVEAU);
+			request.getSession().removeAttribute(Constants.PRE_NOTION);
 			this.type = "1";
 
 		} else {

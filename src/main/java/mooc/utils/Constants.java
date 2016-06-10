@@ -42,6 +42,12 @@ public final class Constants {
 	/** Cours */
 	public static final String COURS = "Cours";
 
+	/** Pré-parametrage de l'exercice */
+	/** Niveau */
+	public static final String PRE_NIVEAU = "PreNiveau";
+	/** Notion */
+	public static final String PRE_NOTION = "PreNotion";
+
 	/**
 	 * ********************* Portes Logiques ******************
 	 */

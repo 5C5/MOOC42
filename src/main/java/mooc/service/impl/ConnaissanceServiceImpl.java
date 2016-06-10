@@ -36,7 +36,25 @@ public class ConnaissanceServiceImpl implements ConnaissanceService, Serializabl
 			niveau.setId(connaissance.getIdConnaissance());
 			niveau.setNom(connaissance.getNotion().getNomNotion());
 			niveau.setNiveau(connaissance.getNiveau());
-			niveaux.add(niveau);
+			if (!connaissance.isComplexe()) {
+				niveaux.add(niveau);
+			}
+		}
+		return niveaux;
+	}
+	
+	@Override
+	public List<NiveauDeverouilleDto> reloadNiveauComplexes(final int idApprenant) {
+		List<Connaissance> connaissances = this.connaissanceDAO.loadConnaissance(idApprenant);
+		List<NiveauDeverouilleDto> niveaux = new ArrayList<NiveauDeverouilleDto>();
+		for (Connaissance connaissance : connaissances) {
+			NiveauDeverouilleDto niveau = new NiveauDeverouilleDto();
+			niveau.setId(connaissance.getIdConnaissance());
+			niveau.setNom(connaissance.getNotion().getNomNotion());
+			niveau.setNiveau(connaissance.getNiveau());
+			if (connaissance.isComplexe()) {
+				niveaux.add(niveau);
+			}
 		}
 		return niveaux;
 	}
