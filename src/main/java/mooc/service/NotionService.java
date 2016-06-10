@@ -25,4 +25,26 @@ public interface NotionService {
 	 */
 	public List<NotionDto> getAll();
 
+	/**
+	 * Recuperer la notion associée au libellé
+	 *
+	 * @param libelle Libellé
+	 * @return NotionDto
+	 */
+	public NotionDto getByLibelle(final String libelle);
+
+	/***
+	 * Recuperer les portes fondamentales
+	 *
+	 * @return Liste des portes
+	 */
+	public List<NotionDto> getPortesFondamentales();
+
+	/***
+	 * Recuperer les portes complexes
+	 *
+	 * @return Liste des portes
+	 */
+	public List<NotionDto> getPortesComplexes();
+
 }

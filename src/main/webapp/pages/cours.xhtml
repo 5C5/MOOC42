@@ -4,6 +4,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
                 template="/templates/template.xhtml">
 
     <ui:define name="head"></ui:define>
@@ -12,7 +13,15 @@
 
     <ui:define name="body-site">
  		<p:panel header="#{fr['general.cours.title']}" style="font-family:Helvetica; width:100%">
-       		<h:form >    
+       		<h:form  id="form_exer">    
+                <h:outputScript library="js" name="diagram.js" />
+                 <pe:remoteCommand id="solutionRecalculer" name="solutionRecalculer" process="@this" 
+                    update=":form_exer:panelGeneral:panelDiag1"
+                    actionListener="#{coursMBean.solutionRecalculer}" >  
+                    <pe:methodSignature parameters="java.lang.String" />  
+                     <pe:methodParam name="idElement"/>  
+                </pe:remoteCommand> 
+                
        			<p:outputPanel style="font-size: 16px;">
        			Bienvenue sur ce cours du MOOC42 consacré aux portes logiques.
        			</p:outputPanel>
@@ -192,7 +201,15 @@
 		        		    		</p:outputPanel>
 	                    		</h:panelGrid>
 							</p:fieldset>
+                     
+                            <p:commandButton value="#{fr['cours.demarrer']} #{coursMBean.numExercice} #{coursMBean.exercice}" action="#{coursMBean.genererExo1}" update="@form"/>
+       			      
+                            <p:panel id="panelDiag1" header="#{fr['exercice.title']}" rendered="#{coursMBean.numExercice == 1}">
+                                <p:diagram id="diag1" value="#{coursMBean.exercice.root}" style="height:35em" styleClass="ui-widget-content" >
+                                </p:diagram>
+                            </p:panel>
                      </h:panelGrid>
+                     
                      </p:tab>
                     
                      <p:tab title="#{fr['cours.combinaisons.title']}">

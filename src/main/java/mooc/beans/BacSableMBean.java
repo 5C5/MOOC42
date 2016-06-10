@@ -18,7 +18,6 @@ import mooc.moteur.Exercice;
 import mooc.service.CompetenceService;
 import mooc.service.NotionService;
 import mooc.utils.Constants;
-import mooc.utils.Messages;
 
 import org.primefaces.event.diagram.ConnectEvent;
 import org.primefaces.event.diagram.ConnectionChangeEvent;
@@ -69,14 +68,7 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 		this.table.add(new LigneBacSableDto());
 		this.table.add(new LigneBacSableDto());
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		Integer id = (Integer) request.getSession().getAttribute(Constants.UTILISATEUR_CONNECTE);
 		this.exercice = (Exercice) request.getSession().getAttribute(Constants.BAC_SABLE);
-		if(id == null){
-			this.utilConn = false;
-			this.addFacesMessage(FacesMessage.SEVERITY_WARN, Messages.message("general.erreur.utilisateur"));
-		} else {
-			this.utilConn = true;
-		}
 		if (this.exercice == null) {
 			this.disabled = false;
 		} else {

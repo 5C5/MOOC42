@@ -6,19 +6,26 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.context.annotation.Scope;
-
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import mooc.dto.QuestionQuizDTO;
 import mooc.login.AbstractMBean;
+import mooc.moteur.Exercice;
+import mooc.service.NotionService;
+import mooc.utils.Constants;
+
+import org.primefaces.model.diagram.DefaultDiagramModel;
+import org.primefaces.model.diagram.Element;
+import org.springframework.context.annotation.Scope;
 
 /**
  * Bean de gestion des cours
  */
-@Data
 @NoArgsConstructor
 @ManagedBean
 @Scope("view")
@@ -26,6 +33,10 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 
 	/** serialVersionUID. */
 	private static final long serialVersionUID = -7390696210036765913L;
+
+	/** Service Notion */
+	@ManagedProperty(value = "#{notionService}")
+	private NotionService notionService;
 
 	/** Langue de l'utilisateur */
 	private String langue;
@@ -40,10 +51,31 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 	 */
 	private boolean afficher;
 
+	/**
+	 * Exercices
+	 */
+	/** Numero de l'exercice */
+	private int numExercice = 0;
+	/** Nombre d'exercice */
+	private int nbExercice = 0;
+	/** Nombre d'exercice restant */
+	private int nbExerciceRestant = 0;
+	/** Exercice */
+	private Exercice exercice;
+
 	@PostConstruct
 	public void init() {
 		this.langue = this.getLangue();
 		this.initQuestions();
+		System.out.println("inint");
+
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		this.exercice = (Exercice) request.getSession().getAttribute(Constants.COURS);
+		if (this.exercice != null) {
+			for (Element el : this.exercice.getRoot().getElements()) {
+				System.out.println(el.getStyleClass() + " " + el.getData());
+			}
+		}
 	}
 
 	public void initQuestions() {
@@ -61,7 +93,7 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		q1.setCorrect3("Euh.... vraiment?");
 		q1.setCorrectAnswer(1);
 
-		questions.add(q1);
+		this.questions.add(q1);
 
 		QuestionQuizDTO q2 = new QuestionQuizDTO();
 		q2.setQuestion("Question 2 : Sur quel système numérique fonctionnent les portes logiques ?");
@@ -73,7 +105,7 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		q2.setCorrect2("Pas exactement");
 		q2.setCorrect3("Euh.... vraiment?");
 
-		questions.add(q2);
+		this.questions.add(q2);
 
 		QuestionQuizDTO q3 = new QuestionQuizDTO();
 		q3.setQuestion(
@@ -86,7 +118,7 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		q3.setCorrect2("Attention! Relis bien");
 		q3.setCorrect1("Attention! Relis bien");
 
-		questions.add(q3);
+		this.questions.add(q3);
 
 		QuestionQuizDTO q4 = new QuestionQuizDTO();
 		q4.setQuestion(
@@ -99,7 +131,7 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		q4.setCorrect1("Attention! Relis bien");
 		q4.setCorrect3("Attention! Relis bien");
 
-		questions.add(q4);
+		this.questions.add(q4);
 
 		QuestionQuizDTO q5 = new QuestionQuizDTO();
 		q5.setQuestion("Question 5 : Pourquoi utilise-t-on le système binaire dans les circuits électroniques ?");
@@ -110,7 +142,7 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		q5.setCorrect2("Bravo! C'est la bonne réponse!");
 		q5.setCorrect1("Pas exactement");
 		q5.setCorrect3("Euh.... vraiment?");
-		questions.add(q5);
+		this.questions.add(q5);
 
 		QuestionQuizDTO q6 = new QuestionQuizDTO();
 		q6.setQuestion("Question 6 : Qu’est ce que l’algèbre de Boole ?");
@@ -122,7 +154,7 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		q6.setCorrect2("Pas exactement");
 		q6.setCorrect3("Euh.... vraiment?");
 
-		questions.add(q6);
+		this.questions.add(q6);
 
 		QuestionQuizDTO q7 = new QuestionQuizDTO();
 		q7.setQuestion("Question 7 : A quel conjonction de coordination est associée l’opération de disjonction ?");
@@ -134,7 +166,7 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		q7.setCorrect2("Attention! Relis bien");
 		q7.setCorrect3("Attention! Relis bien");
 
-		questions.add(q7);
+		this.questions.add(q7);
 
 		QuestionQuizDTO q8 = new QuestionQuizDTO();
 		q8.setQuestion("Question 8 : A quel conjonction de coordination est associée l’opération de conjonction ?");
@@ -146,7 +178,7 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		q8.setCorrect1("Attention! Relis bien");
 		q8.setCorrect3("Attention! Relis bien");
 
-		questions.add(q8);
+		this.questions.add(q8);
 
 		QuestionQuizDTO q9 = new QuestionQuizDTO();
 		q9.setQuestion("Question 9 : A quel expression est associée l’opération de négation ?");
@@ -158,7 +190,7 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		q9.setCorrect2("Attention! Relis bien");
 		q9.setCorrect1("Attention! Relis bien");
 
-		questions.add(q9);
+		this.questions.add(q9);
 
 		QuestionQuizDTO q10 = new QuestionQuizDTO();
 		q10.setQuestion(
@@ -171,7 +203,7 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		q10.setCorrect1("Pas exactement");
 		q10.setCorrect2("Euh.... vraiment?");
 
-		questions.add(q10);
+		this.questions.add(q10);
 
 
 	}
@@ -179,16 +211,142 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 	public void corriger() {
 		this.afficher = true;
 		Iterator<QuestionQuizDTO> it = this.questions.iterator();
-		while (it.hasNext())
+		while (it.hasNext()) {
 			it.next().corriger();
+		}
 	}
 
 	public List<QuestionQuizDTO> getQuestions() {
-		return questions;
+		return this.questions;
 	}
 
 	public boolean isAfficher() {
-		return afficher;
+		return this.afficher;
 	}
 
+	@Override
+	public String getLangue() {
+		return this.langue;
+	}
+
+	public void setLangue(final String langue) {
+		this.langue = langue;
+	}
+
+	public int getNumExercice() {
+		return this.numExercice;
+	}
+
+	public void setNumExercice(final int numExercice) {
+		this.numExercice = numExercice;
+	}
+
+	public int getNbExercice() {
+		return this.nbExercice;
+	}
+
+	public void setNbExercice(final int nbExercice) {
+		this.nbExercice = nbExercice;
+	}
+
+	public int getNbExerciceRestant() {
+		return this.nbExerciceRestant;
+	}
+
+	public void setNbExerciceRestant(final int nbExerciceRestant) {
+		this.nbExerciceRestant = nbExerciceRestant;
+	}
+
+	public void setQuestions(final List<QuestionQuizDTO> questions) {
+		this.questions = questions;
+	}
+
+	public void setAfficher(final boolean afficher) {
+		this.afficher = afficher;
+	}
+
+	public Exercice getExercice() {
+		return this.exercice;
+	}
+
+	public void setExercice(final Exercice exercice) {
+		this.exercice = exercice;
+	}
+
+
+	public void genererExo1() {
+		this.numExercice = 1;
+		this.nbExercice = 3;
+		this.nbExerciceRestant = 0;
+		this.exercice = new Exercice();
+		this.exercice.setNotions(this.notionService.getPortesFondamentales());
+		this.exercice.setDifficulte(1);
+		// Porte fixe, il faut trouver les entrees
+		this.exercice.setType(1);
+		this.exercice.generer();
+		System.out.println(this.exercice);
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		request.getSession().removeAttribute(Constants.COURS);
+		request.getSession().setAttribute(Constants.COURS, this.exercice);
+	}
+
+	public void solutionRecalculer(final String idElement) {
+		// Recuperation de l'exercice
+		String form = "form_exer:panelGeneral:diag1-";
+		System.out.println(idElement);
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		this.exercice = (Exercice) request.getSession().getAttribute(Constants.COURS);
+		System.out.println(this.exercice);
+		DefaultDiagramModel root = this.exercice.getRoot();
+
+		// Mise a jour des valeurs lors d'un clic dessus
+		for (Element el : root.getElements()) {
+			if ((form + el.getId()).equals(idElement)) {
+				if(!Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass()) && !Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
+					el.setData(this.exercice.switchData(el));
+					System.out.println("Change " + el.getData());
+				}
+			}
+		}
+		// Recalcule des solutions
+		for (Element el : root.getElements()) {
+			if(Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass())){
+				Boolean sortieSolution = this.exercice.calculSortieSolution(root);
+				if(sortieSolution){
+					el.setData("1");
+				} else {
+					el.setData("0");
+				}
+			} else if(Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
+				try {
+					Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
+					if(sortieUtilisateur){
+						el.setData("1");
+					} else {
+						el.setData("0");
+					}
+				} catch (Exception e){
+					this.addFacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage());
+				}
+			}
+		}
+
+		// Modification de l'exercice
+		this.exercice.setRoot(root);
+		request.getSession().removeAttribute(Constants.COURS);
+		request.getSession().setAttribute(Constants.COURS, this.exercice);
+	}
+
+	private int genererNombreAlea(final int max) {
+		int alea = (int) (Math.random() * max);
+		return alea;
+	}
+
+	public NotionService getNotionService() {
+		return this.notionService;
+	}
+
+	public void setNotionService(final NotionService notionService) {
+		this.notionService = notionService;
+	}
 }

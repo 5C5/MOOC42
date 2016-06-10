@@ -38,6 +38,8 @@ public final class Constants {
 	public static final String EXERCICE = "Exercice";
 	/** Bac a sable */
 	public static final String BAC_SABLE = "BacSable";
+	/** Cours */
+	public static final String COURS = "Cours";
 
 	/**
 	 * ********************* Portes Logiques ******************
@@ -52,6 +54,12 @@ public final class Constants {
 	public static final String XOR = "XOR";
 	/** Vide, ne fait rien */
 	public static final String EMPTY = "EMPTY";
+	/** NAND */
+	public static final String NAND = "NAND";
+	/** NOR */
+	public static final String NOR = "NOR";
+	/** XNOR */
+	public static final String XNOR = "XNOR";
 
 	/** Constantes pour la resolution d'exercice */
 	/** Porte */
