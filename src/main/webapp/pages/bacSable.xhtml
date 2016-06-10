@@ -22,8 +22,8 @@
 			<p:fieldset legend="Mode d'emploi" style="padding: 8px; margin : 20px;" toggleable="true" collapsed="true">
  			<p:outputPanel style="font-size: 16px;">
  			<ul>
- 			<li>Selectionnez le contenu souhaité pour votre bac à sable en cliquant sur les boutons entrées et 
-       		portes aux emplacements qui vous intéressent puis cliquez sur Démarrer pour faire apparaitre 
+ 			<li>Sélectionnez le contenu souhaité pour votre bac à sable en cliquant sur les boutons Entrée et 
+       		Porte aux emplacements qui vous intéressent puis cliquez sur Démarrer pour faire apparaître 
          	les composants.</li>
          	<br/>
          	<li>
@@ -32,18 +32,18 @@
          	</li>
          	<br/>
          	<li>
-         	Pour faire varier les valeurs des elements entrées (<FONT color="#2E962C">en vert</FONT>) ou portes (<FONT color="#37497B">en bleu </FONT>), 
+         	Pour faire varier les valeurs des éléments entrées (<FONT color="#2E962C">en vert</FONT>) ou portes (<FONT color="#37497B">en bleu </FONT>), 
          	cliquez dessus.
          	</li>
          	<br/>
           	<li>Pour mettre en route le circuit, c'est à dire afficher le résultat du calcul dans la sortie du circuit 
           	(<FONT color="#9D000C">en rouge</FONT>), cliquez sur l'une des entrées ou des portes du circuit.</li>
 	  		<br/>
-	  		<li>Si vous souhaitez changer la forme du circuit en l'utilisant, selectionnez les élement désirés 
+	  		<li>Si vous souhaitez changer la forme du circuit en l'utilisant, sélectionnez les éléments désirés 
 	  		dans l'interface de paramètrage et cliquez sur Mettre à jour. 
-	  		Les connexions entre elements seront reinitialisées.</li>
+	  		Les connexions entre éléments seront réinitialisées.</li>
 	  		<br/>
-	  		<li>Si vous souhaitez effacer completement le Bac à Sable, vous pouvez cliquer sur Redémarrer.</li>
+	  		<li>Si vous souhaitez effacer complètement le Bac à Sable, vous pouvez cliquer sur Redémarrer.</li>
 	  		</ul>
  			</p:outputPanel>
  			</p:fieldset>
@@ -58,9 +58,10 @@
        			<p:fieldset legend="#{fr['bac.parametre']}">
                     <p:dataTable var="ligne" value="#{bacSableMBean.table}" style="margin : 20px;" >
                         <p:column headerText="Input" >
-                            <p:selectOneButton value="#{ligne.entree}">
-                                <f:selectItem itemLabel="Entrée" itemValue="0" />
-                            </p:selectOneButton>
+                            <p:selectBooleanButton value="#{ligne.entree}" onLabel="Entrée" offLabel="Rien" style="width:70px" />
+<!--                             <p:selectOneButton value="#{ligne.entree}"> -->
+<!--                                 <f:selectItem itemLabel="Entrée" itemValue="0" /> -->
+<!--                             </p:selectOneButton> -->
                         </p:column>
                         <p:column headerText="Colonne 1">
                             <p:selectOneButton value="#{ligne.col1}">

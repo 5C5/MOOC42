@@ -26,7 +26,7 @@ public class GenerateurBacSable extends Generateur {
 	public void generer(final List<String> portes, final boolean drag, final int type) {
 		int y = 5;
 		for (LigneBacSableDto ligne : this.table) {
-			if ("0".equalsIgnoreCase(ligne.getEntree())) {
+			if (ligne.getEntree()) {
 				this.genererEntree(drag, 20, y);
 			}
 			this.analyserPorte(drag, 40, y, ligne.getCol1());

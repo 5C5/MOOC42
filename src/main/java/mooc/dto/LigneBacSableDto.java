@@ -2,16 +2,16 @@ package mooc.dto;
 
 public class LigneBacSableDto {
 
-	private String entree;
+	private boolean entree;
 	private String col1;
 	private String col2;
 	private String col3;
 
-	public String getEntree() {
+	public boolean getEntree() {
 		return this.entree;
 	}
 
-	public void setEntree(final String entree) {
+	public void setEntree(final boolean entree) {
 		this.entree = entree;
 	}
 

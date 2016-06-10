@@ -62,15 +62,17 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 
 	@PostConstruct
 	public void init() {
-		this.table = new ArrayList<LigneBacSableDto>();
-		this.table.add(new LigneBacSableDto());
-		this.table.add(new LigneBacSableDto());
-		this.table.add(new LigneBacSableDto());
-		this.table.add(new LigneBacSableDto());
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		this.exercice = (Exercice) request.getSession().getAttribute(Constants.BAC_SABLE);
+		this.table = (ArrayList<LigneBacSableDto>) request.getSession()
+				.getAttribute(Constants.BAC_SABLE_TABLE);
 		if (this.exercice == null) {
 			this.disabled = false;
+			this.table = new ArrayList<LigneBacSableDto>();
+			this.table.add(new LigneBacSableDto());
+			this.table.add(new LigneBacSableDto());
+			this.table.add(new LigneBacSableDto());
+			this.table.add(new LigneBacSableDto());
 		} else {
 			this.disabled = true;
 		}
@@ -82,10 +84,11 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 		this.exercice.setNotions(this.notions);
 		this.exercice.setDifficulte(0);
 		this.exercice.generer(this.table);
-		System.out.println(this.exercice);
+//		System.out.println(this.exercice);
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		request.getSession().removeAttribute(Constants.BAC_SABLE);
 		request.getSession().setAttribute(Constants.BAC_SABLE, this.exercice);
+		request.getSession().setAttribute(Constants.BAC_SABLE_TABLE, this.table);
 		this.disabled = true;
 	}
 
