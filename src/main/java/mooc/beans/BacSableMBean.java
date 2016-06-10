@@ -64,8 +64,7 @@ public class BacSableMBean extends AbstractMBean implements Serializable{
 	public void init() {
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		this.exercice = (Exercice) request.getSession().getAttribute(Constants.BAC_SABLE);
-		this.table = (ArrayList<LigneBacSableDto>) request.getSession()
-				.getAttribute(Constants.BAC_SABLE_TABLE);
+		this.table = (ArrayList<LigneBacSableDto>) request.getSession().getAttribute(Constants.BAC_SABLE_TABLE);
 		if (this.exercice == null) {
 			this.disabled = false;
 			this.table = new ArrayList<LigneBacSableDto>();

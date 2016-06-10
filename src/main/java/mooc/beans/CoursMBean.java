@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
@@ -55,11 +54,11 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 	 * Exercices
 	 */
 	/** Numero de l'exercice */
-	private int numExercice = 0;
+	private Integer numExercice = 0;
 	/** Nombre d'exercice */
-	private int nbExercice = 0;
+	private Integer nbExercice = 0;
 	/** Nombre d'exercice restant */
-	private int nbExerciceRestant = 0;
+	private Integer nbExerciceRestant = 0;
 	/** Exercice */
 	private Exercice exercice;
 
@@ -71,6 +70,10 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		this.exercice = (Exercice) request.getSession().getAttribute(Constants.COURS);
+		this.numExercice = (Integer) request.getSession().getAttribute(Constants.COURS_NUM_EXERCICE);
+		this.nbExercice = (Integer) request.getSession().getAttribute(Constants.COURS_NB_EXERCICE);
+		this.nbExerciceRestant = (Integer) request.getSession().getAttribute(Constants.COURS_NB_EXERCICE_RESTANT);
+
 		if (this.exercice != null) {
 			for (Element el : this.exercice.getRoot().getElements()) {
 				System.out.println(el.getStyleClass() + " " + el.getData());
@@ -233,27 +236,27 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		this.langue = langue;
 	}
 
-	public int getNumExercice() {
+	public Integer getNumExercice() {
 		return this.numExercice;
 	}
 
-	public void setNumExercice(final int numExercice) {
+	public void setNumExercice(final Integer numExercice) {
 		this.numExercice = numExercice;
 	}
 
-	public int getNbExercice() {
+	public Integer getNbExercice() {
 		return this.nbExercice;
 	}
 
-	public void setNbExercice(final int nbExercice) {
+	public void setNbExercice(final Integer nbExercice) {
 		this.nbExercice = nbExercice;
 	}
 
-	public int getNbExerciceRestant() {
+	public Integer getNbExerciceRestant() {
 		return this.nbExerciceRestant;
 	}
 
-	public void setNbExerciceRestant(final int nbExerciceRestant) {
+	public void setNbExerciceRestant(final Integer nbExerciceRestant) {
 		this.nbExerciceRestant = nbExerciceRestant;
 	}
 
@@ -288,6 +291,9 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		request.getSession().removeAttribute(Constants.COURS);
 		request.getSession().setAttribute(Constants.COURS, this.exercice);
+		request.getSession().setAttribute(Constants.COURS_NUM_EXERCICE, this.numExercice);
+		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE, this.nbExercice);
+		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE_RESTANT, this.nbExerciceRestant);
 	}
 
 	public void solutionRecalculer(final String idElement) {
@@ -308,31 +314,14 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 				}
 			}
 		}
-		// Recalcule des solutions
-		for (Element el : root.getElements()) {
-			if(Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass())){
-				Boolean sortieSolution = this.exercice.calculSortieSolution(root);
-				if(sortieSolution){
-					el.setData("1");
-				} else {
-					el.setData("0");
-				}
-			} else if(Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
-				try {
-					Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
-					if(sortieUtilisateur){
-						el.setData("1");
-					} else {
-						el.setData("0");
-					}
-				} catch (Exception e){
-					this.addFacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage());
-				}
-			}
-		}
 
 		// Modification de l'exercice
 		this.exercice.setRoot(root);
+		if (this.exercice != null) {
+			for (Element el : this.exercice.getRoot().getElements()) {
+				System.out.println(el.getStyleClass() + " " + el.getData());
+			}
+		}
 		request.getSession().removeAttribute(Constants.COURS);
 		request.getSession().setAttribute(Constants.COURS, this.exercice);
 	}

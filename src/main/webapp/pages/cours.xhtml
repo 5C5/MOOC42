@@ -17,7 +17,7 @@
        		<h:form  id="form_exer">    
                 <h:outputScript library="js" name="diagram.js" />
                  <pe:remoteCommand id="solutionRecalculer" name="solutionRecalculer" process="@this" 
-                    update=":form_exer:panelGeneral:panelDiag1"
+                    update="@form"
                     actionListener="#{coursMBean.solutionRecalculer}" >  
                     <pe:methodSignature parameters="java.lang.String" />  
                      <pe:methodParam name="idElement"/>  
@@ -203,7 +203,8 @@
 	                    		</h:panelGrid>
 							</p:fieldset>
                      
-                            <p:commandButton value="#{fr['cours.demarrer']} #{coursMBean.numExercice} #{coursMBean.exercice}" action="#{coursMBean.genererExo1}" update="@form"/>
+                            <p:commandButton value="#{fr['cours.demarrer']} #{coursMBean.numExercice}" action="#{coursMBean.genererExo1}" 
+                                rendered="#{coursMBean.numExercice == 0 or coursMBean.numExercice == null}" update="@form"/>
        			      
                             <p:panel id="panelDiag1" header="#{fr['exercice.title']}" rendered="#{coursMBean.numExercice == 1}">
                                 <p:diagram id="diag1" value="#{coursMBean.exercice.root}" style="height:35em" styleClass="ui-widget-content" >
