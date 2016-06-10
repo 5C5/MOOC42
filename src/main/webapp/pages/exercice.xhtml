@@ -112,26 +112,28 @@
                 </p:fieldset>
        			<p:panel id="panelDiag" header="#{fr['exercice.title']}" rendered="#{exerciceMBean.disabled}">
                 <!-- rendered="#{exerciceMBean.disabled}" -->
-           			<p:diagram id="diag" value="#{exerciceMBean.exercice.root}" style="height:35em" styleClass="ui-widget-content" >
+                
+                    <p:commandButton value="#{fr['exercice.verifier']}" action="#{exerciceMBean.valider}" />
+                    
+           			<p:diagram id="diag" value="#{exerciceMBean.exercice.root}" style="height:35em; margin-top:10px;" styleClass="ui-widget-content" >
            				
            				<!-- Notification en cas de réussite -->
            				<p:notificationBar position="bottom" effect="slide" styleClass="bottom" widgetVar="reussite">
-    						<h:panelGrid columns="2">
-    							<h:outputText value="Bravo!" style="font-size:25px;" />
+    						<h:panelGrid columns="1" style="margin:0 auto;">
+    							<h:outputText value="Bravo ! Vous avez réussi l'exercice." style="font-size:25px;" />
     							<p:commandButton value="#{fr['exercice.ack']}" onclick="PF('reussite').hide()" actionListener="#{exerciceMBean.refermer}" 
                                     update="@form"/>
     						</h:panelGrid>
 						</p:notificationBar>
 						<!-- Notification en cas d'échec -->
 						<p:notificationBar position="bottom" effect="slide" styleClass="bottom" widgetVar="echec">
-    						<h:panelGrid columns="2">
-    							<h:outputText value="Attention : il reste des erreurs" style="font-size:26px;" />
+    						<h:panelGrid columns="1" style="margin:0 auto;">
+    							<h:outputText value="Attention ! Il reste des erreurs." style="font-size:26px;" />
     							<p:commandButton value="#{fr['exercice.ack']}" onclick="PF('echec').hide()" />
     						</h:panelGrid>
 						</p:notificationBar>
                     </p:diagram>
            			
-                    <p:commandButton value="#{fr['exercice.verifier']}" action="#{exerciceMBean.valider}" />
                       
        			</p:panel>
 	        

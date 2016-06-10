@@ -62,6 +62,9 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 	/** Portes utilisees pour l'exercice */
 	// private List<String> notionsExercice;
 
+	/** Score final */
+	private int score;
+
 	/** Utilisateur connecte ou non */
 	private boolean utilConn;
 
@@ -221,9 +224,11 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 				// Enregistrement de l'exercice pour l'apprenant
 				this.competenceService.ajouterExercice(id, this.exercice.getNotions(), this.exercice.getDifficulte(), 100/this.exercice.getNbEssai());
 			}
-			this.reset();
+			this.score = 100 / this.exercice.getNbEssai();
+
 			//this.addFacesMessage(FacesMessage.SEVERITY_INFO, Messages.message("exercice.reussi"));
 			context.execute("PF('reussite').show();");
+			this.reset();
 
 		} else {
 			//this.addFacesMessage(FacesMessage.SEVERITY_ERROR, Messages.message("exercice.erreur.validation", new Object[] { verif }));
@@ -325,5 +330,12 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		this.type = type;
 	}
 
+	public int getScore() {
+		return this.score;
+	}
+
+	public void setScore(final int score) {
+		this.score = score;
+	}
 
 }
