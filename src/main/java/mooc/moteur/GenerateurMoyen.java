@@ -92,10 +92,8 @@ public class GenerateurMoyen extends Generateur {
 	 */
 	private void creerModele1(final String porteAlea1, final String porteAlea2, final boolean drag, final boolean solution, final int type) {
 		List<String> entrees = null;
-		if(type == 2){
-			// Si il faut trouver les portes, alors on fixe les entrees pour que le resultat soit 1
-			entrees = this.trouverSolutionEntree(porteAlea1, porteAlea2, 1);
-		}
+		// Si il faut trouver les portes, alors on fixe les entrees pour que le resultat soit 1
+		entrees = this.trouverSolutionEntree(porteAlea1, porteAlea2, 1);
 
 		// Modele 1 contient trois entrees et deux portes binaires
 		Porte porte1 = null;
@@ -134,7 +132,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de l'entree une */
 		entree1 = new Valeur("0", true, false);
-		if(entrees == null){
+		if (type == 1) {
 			entree1.setData("0");
 		} else {
 			entree1.setData(entrees.get(0));
@@ -149,7 +147,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de l'entree deux */
 		entree2 = new Valeur("0", true, false);
-		if(entrees == null){
+		if (type == 1) {
 			entree2.setData("0");
 		} else {
 			entree2.setData(entrees.get(1));
@@ -164,7 +162,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de l'entree trois */
 		entree3 = new Valeur("0", true, false);
-		if(entrees == null){
+		if (type == 1) {
 			entree3.setData("0");
 		} else {
 			entree3.setData(entrees.get(2));
@@ -186,7 +184,8 @@ public class GenerateurMoyen extends Generateur {
 		 * l'utilisateur, dite sortie utilisateur
 		 */
 		sortieUtilisateur = new Valeur("0", false, false);
-		sortieUtilisateur.setData("0");
+		boolean sortieData = this.calculPorte(this.convertToBoolean(entrees.get(0)), this.convertToBoolean(entrees.get(1)), Boolean.parseBoolean(entrees.get(2)), porteAlea1, porteAlea2);
+		sortieUtilisateur.setData(sortieData ? "1" : "0");
 		sortieUtilisateur.setX("80em");
 		sortieUtilisateur.setY("20em");
 		sortieUtilisateur.setDraggable(drag);
@@ -233,10 +232,9 @@ public class GenerateurMoyen extends Generateur {
 	 */
 	private void creerModele2(final String porteAlea1, final String porteAlea2, final boolean drag, final boolean solution, final int type) {
 		List<String> entrees = null;
-		if(type == 2){
-			// Si il faut trouver les portes, alors on fixe les entrees pour que le resultat soit 1
-			entrees = this.trouverSolutionEntree(porteAlea1, porteAlea2, 2);
-		}
+		// Si il faut trouver les portes, alors on fixe les entrees pour que le resultat soit 1
+		entrees = this.trouverSolutionEntree(porteAlea1, porteAlea2, 2);
+
 		Porte porte1 = null;
 		Porte porte2 = null;
 		Valeur entree1 = null;
@@ -272,7 +270,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de l'entree une */
 		entree1 = new Valeur("0", true, false);
-		if(entrees == null){
+		if (type == 1) {
 			entree1.setData("0");
 		} else {
 			entree1.setData(entrees.get(0));
@@ -285,7 +283,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de l'entree deux */
 		entree2 = new Valeur("0", true, false);
-		if(entrees == null){
+		if (type == 1) {
 			entree2.setData("0");
 		} else {
 			entree2.setData(entrees.get(1));
@@ -309,7 +307,8 @@ public class GenerateurMoyen extends Generateur {
 		 * l'utilisateur, dite sortie utilisateur
 		 */
 		sortieUtilisateur = new Valeur("0", false, false);
-		sortieUtilisateur.setData("0");
+		boolean sortieData = this.calculPorte(this.convertToBoolean(entrees.get(0)), null, this.convertToBoolean(entrees.get(1)), porteAlea1, porteAlea2);
+		sortieUtilisateur.setData(sortieData ? "1" : "0");
 		sortieUtilisateur.setX("80em");
 		sortieUtilisateur.setY("15em");
 		sortieUtilisateur.setDraggable(drag);
@@ -356,10 +355,9 @@ public class GenerateurMoyen extends Generateur {
 	 */
 	private void creerModele3(final String porteAlea1, final String porteAlea2, final boolean drag, final boolean solution, final int type) {
 		List<String> entrees = null;
-		if(type == 2){
-			// Si il faut trouver les portes, alors on fixe les entrees pour que le resultat soit 1
-			entrees = this.trouverSolutionEntree(porteAlea1, porteAlea2, 3);
-		}
+		// Si il faut trouver les portes, alors on fixe les entrees pour que le resultat soit 1
+		entrees = this.trouverSolutionEntree(porteAlea1, porteAlea2, 3);
+
 		Porte porte1 = null;
 		Porte porte2 = null;
 		Valeur entree1 = null;
@@ -395,7 +393,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de l'entree une */
 		entree1 = new Valeur("0", true, false);
-		if(entrees == null){
+		if (type == 1) {
 			entree1.setData("0");
 		} else {
 			entree1.setData(entrees.get(0));
@@ -408,7 +406,7 @@ public class GenerateurMoyen extends Generateur {
 
 		/* Creation de l'entree deux */
 		entree2 = new Valeur("0", true, false);
-		if(entrees == null){
+		if (type == 1) {
 			entree2.setData("0");
 		} else {
 			entree2.setData(entrees.get(1));
@@ -431,7 +429,8 @@ public class GenerateurMoyen extends Generateur {
 		 * l'utilisateur, dite sortie utilisateur
 		 */
 		sortieUtilisateur = new Valeur("0", false, false);
-		sortieUtilisateur.setData("0");
+		boolean sortieData = this.calculPorte(this.convertToBoolean(entrees.get(0)), this.convertToBoolean(entrees.get(1)), null, porteAlea1, porteAlea2);
+		sortieUtilisateur.setData(sortieData ? "1" : "0");
 		sortieUtilisateur.setX("80em");
 		sortieUtilisateur.setY("15em");
 		sortieUtilisateur.setDraggable(drag);
@@ -734,6 +733,10 @@ public class GenerateurMoyen extends Generateur {
 				}
 			}
 		}
-		return null;
+
+		entrees.add(Integer.toString((int) (Math.random() * 2)));
+		entrees.add(Integer.toString((int) (Math.random() * 2)));
+		entrees.add(Integer.toString((int) (Math.random() * 2)));
+		return entrees;
 	}
 }

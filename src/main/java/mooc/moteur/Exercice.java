@@ -45,10 +45,7 @@ public class Exercice {
 	public Exercice(final List<NotionDto> notions, final int difficulte) {
 		this.nbEssai = 0;
 		this.notions = notions;
-		if (difficulte > 3 || difficulte == 3) {
-			this.difficulte = 3;
-			this.generateur = new GenerateurDifficile();
-		} else if (difficulte < 1 || difficulte == 1) {
+		if (difficulte < 1 || difficulte == 1) {
 			this.difficulte = 1;
 			this.generateur = new GenerateurFacile();
 		} else {
@@ -148,8 +145,6 @@ public class Exercice {
 			this.setGenerateur(new GenerateurFacile());
 		} else if (this.difficulte == 2) {
 			this.setGenerateur(new GenerateurMoyen());
-		} else if (this.difficulte == 3) {
-			this.setGenerateur(new GenerateurDifficile());
 		}
 	}
 

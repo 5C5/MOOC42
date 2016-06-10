@@ -178,27 +178,27 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 			}
 		}
 		// Recalcule des solutions
-		for (Element el : root.getElements()) {
-			if(Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass())){
-				Boolean sortieSolution = this.exercice.calculSortieSolution(root);
-				if(sortieSolution){
-					el.setData("1");
-				} else {
-					el.setData("0");
-				}
-			} else if(Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
-				try {
-					Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
-					if(sortieUtilisateur){
-						el.setData("1");
-					} else {
-						el.setData("0");
-					}
-				} catch (Exception e){
-					this.addFacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage());
-				}
-			}
-		}
+//		for (Element el : root.getElements()) {
+//			if(Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass())){
+//				Boolean sortieSolution = this.exercice.calculSortieSolution(root);
+//				if(sortieSolution){
+//					el.setData("1");
+//				} else {
+//					el.setData("0");
+//				}
+//			} else if(Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
+//				try {
+//					Boolean sortieUtilisateur = this.exercice.calculSortieUtilisateur(root);
+//					if(sortieUtilisateur){
+//						el.setData("1");
+//					} else {
+//						el.setData("0");
+//					}
+//				} catch (Exception e){
+//					this.addFacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage());
+//				}
+//			}
+//		}
 
 		// Modification de l'exercice
 		this.exercice.setRoot(root);

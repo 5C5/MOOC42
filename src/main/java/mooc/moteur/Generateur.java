@@ -134,10 +134,16 @@ public abstract class Generateur {
 			// Operation binaire
 			if (Constants.AND.equalsIgnoreCase(porte)) {
 				return entree1 && entree2;
+			} else if (Constants.NAND.equalsIgnoreCase(porte)) {
+				return !(entree1 && entree2);
 			} else if (Constants.OR.equalsIgnoreCase(porte)) {
 				return entree1 || entree2;
+			} else if (Constants.NOR.equalsIgnoreCase(porte)) {
+				return !(entree1 || entree2);
 			} else if (Constants.XOR.equalsIgnoreCase(porte)) {
 				return entree1 ^ entree2;
+			} else if (Constants.XNOR.equalsIgnoreCase(porte)) {
+				return !(entree1 ^ entree2);
 			}
 		} else if (entree1 != null) {
 			if (Constants.NOT.equalsIgnoreCase(porte)) {
