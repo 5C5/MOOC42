@@ -14,8 +14,9 @@
     <ui:define name="body-site">
     <h:form id="form_exer">
     <p:layout style="height:1100px;">
-        <p:layoutUnit position="center"  header="#{fr['general.bac.sable.title']}">    
- 			<p:outputPanel style="font-size: 16px;">
+        <p:layoutUnit position="center"  header="#{fr['general.bac.sable.title']}"> 
+        	<BR/>   
+ 			<p:outputPanel style="font-size: 16px; padding :8px;">
  			Bienvenue dans le Bac à Sable, un environnement où vous pouvez manipuler librement un certain nombre de portes
  			logiques.
  			<br/>
@@ -58,25 +59,25 @@
                 
        			<p:fieldset legend="#{fr['bac.parametre']}">
                     <p:dataTable var="ligne" value="#{bacSableMBean.table}" style="margin : 20px;" >
-                        <p:column headerText="Input" >
+                        <p:column headerText="Entrées" >
                             <p:selectBooleanButton value="#{ligne.entree}" onLabel="Entrée" offLabel="Rien" style="width:70px" />
 <!--                             <p:selectOneButton value="#{ligne.entree}"> -->
 <!--                                 <f:selectItem itemLabel="Entrée" itemValue="0" /> -->
 <!--                             </p:selectOneButton> -->
                         </p:column>
-                        <p:column headerText="Colonne 1">
+                        <p:column headerText="Première Colonne">
                             <p:selectOneButton value="#{ligne.col1}">
                                 <f:selectItem itemLabel="Porte unaire" itemValue="1" />
                                 <f:selectItem itemLabel="Porte binaire" itemValue="2" />
                             </p:selectOneButton>
                         </p:column>
-                        <p:column headerText="Colonne 2">
+                        <p:column headerText="Deuxième Colonne">
                             <p:selectOneButton value="#{ligne.col2}">
                                 <f:selectItem itemLabel="Porte unaire" itemValue="1" />
                                 <f:selectItem itemLabel="Porte binaire" itemValue="2" />
                             </p:selectOneButton>
                         </p:column>
-                       <p:column headerText="Colonne 3">
+                       <p:column headerText="Troisième Colonne">
                             <p:selectOneButton value="#{ligne.col3}">
                                 <f:selectItem itemLabel="Porte unaire" itemValue="1" />
                                 <f:selectItem itemLabel="Porte binaire" itemValue="2" />
