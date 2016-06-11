@@ -580,26 +580,28 @@ public class GenerateurMoyen extends Generateur {
 
 
 		// Reconnaissance du modele
-		//		if(binaire1 && binaire2){
-		//			modele = 1;
-		//		} else if(!binaire1 && binaire2){
-		//			modele = 2;
-		//		} else if(binaire1 && !binaire2){
-		//			modele = 3;
-		//		}
-		//
-		//		if(modele == 1){
-		//			Boolean entreeInter = this.calculPorte(entree1, entree2, porte1);
-		//			return this.calculPorte(entreeInter, entree3, porte2);
-		//		} else if(modele == 2){
-		//			Boolean entreeInter = this.calculPorte(entree1, null, porte1);
-		//			return this.calculPorte(entreeInter, entree2, porte2);
-		//		} else if(modele == 3){
-		//			Boolean entreeInter = this.calculPorte(entree1, entree2, porte1);
-		//			return this.calculPorte(entreeInter, null, porte2);
-		//		}
+		if (binaire1 && binaire2) {
+			modele = 1;
+		} else if (!binaire1 && binaire2) {
+			modele = 2;
+		} else if (binaire1 && !binaire2) {
+			modele = 3;
+		}
 
-		return this.calculPorte(entree1, entree2, entree3, porte1, porte2);
+		if (modele == 1) {
+			// Boolean entreeInter = this.calculPorte(entree1, entree2, porte1);
+			// return this.calculPorte(entreeInter, entree3, porte2);
+			return this.calculPorte(entree1, entree2, entree3, porte1, porte2);
+		} else if (modele == 2) {
+			// Boolean entreeInter = this.calculPorte(entree1, null, porte1);
+			// return this.calculPorte(entreeInter, entree2, porte2);
+			return this.calculPorte(entree1, null, entree2, porte1, porte2);
+		} else if (modele == 3) {
+			// Boolean entreeInter = this.calculPorte(entree1, entree2, porte1);
+			// return this.calculPorte(entreeInter, null, porte2);
+			return this.calculPorte(entree1, entree2, null, porte1, porte2);
+		}
+		return false;
 	}
 
 	@Override

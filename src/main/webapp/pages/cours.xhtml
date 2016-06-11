@@ -18,7 +18,7 @@
        		 
                 <h:outputScript library="js" name="diagram.js" />
                  <pe:remoteCommand id="solutionRecalculer" name="solutionRecalculer" process="@this" 
-                    update="form_exer:panelGeneral:panelDiag1"
+                    update="form_exer:panelGeneral:panelDiag1, form_exer:panelGeneral:panel2"
                     actionListener="#{coursMBean.solutionRecalculer}" >  
                     <pe:methodSignature parameters="java.lang.String" />  
                      <pe:methodParam name="idElement"/>  
@@ -327,7 +327,7 @@
 					 Dans le schéma ci dessus par exemple, la porte AND prend en entrée 1 et 0, ce qui donne 0 en sortie. 
 					 La porte OR prend donc en entrée 0 et 1 et renvoie comme résultat 1.
                      </p:outputPanel>
-                     </h:panelGrid>
+                     
                      
                      <!--
                      //TODO
@@ -367,12 +367,12 @@
                             </h:panelGrid>
                             <h:panelGrid columns="2">
                                 <p:commandButton value="#{fr['cours.continuer']}"
-                                    actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel1"/>
+                                    actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel2"/>
                                 <p:commandButton value="#{fr['cours.arreter']}"
-                                    actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1"/>
+                                    actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel2"/>
                             </h:panelGrid>
                         </p:dialog>  
-                 
+                        </h:panelGrid>
                      </p:tab>
                      
                      <p:tab title="#{fr['cours.portes_complx.title']}">
