@@ -271,13 +271,16 @@
                             <p:dialog header="#{fr['cours.exercice.suite']}" widgetVar="dialogExoReussi1">
                                 <h:panelGrid columns="1">
                                     <h:outputText value="#{fr['cours.exercice.reussi']}" />
-                                    <h:outputText value="Cliquez sur Continuer pour passer à l'exercice suivant." />
-                                    <h:outputText value="Cliquez sur Arrêter pour arrêter les exercices. Attention vous perdrez votre progression." />
+<!--                                     <h:outputText value="#{coursMBean.nbExerciceRestant}" /> -->
+                                    <h:outputText value="Cliquez sur Continuer pour passer à l'exercice suivant." 
+                                        rendered="#{coursMBean.nbExerciceRestant != 0}" />
+                                    <h:outputText value="Cliquez sur Arrêter pour arrêter les exercices. Attention vous perdrez votre progression." 
+                                        rendered="#{coursMBean.nbExerciceRestant != 0}"/>
                                 </h:panelGrid>
                                 <h:panelGrid columns="2">
                                     <p:commandButton value="#{fr['cours.continuer']}"
                                         actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel1"/>
-                                    <p:commandButton value="#{fr['cours.arreter']}"
+                                    <p:commandButton value="#{fr['cours.arreter']}" rendered="#{coursMBean.nbExerciceRestant != 0}"
                                         actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1"/>
                                 </h:panelGrid>
                             </p:dialog>  
@@ -299,7 +302,7 @@
                      </p:tab>
                     
                      <p:tab title="#{fr['cours.combinaisons.title']}">
-                     <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
+                     <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;" id="panel2">
                      <p:outputPanel>
                      Une porte logique permet de réaliser un calcul simple qui prend une ou deux variables en entrée pour en 
                      retourner une. Pour réaliser des calculs plus complexes ou prenant en compte plus de variables, on 
@@ -331,7 +334,45 @@
                      	Ici il faut mettre trois exercices, de type difficile
                      	avec un exercice qui comprend au moins une des trois porte NOT, AND, et OR
                        -->
-                     
+                        <p:commandButton id="demarrer2" value="#{fr['cours.demarrer']}" action="#{coursMBean.genererExo2}" 
+                            rendered="#{coursMBean.numExercice == 0 or coursMBean.numExercice == null}" 
+                            update="form_exer:panelGeneral:panel2"/>
+                            
+                       
+                        <p:panel id="panelDiag2" header="#{fr['exercice.title']}" rendered="#{coursMBean.numExercice == 2}">
+                             <p:commandButton value="#{fr['exercice.verifier']}" action="#{coursMBean.valider}" />
+                
+                            <p:diagram id="diag2" value="#{coursMBean.exercice.root}" style="height:35em" styleClass="ui-widget-content" >
+                            </p:diagram>
+                        </p:panel>
+                        
+                        <p:dialog header="#{fr['cours.exercice.suite']}" widgetVar="dialogExoReussi2">
+                            <h:panelGrid columns="1">
+                                <h:outputText value="#{fr['cours.exercice.reussi']}" />
+                                <h:outputText value="Cliquez sur Continuer pour passer à l'exercice suivant." />
+                                <h:outputText value="Cliquez sur Arrêter pour arrêter les exercices. Attention vous perdrez votre progression." />
+                            </h:panelGrid>
+                            <h:panelGrid columns="2">
+                                <p:commandButton value="#{fr['cours.continuer']}"
+                                    actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel2"/>
+                                <p:commandButton value="#{fr['cours.arreter']}"
+                                    actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel2"/>
+                            </h:panelGrid>
+                        </p:dialog>  
+                        <p:dialog header="#{fr['cours.exercice.suite']}" widgetVar="dialogExoRate1">
+                            <h:panelGrid columns="1">
+                                <h:outputText value="#{fr['cours.exercice.rate']}" />
+                                <h:outputText value="Cliquez sur Continuer pour revenir à l'exercice." />
+                                <h:outputText value="Cliquez sur Arrêter pour arrêter les exercices. Attention vous perdrez votre progression." />
+                            </h:panelGrid>
+                            <h:panelGrid columns="2">
+                                <p:commandButton value="#{fr['cours.continuer']}"
+                                    actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel1"/>
+                                <p:commandButton value="#{fr['cours.arreter']}"
+                                    actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1"/>
+                            </h:panelGrid>
+                        </p:dialog>  
+                 
                      </p:tab>
                      
                      <p:tab title="#{fr['cours.portes_complx.title']}">
@@ -545,7 +586,7 @@
                                 <h:outputText value="#{niv.nom}"/>
                                 <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
                                 <p:commandButton id="levelUp" value="Level up" action="#{profilMBean.levelUp}" update="@form">
-                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.id}" />
+                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.idNotion}" />
                                     <f:setPropertyActionListener target="#{profilMBean.connaissanceLevel}" value="#{niv.niveau}" />
                                 </p:commandButton>
                             </h:panelGrid>
@@ -555,7 +596,7 @@
                                 <h:outputText value="#{niv.nom}"/>
                                 <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
                                 <p:commandButton id="levelUp" value="Level up" action="#{profilMBean.levelUp}" update="@form">
-                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.id}" />
+                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.idNotion}" />
                                     <f:setPropertyActionListener target="#{profilMBean.connaissanceLevel}" value="#{niv.niveau}" />
                                 </p:commandButton>
                             </h:panelGrid>

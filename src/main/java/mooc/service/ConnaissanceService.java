@@ -38,9 +38,10 @@ public interface ConnaissanceService {
 	/**
 	 * Mettre a jour le niveau des connaissances
 	 * 
+	 * @param id Id de l'apprenant
 	 * @param portes Portes utilisees dans l'exercice
 	 * @param nouveauNiveau Nouveau niveau
 	 */
-	public void majNiveauConnaissance(final List<String> portes, final int nouveauNiveau);
+	public void majNiveauConnaissance(final int idApprenant, final List<String> portes, final int nouveauNiveau);
 
 }

@@ -229,7 +229,7 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 				// Enregistrement de l'exercice pour l'apprenant
 				this.competenceService.ajouterExercice(id, this.exercice.getNotions(), this.exercice.getDifficulte(), 100/this.exercice.getNbEssai());
 				List<String> portes = this.exercice.getPorteUtilisee();
-				this.connaissanceService.majNiveauConnaissance(portes, this.exercice.getDifficulte());
+				this.connaissanceService.majNiveauConnaissance(id, portes, this.exercice.getDifficulte());
 			}
 			this.score = 100 / this.exercice.getNbEssai();
 

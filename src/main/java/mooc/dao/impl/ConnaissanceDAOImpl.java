@@ -36,12 +36,14 @@ public class ConnaissanceDAOImpl extends AbstractDAO<Connaissance> implements Co
     }
     
     @Override
-    public Connaissance getByLibelle(final String libelle) {
+    public Connaissance getByLibelle(final int idApprenant, final String libelle) {
         Session session = this.getSession();
         Transaction tx = session.beginTransaction();
 
         final Criteria criteria = session.createCriteria(Connaissance.class, "connaissance");
         criteria.createAlias("connaissance.notion", "notion");
+        criteria.createAlias("connaissance.apprenant", "apprenant");
+        criteria.add(Restrictions.eq("apprenant.idApprenant", idApprenant));
         criteria.add(Restrictions.eq("notion.nomNotion", libelle));
 
         List<Object> resultList = criteria.list();
