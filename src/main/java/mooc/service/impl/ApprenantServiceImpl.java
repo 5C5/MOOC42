@@ -146,6 +146,7 @@ public class ApprenantServiceImpl implements ApprenantService, Serializable {
 			niveau.setId(connaissance.getIdConnaissance());
 			niveau.setNom(connaissance.getNotion().getNomNotion());
 			niveau.setNiveau(connaissance.getNiveau());
+			niveau.setIdNotion(connaissance.getNotion().getIdNotion());
 			if (connaissance.isComplexe()) {
 				niveauxComplexes.add(niveau);
 			} else {

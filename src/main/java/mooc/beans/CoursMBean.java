@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import lombok.NoArgsConstructor;
+import mooc.dto.NotionDto;
 import mooc.dto.QuestionQuizDTO;
 import mooc.login.AbstractMBean;
 import mooc.moteur.Exercice;
@@ -298,14 +299,52 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 	public void genererExo1() {
 		this.numExercice = 1;
 		this.nbExercice = 3;
-		this.nbExerciceRestant = 0;
+		this.nbExerciceRestant = 3;
 		this.exercice = new Exercice();
-		this.exercice.setNotions(this.notionService.getPortesFondamentales());
+		// Porte OR
+		List<NotionDto> notions = new ArrayList<NotionDto>();
+		NotionDto or = this.notionService.getByLibelle(Constants.OR);
+		notions.add(or);
+		this.exercice.setNotions(notions);
 		this.exercice.setDifficulte(1);
 		// Porte fixe, il faut trouver les entrees
 		this.exercice.setType(1);
 		this.exercice.generer();
 		System.out.println(this.exercice);
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		request.getSession().removeAttribute(Constants.COURS);
+		request.getSession().setAttribute(Constants.COURS, this.exercice);
+		request.getSession().setAttribute(Constants.COURS_NUM_EXERCICE, this.numExercice);
+		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE, this.nbExercice);
+		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE_RESTANT, this.nbExerciceRestant);
+	}
+	public void continuerExo1(){
+		this.nbExerciceRestant = this.nbExerciceRestant-1;
+		this.exercice = new Exercice();
+		if(this.nbExerciceRestant == 2){
+			// Porte AND
+			List<NotionDto> notions = new ArrayList<NotionDto>();
+			NotionDto or = this.notionService.getByLibelle(Constants.AND);
+			notions.add(or);
+			this.exercice.setNotions(notions);
+			this.exercice.setDifficulte(1);
+			this.exercice.setType(1);
+			this.exercice.generer();
+			System.out.println(this.exercice);
+		} else if (this.nbExerciceRestant == 1){
+			// Porte NOT
+			List<NotionDto> notions = new ArrayList<NotionDto>();
+			NotionDto or = this.notionService.getByLibelle(Constants.NOT);
+			notions.add(or);
+			this.exercice.setNotions(notions);
+			this.exercice.setDifficulte(1);
+			this.exercice.setType(1);
+			this.exercice.generer();
+			System.out.println(this.exercice);
+		} else {
+			// C'est fini
+			this.arreter();
+		}
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		request.getSession().removeAttribute(Constants.COURS);
 		request.getSession().setAttribute(Constants.COURS, this.exercice);
@@ -362,16 +401,19 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 				this.connaissanceService.majNiveauConnaissance(portes,this.exercice.getDifficulte());
 			}
 			this.reussi = true;
-			context.execute("PF('dialogExo').show();");
+			context.execute("PF('dialogExoReussi1').show();");
 
 		} else {
 			this.reussi = false;
-			context.execute("PF('dialogExo').show();");
+			context.execute("PF('dialogExoRate1').show();");
 		}
 	}
 
 	public void continuer(){
 		System.out.println("Continuer ");
+		if (this.numExercice == 1) {
+			this.continuerExo1();
+		}
 	}
 
 	public void arreter(){

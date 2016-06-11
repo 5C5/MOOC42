@@ -15,7 +15,6 @@ import mooc.dto.ApprenantNotionDto;
 import mooc.dto.NiveauDeverouilleDto;
 import mooc.dto.ProfilDto;
 import mooc.login.AbstractMBean;
-import mooc.moteur.Exercice;
 import mooc.service.ApprenantService;
 import mooc.service.ConnaissanceService;
 import mooc.service.NotionService;

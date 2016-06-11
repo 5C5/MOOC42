@@ -6,12 +6,15 @@ package mooc.dto;
  */
 public class NiveauDeverouilleDto {
 
-    /** Id */
-    private int id;
-    /** Nom */
-    private String nom;
-    /** Niveau */
-    private int niveau;
+	/** Id */
+	private int id;
+	/** Nom */
+	private String nom;
+	/** Niveau */
+	private int niveau;
+
+	/** Id notion */
+	private int idNotion;
 
 	public int getId() {
 		return this.id;
@@ -35,6 +38,14 @@ public class NiveauDeverouilleDto {
 
 	public void setNiveau(final int niveau) {
 		this.niveau = niveau;
+	}
+
+	public int getIdNotion() {
+		return this.idNotion;
+	}
+
+	public void setIdNotion(final int idNotion) {
+		this.idNotion = idNotion;
 	}
 
 }
