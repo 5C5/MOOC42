@@ -362,11 +362,11 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 				this.connaissanceService.majNiveauConnaissance(portes,this.exercice.getDifficulte());
 			}
 			this.reussi = true;
-			context.execute("PF('dialogExo').show();");
+			context.execute("PF('dialogExoReussi1').show();");
 
 		} else {
 			this.reussi = false;
-			context.execute("PF('dialogExo').show();");
+			context.execute("PF('dialogExoRate1').show();");
 		}
 	}
 

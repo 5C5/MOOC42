@@ -239,18 +239,29 @@
                                 </p:diagram>
                             </p:panel>
                             
-                            <p:dialog header="#{fr['cours.exercice.suite']}" widgetVar="dialogExo">
+                            <p:dialog header="#{fr['cours.exercice.suite']}" widgetVar="dialogExoReussi1">
                                 <h:panelGrid columns="1">
-                                    <h:outputText value="#{fr['cours.exercice.reussi']}" rendered="#{coursMBean.reussi}"/>
-                                    <h:outputText value="#{fr['cours.exercice.rate']}" rendered="#{!coursMBean.reussi}"/>
-                                    <h:outputText value="Cliquez sur Continuer pour passer à l'exercice suivant." rendered="#{coursMBean.reussi}"/>
-                                    <h:outputText value="Cliquez sur Continuer pour revenir à l'exercice." rendered="#{!coursMBean.reussi}"/>
+                                    <h:outputText value="#{fr['cours.exercice.reussi']}" />
+                                    <h:outputText value="Cliquez sur Continuer pour passer à l'exercice suivant." />
                                     <h:outputText value="Cliquez sur Arrêter pour arrêter les exercices. Attention vous perdrez votre progression." />
                                 </h:panelGrid>
                                 <h:panelGrid columns="2">
-                                    <p:commandButton id="continuer" value="#{fr['cours.continuer']}"
+                                    <p:commandButton value="#{fr['cours.continuer']}"
                                         actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel1"/>
-                                    <p:commandButton id="arreter" value="#{fr['cours.arreter']}"
+                                    <p:commandButton value="#{fr['cours.arreter']}"
+                                        actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1"/>
+                                </h:panelGrid>
+                            </p:dialog>  
+                            <p:dialog header="#{fr['cours.exercice.suite']}" widgetVar="dialogExoRate1">
+                                <h:panelGrid columns="1">
+                                    <h:outputText value="#{fr['cours.exercice.rate']}" />
+                                    <h:outputText value="Cliquez sur Continuer pour revenir à l'exercice." />
+                                    <h:outputText value="Cliquez sur Arrêter pour arrêter les exercices. Attention vous perdrez votre progression." />
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:commandButton value="#{fr['cours.continuer']}"
+                                        actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel1"/>
+                                    <p:commandButton value="#{fr['cours.arreter']}"
                                         actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1"/>
                                 </h:panelGrid>
                             </p:dialog>  
