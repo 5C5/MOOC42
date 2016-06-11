@@ -50,7 +50,7 @@
                                 <h:outputText value="#{niv.nom}"/>
                                 <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
                                 <p:commandButton id="levelUp" value="Level up" action="#{profilMBean.levelUp}" update="@form">
-                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.id}" />
+                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.idNotion}" />
                                     <f:setPropertyActionListener target="#{profilMBean.connaissanceLevel}" value="#{niv.niveau}" />
                                 </p:commandButton>
                             </h:panelGrid>
@@ -60,7 +60,7 @@
                                 <h:outputText value="#{niv.nom}"/>
                                 <p:rating value="#{niv.niveau}" readonly="true" stars="2"/>
                                 <p:commandButton id="levelUp" value="Level up" action="#{profilMBean.levelUp}" update="@form">
-                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.id}" />
+                                    <f:setPropertyActionListener target="#{profilMBean.idConnaissanceLevelUp}" value="#{niv.idNotion}" />
                                     <f:setPropertyActionListener target="#{profilMBean.connaissanceLevel}" value="#{niv.niveau}" />
                                 </p:commandButton>
                             </h:panelGrid>
