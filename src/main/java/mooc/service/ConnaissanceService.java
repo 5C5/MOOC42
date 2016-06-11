@@ -34,5 +34,13 @@ public interface ConnaissanceService {
 	 * @return List des NiveauDeverouilleDto
 	 */
 	public List<NiveauDeverouilleDto> reloadNiveauComplexes(final int idApprenant);
+	
+	/**
+	 * Mettre a jour le niveau des connaissances
+	 * 
+	 * @param portes Portes utilisees dans l'exercice
+	 * @param nouveauNiveau Nouveau niveau
+	 */
+	public void majNiveauConnaissance(final List<String> portes, final int nouveauNiveau);
 
 }

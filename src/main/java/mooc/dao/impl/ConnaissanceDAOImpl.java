@@ -34,6 +34,26 @@ public class ConnaissanceDAOImpl extends AbstractDAO<Connaissance> implements Co
         tx.commit();
         return connaissance;
     }
+    
+    @Override
+    public Connaissance getByLibelle(final String libelle) {
+        Session session = this.getSession();
+        Transaction tx = session.beginTransaction();
+
+        final Criteria criteria = session.createCriteria(Connaissance.class, "connaissance");
+        criteria.createAlias("connaissance.notion", "notion");
+        criteria.add(Restrictions.eq("notion.nomNotion", libelle));
+
+        List<Object> resultList = criteria.list();
+        Connaissance connaissance = null;
+
+        if (resultList != null && !resultList.isEmpty()) {
+            connaissance = (Connaissance) resultList.get(0);
+        }
+
+        tx.commit();
+        return connaissance;
+    }
 
     @Override
     public void save(final Connaissance connaissance) {

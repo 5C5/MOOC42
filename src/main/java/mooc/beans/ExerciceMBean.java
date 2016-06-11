@@ -14,6 +14,7 @@ import mooc.dto.NotionDto;
 import mooc.login.AbstractMBean;
 import mooc.moteur.Exercice;
 import mooc.service.CompetenceService;
+import mooc.service.ConnaissanceService;
 import mooc.service.NotionService;
 import mooc.utils.Constants;
 import mooc.utils.Messages;
@@ -36,9 +37,13 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 	@ManagedProperty(value = "#{notionService}")
 	private NotionService notionService;
 
-	/** Service Apprenant */
+	/** Service Competence */
 	@ManagedProperty(value = "#{competenceService}")
 	private CompetenceService competenceService;
+
+	/** Service Connaissance */
+	@ManagedProperty(value = "#{connaissanceService}")
+	private ConnaissanceService connaissanceService;
 
 	/** Elements/parametres a� recuperer */
 	/** Liste des notions selectionnes pour l'exercice */
@@ -223,6 +228,8 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 			if (id != null) {
 				// Enregistrement de l'exercice pour l'apprenant
 				this.competenceService.ajouterExercice(id, this.exercice.getNotions(), this.exercice.getDifficulte(), 100/this.exercice.getNbEssai());
+				List<String> portes = this.exercice.getPorteUtilisee();
+				this.connaissanceService.majNiveauConnaissance(portes, this.exercice.getDifficulte());
 			}
 			this.score = 100 / this.exercice.getNbEssai();
 
@@ -336,6 +343,14 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 
 	public void setScore(final int score) {
 		this.score = score;
+	}
+
+	public ConnaissanceService getConnaissanceService() {
+		return connaissanceService;
+	}
+
+	public void setConnaissanceService(ConnaissanceService connaissanceService) {
+		this.connaissanceService = connaissanceService;
 	}
 
 }
