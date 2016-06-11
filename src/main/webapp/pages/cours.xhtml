@@ -233,6 +233,35 @@
                                 
        			           
                             <p:panel id="panelDiag1" header="#{fr['exercice.title']}" rendered="#{coursMBean.numExercice == 1}">
+                            	<p:outputLabel>
+                            	<p>
+                            	Afin de mettre en oeuvre vos connaissances, voici quelques exercices.
+                            	<BR />
+                            	Après chaque exercice, vous pourrez choisir de continuer la série ou de vous arrêter (votre progression sera 
+                            	alors supprimée). 
+                            	</p>
+							    <!-- Affichage des consignes -->
+								<p>
+								<b>Consigne de l'exercice : </b>
+								</p>
+								 <p>
+								Le but de cet exercice est de déterminer les valeurs d'entrée 
+								(<FONT color="#2E962C">en vert</FONT>)
+								qui permettent d'aboutir
+								à la sortie indiquée (<FONT color="#9D000C">en rouge</FONT>) en fonction des 
+								portes logiques (<FONT color="#37497B">en bleu </FONT>) présentes 
+								dans le circuit.
+								</p>
+								<p>
+								    Pour modifier une entrée, cliquer sur le cercle la contenant.
+								</p>
+								<p>
+								    Pour vérifier les réponses, cliquer sur Vérifier.
+								</p>
+								<p>
+								   	La réussite d'un exercice vous permettra de gagner une étoile dans les notions abordées dans l'exercice.
+								</p>
+                            	</p:outputLabel>
                                  <p:commandButton value="#{fr['exercice.verifier']}" action="#{coursMBean.valider}" />
                     
                                 <p:diagram id="diag1" value="#{coursMBean.exercice.root}" style="height:35em" styleClass="ui-widget-content" >
