@@ -68,9 +68,9 @@ public class ConnaissanceServiceImpl implements ConnaissanceService, Serializabl
 	}
 
 	@Override
-	public void majNiveauConnaissance(List<String> portes, int nouveauNiveau) {
+	public void majNiveauConnaissance(final int idApprenant, final List<String> portes, final int nouveauNiveau) {
 		for(String porte : portes){
-			Connaissance connaissance = this.connaissanceDAO.getByLibelle(porte);
+			Connaissance connaissance = this.connaissanceDAO.getByLibelle(idApprenant, porte);
 			if(connaissance.getNiveau() < nouveauNiveau){
 				connaissance.setNiveau(nouveauNiveau);
 				this.connaissanceDAO.save(connaissance);

@@ -21,10 +21,11 @@ public interface ConnaissanceDAO {
     /**
      * Récupérer la connaissance avec son libelle
      *
+     * @param id Id de l'apprenant
      * @param libelle Libelle de la connaissance
      * @return Connaissance correspondante
      */
-    public Connaissance getByLibelle(final String libelle);
+    public Connaissance getByLibelle(final int idApprenant, final String libelle);
 
     /**
      * Enregistrer une nouvelle connaissance
