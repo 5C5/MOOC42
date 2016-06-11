@@ -354,7 +354,8 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 
 	public void solutionRecalculer(final String idElement) {
 		// Recuperation de l'exercice
-		String form = "form_exer:panelGeneral:diag1-";
+		String form1 = "form_exer:panelGeneral:diag1-";
+		String form2 = "form_exer:panelGeneral:diag2-";
 		System.out.println(idElement);
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		this.exercice = (Exercice) request.getSession().getAttribute(Constants.COURS);
@@ -363,7 +364,12 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 
 		// Mise a jour des valeurs lors d'un clic dessus
 		for (Element el : root.getElements()) {
-			if ((form + el.getId()).equals(idElement)) {
+			if ((form1 + el.getId()).equals(idElement)) {
+				if(!Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass()) && !Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
+					el.setData(this.exercice.switchData(el));
+					System.out.println("Change " + el.getData());
+				}
+			} else if ((form2 + el.getId()).equals(idElement)) {
 				if(!Constants.SORTIE_SOLUTION.equalsIgnoreCase(el.getStyleClass()) && !Constants.SORTIE_UTILISATEUR.equalsIgnoreCase(el.getStyleClass())){
 					el.setData(this.exercice.switchData(el));
 					System.out.println("Change " + el.getData());
@@ -403,11 +409,19 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 			this.nbExerciceRestant = this.nbExerciceRestant - 1;
 			request.getSession().setAttribute(Constants.COURS_NB_EXERCICE_RESTANT,this.nbExerciceRestant);
 			System.out.println(this.nbExerciceRestant);
-			context.execute("PF('dialogExoReussi1').show();");
+			if (this.numExercice == 1) {
+				context.execute("PF('dialogExoReussi1').show();");
+			} else if (this.numExercice == 2) {
+				context.execute("PF('dialogExoReussi2').show();");
+			}
 
 		} else {
 			this.reussi = false;
-			context.execute("PF('dialogExoRate1').show();");
+			if (this.numExercice == 1) {
+				context.execute("PF('dialogExoRate1').show();");
+			} else if (this.numExercice == 2) {
+				context.execute("PF('dialogExoRate2').show();");
+			}
 		}
 	}
 
