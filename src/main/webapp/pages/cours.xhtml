@@ -242,28 +242,28 @@
                             <p:dialog header="#{fr['cours.exercice.suite']}" widgetVar="dialogExoReussi1">
                                 <h:panelGrid columns="1">
                                     <h:outputText value="#{fr['cours.exercice.reussi']}" />
-<!--                                     <h:outputText value="#{coursMBean.nbExerciceRestant}" /> -->
+                                    <h:outputText value="Vous avez fait #{coursMBean.nbExerciceFait} exerice(s) sur #{coursMBean.nbExercice}." />
                                     <h:outputText value="Cliquez sur Continuer pour passer à l'exercice suivant." 
-                                        rendered="#{coursMBean.nbExerciceRestant != 0}" />
+                                        rendered="#{coursMBean.nbExerciceFait != 0}" />
                                     <h:outputText value="Cliquez sur Arrêter pour arrêter les exercices. Attention vous perdrez votre progression." 
-                                        rendered="#{coursMBean.nbExerciceRestant != 0}"/>
+                                        rendered="#{coursMBean.nbExerciceFait != 0}"/>
                                 </h:panelGrid>
                                 <h:panelGrid columns="2">
                                     <p:commandButton value="#{fr['cours.continuer']}"
                                         actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel1"/>
-                                    <p:commandButton value="#{fr['cours.arreter']}" rendered="#{coursMBean.nbExerciceRestant != 0}"
+                                    <p:commandButton value="#{fr['cours.arreter']}" rendered="#{coursMBean.nbExerciceFait != 0}"
                                         actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1"/>
                                 </h:panelGrid>
                             </p:dialog>  
                             <p:dialog header="#{fr['cours.exercice.suite']}" widgetVar="dialogExoRate1">
                                 <h:panelGrid columns="1">
                                     <h:outputText value="#{fr['cours.exercice.rate']}" />
+                                    <h:outputText value="Vous êtes à #{coursMBean.nbExerciceFait} exerice(s) sur #{coursMBean.nbExercice}." />
                                     <h:outputText value="Cliquez sur Continuer pour revenir à l'exercice." />
                                     <h:outputText value="Cliquez sur Arrêter pour arrêter les exercices. Attention vous perdrez votre progression." />
                                 </h:panelGrid>
                                 <h:panelGrid columns="2">
-                                    <p:commandButton value="#{fr['cours.continuer']}"
-                                        actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel1"/>
+                                    <p:commandButton value="#{fr['cours.continuer']}" onclick="PF('dialogExoRate1').hide()"/>
                                     <p:commandButton value="#{fr['cours.arreter']}"
                                         actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1"/>
                                 </h:panelGrid>
