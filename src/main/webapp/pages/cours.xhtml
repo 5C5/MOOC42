@@ -18,7 +18,7 @@
        		 
                 <h:outputScript library="js" name="diagram.js" />
                  <pe:remoteCommand id="solutionRecalculer" name="solutionRecalculer" process="@this" 
-                    update="@form"
+                    update="form_exer:panelGeneral:panelDiag1"
                     actionListener="#{coursMBean.solutionRecalculer}" >  
                     <pe:methodSignature parameters="java.lang.String" />  
                      <pe:methodParam name="idElement"/>  
@@ -143,7 +143,7 @@
                     </p:tab>
                      
                      <p:tab title="#{fr['cours.portes_fond.title']}" >
-                        <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;">
+                        <h:panelGrid columns="1" style="width:100%; padding: 8px; margin : 12px;" id="panel1">
                         	<p:outputPanel>
                         	Dans un premier temps, nous allons présenter les portes logiques les plus "simples", 
                         	c'est à dire celle qui correspondent directement aux opérations booléennes présentées plus
@@ -227,16 +227,33 @@
 	                    		</h:panelGrid>
 							</p:fieldset>
                      		
-                     		<!-- Bon, ben ici, tu l'a mis, c'est nickel
-                     		
-                     		 -->
-                            <p:commandButton value="#{fr['cours.demarrer']} #{coursMBean.numExercice}" action="#{coursMBean.genererExo1}" 
-                                rendered="#{coursMBean.numExercice == 0 or coursMBean.numExercice == null}" update="@form"/>
-       			      
+                            <p:commandButton id="demarrer1" value="#{fr['cours.demarrer']}" action="#{coursMBean.genererExo1}" 
+                                rendered="#{coursMBean.numExercice == 0 or coursMBean.numExercice == null}" 
+                                update="form_exer:panelGeneral:panel1"/>
+                                
+       			           
                             <p:panel id="panelDiag1" header="#{fr['exercice.title']}" rendered="#{coursMBean.numExercice == 1}">
+                                 <p:commandButton value="#{fr['exercice.verifier']}" action="#{coursMBean.valider}" />
+                    
                                 <p:diagram id="diag1" value="#{coursMBean.exercice.root}" style="height:35em" styleClass="ui-widget-content" >
                                 </p:diagram>
                             </p:panel>
+                            
+                            <p:dialog header="#{fr['cours.exercice.suite']}" widgetVar="dialogExo">
+                                <h:panelGrid columns="1">
+                                    <h:outputText value="#{fr['cours.exercice.reussi']}" rendered="#{coursMBean.reussi}"/>
+                                    <h:outputText value="#{fr['cours.exercice.rate']}" rendered="#{!coursMBean.reussi}"/>
+                                    <h:outputText value="Cliquez sur Continuer pour passer à l'exercice suivant." rendered="#{coursMBean.reussi}"/>
+                                    <h:outputText value="Cliquez sur Continuer pour revenir à l'exercice." rendered="#{!coursMBean.reussi}"/>
+                                    <h:outputText value="Cliquez sur Arrêter pour arrêter les exercices. Attention vous perdrez votre progression." />
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:commandButton id="continuer" value="#{fr['cours.continuer']}"
+                                        actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel1"/>
+                                    <p:commandButton id="arreter" value="#{fr['cours.arreter']}"
+                                        actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1"/>
+                                </h:panelGrid>
+                            </p:dialog>  
                      </h:panelGrid>
                      
                      </p:tab>
@@ -472,6 +489,8 @@
                      </p:tab>
                 </p:accordionPanel>
 	        
+            
+             
          </p:layoutUnit>
          
          <p:layoutUnit position="east" resizable="true" collapsible="true" 

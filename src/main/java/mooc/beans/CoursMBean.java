@@ -15,9 +15,12 @@ import lombok.NoArgsConstructor;
 import mooc.dto.QuestionQuizDTO;
 import mooc.login.AbstractMBean;
 import mooc.moteur.Exercice;
+import mooc.service.CompetenceService;
+import mooc.service.ConnaissanceService;
 import mooc.service.NotionService;
 import mooc.utils.Constants;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.diagram.DefaultDiagramModel;
 import org.primefaces.model.diagram.Element;
 import org.springframework.context.annotation.Scope;
@@ -36,6 +39,14 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 	/** Service Notion */
 	@ManagedProperty(value = "#{notionService}")
 	private NotionService notionService;
+
+	/** Service Competence */
+	@ManagedProperty(value = "#{competenceService}")
+	private CompetenceService competenceService;
+
+	/** Service Connaissance */
+	@ManagedProperty(value = "#{connaissanceService}")
+	private ConnaissanceService connaissanceService;
 
 	/** Langue de l'utilisateur */
 	private String langue;
@@ -62,23 +73,30 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 	/** Exercice */
 	private Exercice exercice;
 
+	private Boolean reussi = false;
+
 	@PostConstruct
 	public void init() {
 		this.langue = this.getLangue();
 		this.initQuestions();
-		System.out.println("inint");
 
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		this.exercice = (Exercice) request.getSession().getAttribute(Constants.COURS);
 		this.numExercice = (Integer) request.getSession().getAttribute(Constants.COURS_NUM_EXERCICE);
 		this.nbExercice = (Integer) request.getSession().getAttribute(Constants.COURS_NB_EXERCICE);
 		this.nbExerciceRestant = (Integer) request.getSession().getAttribute(Constants.COURS_NB_EXERCICE_RESTANT);
-
-		if (this.exercice != null) {
-			for (Element el : this.exercice.getRoot().getElements()) {
-				System.out.println(el.getStyleClass() + " " + el.getData());
-			}
+		if (this.exercice == null) {
+			this.numExercice = 0;
+			this.nbExercice = 0;
+			this.nbExerciceRestant = 0;
+			this.reussi = false;
 		}
+
+		//		if (this.exercice != null) {
+		//			for (Element el : this.exercice.getRoot().getElements()) {
+		//				System.out.println(el.getStyleClass() + " " + el.getData());
+		//			}
+		//		}
 	}
 
 	public void initQuestions() {
@@ -317,11 +335,7 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 
 		// Modification de l'exercice
 		this.exercice.setRoot(root);
-		if (this.exercice != null) {
-			for (Element el : this.exercice.getRoot().getElements()) {
-				System.out.println(el.getStyleClass() + " " + el.getData());
-			}
-		}
+
 		request.getSession().removeAttribute(Constants.COURS);
 		request.getSession().setAttribute(Constants.COURS, this.exercice);
 	}
@@ -331,6 +345,43 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		return alea;
 	}
 
+	public void valider() {
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		Integer id = (Integer) request.getSession().getAttribute(Constants.UTILISATEUR_CONNECTE);
+		this.exercice = (Exercice) request.getSession().getAttribute(Constants.COURS);
+		this.exercice.setNbEssai(this.exercice.getNbEssai() + 1);
+		// Verification si la solution utilisateur est correcte
+		boolean verif = this.exercice.valider(this.exercice.getRoot());
+		RequestContext context = RequestContext.getCurrentInstance();
+
+		if (verif) {
+			if (id != null) {
+				// Enregistrement de l'exercice pour l'apprenant
+				this.competenceService.ajouterExercice(id,this.exercice.getNotions(),this.exercice.getDifficulte(),100 / this.exercice.getNbEssai());
+				List<String> portes = this.exercice.getPorteUtilisee();
+				this.connaissanceService.majNiveauConnaissance(portes,this.exercice.getDifficulte());
+			}
+			this.reussi = true;
+			context.execute("PF('dialogExo').show();");
+
+		} else {
+			this.reussi = false;
+			context.execute("PF('dialogExo').show();");
+		}
+	}
+
+	public void continuer(){
+		System.out.println("Continuer ");
+	}
+
+	public void arreter(){
+		System.out.println("Arreter");
+		this.exercice = null;
+		this.numExercice = 0;
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		request.getSession().removeAttribute(Constants.COURS);
+	}
+
 	public NotionService getNotionService() {
 		return this.notionService;
 	}
@@ -338,4 +389,30 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 	public void setNotionService(final NotionService notionService) {
 		this.notionService = notionService;
 	}
+
+	public CompetenceService getCompetenceService() {
+		return this.competenceService;
+	}
+
+	public void setCompetenceService(final CompetenceService competenceService) {
+		this.competenceService = competenceService;
+	}
+
+	public ConnaissanceService getConnaissanceService() {
+		return this.connaissanceService;
+	}
+
+	public void setConnaissanceService(final ConnaissanceService connaissanceService) {
+		this.connaissanceService = connaissanceService;
+	}
+
+	public Boolean getReussi() {
+		return this.reussi;
+	}
+
+	public void setReussi(final Boolean reussi) {
+		this.reussi = reussi;
+	}
+
+
 }
