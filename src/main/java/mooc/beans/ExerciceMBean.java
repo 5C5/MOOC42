@@ -345,4 +345,12 @@ public class ExerciceMBean extends AbstractMBean implements Serializable{
 		this.score = score;
 	}
 
+	public ConnaissanceService getConnaissanceService() {
+		return connaissanceService;
+	}
+
+	public void setConnaissanceService(ConnaissanceService connaissanceService) {
+		this.connaissanceService = connaissanceService;
+	}
+
 }
