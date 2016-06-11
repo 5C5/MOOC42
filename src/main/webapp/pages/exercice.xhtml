@@ -120,6 +120,9 @@
                            	La réussite d'un exercice moyen vous permettra de gagner une seconde étoile.
                       		</li>
                       		</ul>
+                      		<p>
+                      		<b>Conseil : </b> pour que l'exercice soit intéressant, sélectionnez plusieurs portes. 
+                      		</p>
                       </h:panelGrid>
                       
                   </h:panelGrid>
@@ -156,9 +159,9 @@
 	        
 	     </p:layoutUnit>
          
-         <p:layoutUnit position="east" resizable="true" collapsible="true" 
+         <p:layoutUnit position="east" resizable="true" collapsible="true" id="sidedProfil"
             header="#{fr['general.profil.title']} de #{profilMBean.profil.prenom} #{profilMBean.profil.nom} " 
-            rendered="#{profilMBean.rapprenant or profilMBean.radmin}">
+            rendered="#{profilMBean.rapprenant or profilMBean.radmin}" size="200">
              
                 <!-- Notions -->
                 <p:panel header="#{fr['profil.niveau.title']}" rendered="#{profilMBean.rapprenant}">
@@ -183,9 +186,10 @@
                                 </p:commandButton>
                             </h:panelGrid>
                         </ui:repeat>
-                        <p:commandButton  value="#{fr['menu.profil']}" action="profil"/>
                     </h:panelGrid>
                     </p:panel>
+                    
+                    <p:commandButton  value="#{fr['menu.profil']}" action="profil"/>
             
             </p:layoutUnit>
          

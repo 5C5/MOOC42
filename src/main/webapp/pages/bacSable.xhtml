@@ -13,7 +13,7 @@
 
     <ui:define name="body-site">
     <h:form id="form_exer">
-    <p:layout style="height:1100px;">
+    <p:layout style="height:1100px;" id="west">
         <p:layoutUnit position="center"  header="#{fr['general.bac.sable.title']}"> 
         	<BR/>   
  			<p:outputPanel style="font-size: 16px; padding :8px;">
@@ -102,7 +102,7 @@
 	         
             </p:layoutUnit>
          
-         <p:layoutUnit position="east" resizable="true" collapsible="true" 
+         <p:layoutUnit position="east" resizable="true" collapsible="true" id="sidedProfil"
             header="#{fr['general.profil.title']} de #{profilMBean.profil.prenom} #{profilMBean.profil.nom} " 
             rendered="#{profilMBean.rapprenant or profilMBean.radmin}">
            
@@ -130,9 +130,9 @@
                                 </p:commandButton>
                             </h:panelGrid>
                         </ui:repeat>
-                        <p:commandButton  value="#{fr['menu.profil']}" action="profil"/>
                     </h:panelGrid>
                     </p:panel>
+                        <p:commandButton  value="#{fr['menu.profil']}" action="profil"/>
             
             </p:layoutUnit>
          
