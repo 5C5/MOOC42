@@ -18,9 +18,9 @@ public class GenerateurFacile extends Generateur {
 	public void generer(final List<String> portes, final boolean drag, final int type) {
 		boolean binaire = true;
 
-		if (portes.contains(Constants.NOT)) {
-			portes.add(Constants.EMPTY);
-		}
+		// if (portes.contains(Constants.NOT)) {
+		// portes.add(Constants.EMPTY);
+		// }
 
 		/* Tirage du nombre aleatoire */
 		int alea = (int) (Math.random() * portes.size());

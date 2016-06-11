@@ -43,7 +43,7 @@ public final class Constants {
 	public static final String COURS = "Cours";
 	public static final String COURS_NUM_EXERCICE = "CoursNumExercice";
 	public static final String COURS_NB_EXERCICE = "CoursNbExercice";
-	public static final String COURS_NB_EXERCICE_RESTANT = "CoursNbExerciceRestant";
+	public static final String COURS_NB_EXERCICE_FAIT = "CoursNbExerciceFait";
 
 	/** Pré-parametrage de l'exercice */
 	/** Niveau */
