@@ -290,62 +290,7 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 	}
 
 
-	public void genererExo1() {
-		this.numExercice = 1;
-		this.nbExercice = 3;
-		this.nbExerciceFait = 1;
-		this.exercice = new Exercice();
-		// Porte OR
-		List<NotionDto> notions = new ArrayList<NotionDto>();
-		NotionDto or = this.notionService.getByLibelle(Constants.OR);
-		notions.add(or);
-		this.exercice.setNotions(notions);
-		this.exercice.setDifficulte(1);
-		// Porte fixe, il faut trouver les entrees
-		this.exercice.setType(1);
-		this.exercice.generer();
-		System.out.println(this.exercice);
-		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		request.getSession().removeAttribute(Constants.COURS);
-		request.getSession().setAttribute(Constants.COURS, this.exercice);
-		request.getSession().setAttribute(Constants.COURS_NUM_EXERCICE, this.numExercice);
-		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE, this.nbExercice);
-		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE_FAIT, this.nbExerciceFait);
-	}
-	public void continuerExo1(){
-		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		this.nbExerciceFait = (Integer) request.getSession().getAttribute(Constants.COURS_NB_EXERCICE_FAIT);
-		this.exercice = new Exercice();
-		if(this.nbExerciceFait == 2){
-			// Porte AND
-			List<NotionDto> notions = new ArrayList<NotionDto>();
-			NotionDto or = this.notionService.getByLibelle(Constants.AND);
-			notions.add(or);
-			this.exercice.setNotions(notions);
-			this.exercice.setDifficulte(1);
-			this.exercice.setType(1);
-			this.exercice.generer();
-			System.out.println(this.exercice);
-		} else if (this.nbExerciceFait == 3){
-			// Porte NOT
-			List<NotionDto> notions = new ArrayList<NotionDto>();
-			NotionDto or = this.notionService.getByLibelle(Constants.NOT);
-			notions.add(or);
-			this.exercice.setNotions(notions);
-			this.exercice.setDifficulte(1);
-			this.exercice.setType(1);
-			this.exercice.generer();
-			System.out.println(this.exercice);
-		} else {
-			// C'est fini
-			this.arreter();
-		}
-		request.getSession().removeAttribute(Constants.COURS);
-		request.getSession().setAttribute(Constants.COURS, this.exercice);
-		request.getSession().setAttribute(Constants.COURS_NUM_EXERCICE, this.numExercice);
-		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE, this.nbExercice);
-		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE_FAIT, this.nbExerciceFait);
-	}
+
 
 	public void solutionRecalculer(final String idElement) {
 		// Recuperation de l'exercice
@@ -424,6 +369,8 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		System.out.println("Continuer ");
 		if (this.numExercice == 1) {
 			this.continuerExo1();
+		} else if (this.numExercice == 2) {
+			this.continuerExo2();
 		}
 	}
 
@@ -467,6 +414,63 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		this.reussi = reussi;
 	}
 
+	public void genererExo1() {
+		this.numExercice = 1;
+		this.nbExercice = 3;
+		this.nbExerciceFait = 1;
+		this.exercice = new Exercice();
+		// Porte OR
+		List<NotionDto> notions = new ArrayList<NotionDto>();
+		NotionDto or = this.notionService.getByLibelle(Constants.OR);
+		notions.add(or);
+		this.exercice.setNotions(notions);
+		this.exercice.setDifficulte(1);
+		// Porte fixe, il faut trouver les entrees
+		this.exercice.setType(1);
+		this.exercice.generer();
+		System.out.println(this.exercice);
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		request.getSession().removeAttribute(Constants.COURS);
+		request.getSession().setAttribute(Constants.COURS, this.exercice);
+		request.getSession().setAttribute(Constants.COURS_NUM_EXERCICE, this.numExercice);
+		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE, this.nbExercice);
+		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE_FAIT, this.nbExerciceFait);
+	}
+	public void continuerExo1(){
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		this.nbExerciceFait = (Integer) request.getSession().getAttribute(Constants.COURS_NB_EXERCICE_FAIT);
+		this.exercice = new Exercice();
+		if(this.nbExerciceFait == 2){
+			// Porte AND
+			List<NotionDto> notions = new ArrayList<NotionDto>();
+			NotionDto or = this.notionService.getByLibelle(Constants.AND);
+			notions.add(or);
+			this.exercice.setNotions(notions);
+			this.exercice.setDifficulte(1);
+			this.exercice.setType(1);
+			this.exercice.generer();
+			System.out.println(this.exercice);
+		} else if (this.nbExerciceFait == 3){
+			// Porte NOT
+			List<NotionDto> notions = new ArrayList<NotionDto>();
+			NotionDto or = this.notionService.getByLibelle(Constants.NOT);
+			notions.add(or);
+			this.exercice.setNotions(notions);
+			this.exercice.setDifficulte(1);
+			this.exercice.setType(1);
+			this.exercice.generer();
+			System.out.println(this.exercice);
+		} else {
+			// C'est fini
+			this.arreter();
+		}
+		request.getSession().removeAttribute(Constants.COURS);
+		request.getSession().setAttribute(Constants.COURS, this.exercice);
+		request.getSession().setAttribute(Constants.COURS_NUM_EXERCICE, this.numExercice);
+		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE, this.nbExercice);
+		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE_FAIT, this.nbExerciceFait);
+	}
+
 	public void genererExo2() {
 		this.numExercice = 2;
 		this.nbExercice = 4;
@@ -487,8 +491,10 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 	}
 
 	public void continuerExo2() {
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		this.nbExerciceFait = (Integer) request.getSession().getAttribute(Constants.COURS_NB_EXERCICE_FAIT);
 		this.exercice = new Exercice();
-		if(this.nbExerciceFait == this.nbExercice){
+		if (this.nbExerciceFait == this.nbExercice + 1) {
 			// C'est fini
 			this.arreter();
 		} else {
@@ -499,7 +505,6 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 			this.exercice.setType(1);
 			this.exercice.generer();
 		}
-		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		request.getSession().removeAttribute(Constants.COURS);
 		request.getSession().setAttribute(Constants.COURS, this.exercice);
 		request.getSession().setAttribute(Constants.COURS_NUM_EXERCICE, this.numExercice);
