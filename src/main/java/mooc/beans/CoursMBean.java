@@ -319,7 +319,6 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE_RESTANT, this.nbExerciceRestant);
 	}
 	public void continuerExo1(){
-		this.nbExerciceRestant = this.nbExerciceRestant-1;
 		this.exercice = new Exercice();
 		if(this.nbExerciceRestant == 2){
 			// Porte AND
@@ -401,6 +400,9 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 				this.connaissanceService.majNiveauConnaissance(portes,this.exercice.getDifficulte());
 			}
 			this.reussi = true;
+			this.nbExerciceRestant = this.nbExerciceRestant - 1;
+			request.getSession().setAttribute(Constants.COURS_NB_EXERCICE_RESTANT,this.nbExerciceRestant);
+			System.out.println(this.nbExerciceRestant);
 			context.execute("PF('dialogExoReussi1').show();");
 
 		} else {
@@ -456,5 +458,44 @@ public class CoursMBean extends AbstractMBean implements Serializable {
 		this.reussi = reussi;
 	}
 
+	public void genererExo2() {
+		this.numExercice = 2;
+		this.nbExercice = 4;
+		this.nbExerciceRestant = 4;
+		this.exercice = new Exercice();
+		this.exercice.setNotions(this.notionService.getPortesFondamentales());
+		this.exercice.setDifficulte(2);
+		// Porte fixe, il faut trouver les entrees
+		this.exercice.setType(1);
+		this.exercice.generer();
+		System.out.println(this.exercice);
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		request.getSession().removeAttribute(Constants.COURS);
+		request.getSession().setAttribute(Constants.COURS, this.exercice);
+		request.getSession().setAttribute(Constants.COURS_NUM_EXERCICE, this.numExercice);
+		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE, this.nbExercice);
+		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE_RESTANT, this.nbExerciceRestant);
+	}
+
+	public void continuerExo2() {
+		this.exercice = new Exercice();
+		if(this.nbExerciceRestant == 0){
+			// C'est fini
+			this.arreter();
+		} else {
+			this.exercice = new Exercice();
+			this.exercice.setNotions(this.notionService.getPortesFondamentales());
+			this.exercice.setDifficulte(2);
+			// Porte fixe, il faut trouver les entrees
+			this.exercice.setType(1);
+			this.exercice.generer();
+		}
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		request.getSession().removeAttribute(Constants.COURS);
+		request.getSession().setAttribute(Constants.COURS, this.exercice);
+		request.getSession().setAttribute(Constants.COURS_NUM_EXERCICE, this.numExercice);
+		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE, this.nbExercice);
+		request.getSession().setAttribute(Constants.COURS_NB_EXERCICE_RESTANT, this.nbExerciceRestant);
+	}
 
 }
