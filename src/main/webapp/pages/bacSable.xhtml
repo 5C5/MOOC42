@@ -12,6 +12,7 @@
     <ui:define name="title">#{fr['general.bac.sable.title']}</ui:define>
 
     <ui:define name="body-site">
+    <h:form id="form_exer">
     <p:layout style="height:1100px;">
         <p:layoutUnit position="center"  header="#{fr['general.bac.sable.title']}">    
  			<p:outputPanel style="font-size: 16px;">
@@ -47,7 +48,7 @@
 	  		</ul>
  			</p:outputPanel>
  			</p:fieldset>
-       		<h:form id="form_exer">
+       		
                 <h:outputScript library="js" name="diagram.js" />
                  <pe:remoteCommand id="solutionRecalculer" name="solutionRecalculer" process="@this" update=":form_exer:panelDiag" 
                     actionListener="#{bacSableMBean.solutionRecalculer}" >  
@@ -97,13 +98,13 @@
                     </p:diagram>
                       
        			</p:panel>
-	        </h:form> 
+	         
             </p:layoutUnit>
          
          <p:layoutUnit position="east" resizable="true" collapsible="true" 
             header="#{fr['general.profil.title']} de #{profilMBean.profil.prenom} #{profilMBean.profil.nom} " 
             rendered="#{profilMBean.rapprenant or profilMBean.radmin}">
-            <h:form >    
+           
                 <!-- Notions -->
                 <p:panel header="#{fr['profil.niveau.title']}" rendered="#{profilMBean.rapprenant}"
                 style="width-min:250px;">
@@ -131,11 +132,11 @@
                         <p:commandButton  value="#{fr['menu.profil']}" action="profil"/>
                     </h:panelGrid>
                     </p:panel>
-            </h:form>
+            
             </p:layoutUnit>
          
          </p:layout>
-           
+         </h:form>
 	    </ui:define>
 
 </ui:composition>

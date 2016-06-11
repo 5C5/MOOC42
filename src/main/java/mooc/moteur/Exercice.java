@@ -232,4 +232,18 @@ public class Exercice {
 	public boolean valider(final DefaultDiagramModel root) {
 		return this.generateur.valider(root);
 	}
+
+	public List<String> getPorteUtilisee() {
+		List<String> portes = new ArrayList<String>();
+		for (Element el : this.root.getElements()) {
+			String style = el.getStyleClass();
+			String data = (String) el.getData();
+			if (Constants.PORTE.equalsIgnoreCase(style)) {
+				portes.add(data);
+			} else if (Constants.PORTE_NOT.equalsIgnoreCase(style)) {
+				portes.add(data);
+			}
+		}
+		return portes;
+	}
 }

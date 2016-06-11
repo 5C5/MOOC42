@@ -12,9 +12,10 @@
     <ui:define name="title">#{fr['general.cours.title']}</ui:define>
 
     <ui:define name="body-site">
+    <h:form  id="form_exer">   
     <p:layout style="height:850px;">
         <p:layoutUnit position="center" header="#{fr['general.cours.title']}" style="font-family:Helvetica; ">
-       		<h:form  id="form_exer">    
+       		 
                 <h:outputScript library="js" name="diagram.js" />
                  <pe:remoteCommand id="solutionRecalculer" name="solutionRecalculer" process="@this" 
                     update="@form"
@@ -461,13 +462,13 @@
                      	</h:panelGrid>
                      </p:tab>
                 </p:accordionPanel>
-	        </h:form> 
+	        
          </p:layoutUnit>
          
          <p:layoutUnit position="east" resizable="true" collapsible="true" 
             header="#{fr['general.profil.title']} de #{profilMBean.profil.prenom} #{profilMBean.profil.nom} " 
             rendered="#{profilMBean.rapprenant or profilMBean.radmin}">
-            <h:form >    
+               
                 <!-- Notions -->
                 <p:panel header="#{fr['profil.niveau.title']}" rendered="#{profilMBean.rapprenant}">
                     <h:panelGrid columns="1" cellpadding="5">
@@ -494,11 +495,11 @@
                     </h:panelGrid>
                     </p:panel>
                     <p:commandButton  value="#{fr['menu.profil']}" action="profil"/>
-            </h:form>
+            
             </p:layoutUnit>
          
          </p:layout>
-           
+         </h:form>
 	    </ui:define>
 
 </ui:composition>
