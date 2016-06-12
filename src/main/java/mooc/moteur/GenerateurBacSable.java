@@ -27,11 +27,11 @@ public class GenerateurBacSable extends Generateur {
 		int y = 5;
 		for (LigneBacSableDto ligne : this.table) {
 			if (ligne.getEntree()) {
-				this.genererEntree(drag, 20, y);
+				this.genererEntree(drag, 10, y);
 			}
-			this.analyserPorte(drag, 40, y, ligne.getCol1());
-			this.analyserPorte(drag, 60, y, ligne.getCol2());
-			this.analyserPorte(drag, 80, y, ligne.getCol3());
+			this.analyserPorte(drag, 30, y, ligne.getCol1());
+			this.analyserPorte(drag, 50, y, ligne.getCol2());
+			this.analyserPorte(drag, 70, y, ligne.getCol3());
 			y += 10;
 		}
 		this.genererSortie(drag);
@@ -104,7 +104,7 @@ public class GenerateurBacSable extends Generateur {
 		Valeur sortieUtilisateur = null;
 		sortieUtilisateur = new Valeur("0", false, false);
 		sortieUtilisateur.setData("");
-		sortieUtilisateur.setX("100em");
+		sortieUtilisateur.setX("90em");
 		sortieUtilisateur.setY("10em");
 		sortieUtilisateur.setDraggable(drag);
 		sortieUtilisateur.setStyleClass(Constants.SORTIE_UTILISATEUR);

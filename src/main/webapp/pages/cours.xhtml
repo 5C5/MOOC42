@@ -233,6 +233,38 @@
                                 
        			           
                             <p:panel id="panelDiag1" header="#{fr['exercice.title']}" rendered="#{coursMBean.numExercice == 1}">
+                            	<p:outputLabel>
+                            	<p>
+                            	Afin de mettre en oeuvre vos connaissances, voici quelques exercices.
+                            	<BR />
+                            	Après chaque exercice, vous pourrez choisir de continuer la série ou de vous arrêter (votre progression sera 
+                            	alors supprimée). 
+                            	</p>
+							    <!-- Affichage des consignes -->
+								<b>Consigne de l'exercice : </b>
+	                      		<ul>
+	                      		<li>
+	                      		Le but de cet exercice est de déterminer les valeurs d'entrée 
+	                      		(<FONT color="#2E962C">en vert</FONT>)
+	                      		qui permettent d'aboutir
+	                      		à la sortie indiquée (<FONT color="#9D000C">en rouge</FONT>) en fonction des 
+	                      		portes logiques (<FONT color="#37497B">en bleu </FONT>) présentes 
+	                      		dans le circuit.
+	                      		</li>
+	                      		<BR/>
+	                      		<li>
+	                            Pour modifier une entrée, cliquer sur le cercle la contenant.
+	                      		</li>
+							    <BR/>
+	                      		<li>
+	                            Pour vérifier les réponses, cliquer sur Vérifier.
+	                      		</li>
+	                      		<BR/>
+	                      		<li>
+	                           	La réussite d'un exercice facile vous permettra de gagner une étoile dans les notions abordées dans l'exercice.
+	                      		</li>
+	                      		</ul>
+                            	</p:outputLabel>
                                  <p:commandButton value="#{fr['exercice.verifier']}" action="#{coursMBean.valider}" />
                                  <p:commandButton value="#{fr['cours.arreter']}" 
                                         actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3"/>
@@ -252,9 +284,9 @@
                                 </h:panelGrid>
                                 <h:panelGrid columns="2">
                                     <p:commandButton value="#{fr['cours.continuer']}"
-                                        actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3"/>
+                                        actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3, form_exer:sidedProfil"/>
                                     <p:commandButton value="#{fr['cours.arreter']}" rendered="#{coursMBean.nbExerciceFait != coursMBean.nbExercice}"
-                                        actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3"/>
+                                        actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3, form_exer:sidedProfil"/>
                                 </h:panelGrid>
                             </p:dialog>  
                             <p:dialog header="#{fr['cours.exercice.suite']}" widgetVar="dialogExoRate1">
@@ -267,7 +299,7 @@
                                 <h:panelGrid columns="2">
                                     <p:commandButton value="#{fr['cours.continuer']}" onclick="PF('dialogExoRate1').hide()"/>
                                     <p:commandButton value="#{fr['cours.arreter']}"
-                                        actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3"/>
+                                        actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3, form_exer:sidedProfil"/>
                                 </h:panelGrid>
                             </p:dialog>  
                      </h:panelGrid>
@@ -331,9 +363,9 @@
                                 </h:panelGrid>
                                 <h:panelGrid columns="2">
                                     <p:commandButton value="#{fr['cours.continuer']}"
-                                        actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3"/>
+                                        actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3, form_exer:sidedProfil"/>
                                     <p:commandButton value="#{fr['cours.arreter']}" rendered="#{coursMBean.nbExerciceFait != coursMBean.nbExercice}"
-                                        actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3"/>
+                                        actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3, form_exer:sidedProfil"/>
                                 </h:panelGrid>
                             </p:dialog>  
                             <p:dialog header="#{fr['cours.exercice.suite']}" widgetVar="dialogExoRate2">
@@ -346,7 +378,7 @@
                                 <h:panelGrid columns="2">
                                     <p:commandButton value="#{fr['cours.continuer']}" onclick="PF('dialogExoRate2').hide()"/>
                                     <p:commandButton value="#{fr['cours.arreter']}"
-                                        actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3"/>
+                                        actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3, form_exer:sidedProfil"/>
                                 </h:panelGrid>
                             </p:dialog>  
                         </h:panelGrid>
@@ -519,9 +551,9 @@
                                 </h:panelGrid>
                                 <h:panelGrid columns="2">
                                     <p:commandButton value="#{fr['cours.continuer']}"
-                                        actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3"/>
+                                        actionListener="#{coursMBean.continuer}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3, form_exer:sidedProfil"/>
                                     <p:commandButton value="#{fr['cours.arreter']}" rendered="#{coursMBean.nbExerciceFait != coursMBean.nbExercice}"
-                                        actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3"/>
+                                        actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3, form_exer:sidedProfil"/>
                                 </h:panelGrid>
                             </p:dialog>  
                             <p:dialog header="#{fr['cours.exercice.suite']}" widgetVar="dialogExoRate3">
@@ -534,7 +566,7 @@
                                 <h:panelGrid columns="2">
                                     <p:commandButton value="#{fr['cours.continuer']}" onclick="PF('dialogExoRate3').hide()"/>
                                     <p:commandButton value="#{fr['cours.arreter']}"
-                                        actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3"/>
+                                        actionListener="#{coursMBean.arreter}" update="form_exer:panelGeneral:panel1, form_exer:panelGeneral:panel2, form_exer:panelGeneral:panel3, form_exer:sidedProfil"/>
                                 </h:panelGrid>
                             </p:dialog> 
                                          
@@ -596,11 +628,11 @@
          
          <p:layoutUnit position="east" resizable="true" collapsible="true" 
             header="#{fr['general.profil.title']} de #{profilMBean.profil.prenom} #{profilMBean.profil.nom} " 
-            rendered="#{profilMBean.rapprenant or profilMBean.radmin}">
+            rendered="#{profilMBean.rapprenant or profilMBean.radmin}" size="200">
                
                 <!-- Notions -->
-                <p:panel header="#{fr['profil.niveau.title']}" rendered="#{profilMBean.rapprenant}">
-                    <h:panelGrid columns="1" cellpadding="5" id="notion">
+                <p:panel header="#{fr['profil.niveau.title']}" rendered="#{profilMBean.rapprenant}" id="sidedProfil">
+                    <h:panelGrid columns="1" cellpadding="5">
                         <ui:repeat var="niv" value="#{profilMBean.profil.niveaux}" >
                             <h:panelGrid columns="3" cellpadding="5">
                                 <h:outputText value="#{niv.nom}"/>

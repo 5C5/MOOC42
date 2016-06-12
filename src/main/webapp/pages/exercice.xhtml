@@ -66,24 +66,30 @@
                       		<p>
                       		<b>Consigne de l'exercice : </b>
                       		</p>
-                            <p>
+                      		<ul>
+                      		<li>
                       		Le but de cet exercice est de déterminer les valeurs d'entrée 
                       		(<FONT color="#2E962C">en vert</FONT>)
                       		qui permettent d'aboutir
                       		à la sortie indiquée (<FONT color="#9D000C">en rouge</FONT>) en fonction des 
                       		portes logiques (<FONT color="#37497B">en bleu </FONT>) présentes 
                       		dans le circuit.
-                      		</p>
-                      		<p>
+                      		</li>
+                      		<BR/>
+                      		<li>
                             Pour modifier une entrée, cliquer sur le cercle la contenant.
-                      		</p>
-                      		<p>
+                      		</li>
+						    <BR/>
+                      		<li>
                             Pour vérifier les réponses, cliquer sur Vérifier.
-                      		</p>
-                      		<p>
+                      		</li>
+                      		<BR/>
+                      		<li>
                            	La réussite d'un exercice facile vous permettra de gagner une étoile dans les notions abordées dans l'exercice. 
                            	La réussite d'un exercice moyen vous permettra de gagner une seconde étoile.
-                      		</p>
+                      		</li>
+                      		</ul>
+                            
                       </h:panelGrid>
                       
                       <h:panelGrid columns="1" style="margin-left:50px;" id="consignePorte" rendered="#{exerciceMBean.type == 2}">
@@ -91,23 +97,31 @@
                       		<p>
                       		<b>Consigne de l'exercice : </b>
                       		</p>
-                      		<p>
+                      		<ul>
+                      		<li>
                       		Le but de cet exercice est de déterminer les portes logiques 
                       		(<FONT color="#37497B">en bleu </FONT>)
                       		qui permettent d'aboutir
                       		à la sortie indiquée (<FONT color="#9D000C">en rouge</FONT>)
                       	    en fonction des 
                       		données présentées en entrée (<FONT color="#2E962C">en vert</FONT>).
-                      		</p>
-                      		<p>
+                      		</li>
+                      		<BR/>
+                      		<li>
                             Pour modifier une porte, cliquer sur le cercle la contenant.
-                      		</p>
-                      		<p>
+                      		</li>
+                      		<BR/>
+                      		<li>
                             Pour vérifier les réponses, cliquer sur Vérifier.
-                      		</p>
-                      		<p>
+                      		</li>
+                      		<BR/>
+                      		<li>
                            	La réussite d'un exercice facile vous permettra de gagner une étoile dans les notions abordées dans l'exercice. 
                            	La réussite d'un exercice moyen vous permettra de gagner une seconde étoile.
+                      		</li>
+                      		</ul>
+                      		<p>
+                      		<b>Conseil : </b> pour que l'exercice soit intéressant, sélectionnez plusieurs portes. 
                       		</p>
                       </h:panelGrid>
                       
@@ -145,9 +159,9 @@
 	        
 	     </p:layoutUnit>
          
-         <p:layoutUnit position="east" resizable="true" collapsible="true" 
+         <p:layoutUnit position="east" resizable="true" collapsible="true" id="sidedProfil"
             header="#{fr['general.profil.title']} de #{profilMBean.profil.prenom} #{profilMBean.profil.nom} " 
-            rendered="#{profilMBean.rapprenant or profilMBean.radmin}">
+            rendered="#{profilMBean.rapprenant or profilMBean.radmin}" size="200">
              
                 <!-- Notions -->
                 <p:panel header="#{fr['profil.niveau.title']}" rendered="#{profilMBean.rapprenant}">
@@ -172,9 +186,10 @@
                                 </p:commandButton>
                             </h:panelGrid>
                         </ui:repeat>
-                        <p:commandButton  value="#{fr['menu.profil']}" action="profil"/>
                     </h:panelGrid>
                     </p:panel>
+                    
+                    <p:commandButton  value="#{fr['menu.profil']}" action="profil"/>
             
             </p:layoutUnit>
          
