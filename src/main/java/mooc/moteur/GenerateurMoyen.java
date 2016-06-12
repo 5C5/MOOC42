@@ -111,7 +111,7 @@ public class GenerateurMoyen extends Generateur {
 		} else {
 			porte1.setData("");
 		}
-		porte1.setX("40em");
+		porte1.setX("30em");
 		porte1.setY("10em");
 		porte1.setDraggable(drag);
 		porte1.setStyleClass(Constants.PORTE);
@@ -124,7 +124,7 @@ public class GenerateurMoyen extends Generateur {
 		} else {
 			porte2.setData("");
 		}
-		porte2.setX("60em");
+		porte2.setX("50em");
 		porte2.setY("20em");
 		porte2.setDraggable(drag);
 		porte2.setStyleClass(Constants.PORTE);
@@ -137,7 +137,7 @@ public class GenerateurMoyen extends Generateur {
 		} else {
 			entree1.setData(entrees.get(0));
 		}
-		entree1.setX("20em");
+		entree1.setX("10em");
 		entree1.setY("5em");
 		entree1.setDraggable(drag);
 		entree1.setStyleClass(Constants.ENTREE);
@@ -152,7 +152,7 @@ public class GenerateurMoyen extends Generateur {
 		} else {
 			entree2.setData(entrees.get(1));
 		}
-		entree2.setX("20em");
+		entree2.setX("10em");
 		entree2.setY("15em");
 		entree2.setDraggable(drag);
 		entree2.setStyleClass(Constants.ENTREE);
@@ -167,7 +167,7 @@ public class GenerateurMoyen extends Generateur {
 		} else {
 			entree3.setData(entrees.get(2));
 		}
-		entree3.setX("20em");
+		entree3.setX("10em");
 		entree3.setY("25em");
 		entree3.setDraggable(drag);
 		entree3.setStyleClass(Constants.ENTREE);
@@ -186,7 +186,7 @@ public class GenerateurMoyen extends Generateur {
 		sortieUtilisateur = new Valeur("0", false, false);
 		boolean sortieData = this.calculPorte(this.convertToBoolean(entrees.get(0)), this.convertToBoolean(entrees.get(1)), Boolean.parseBoolean(entrees.get(2)), porteAlea1, porteAlea2);
 		sortieUtilisateur.setData(sortieData ? "1" : "0");
-		sortieUtilisateur.setX("80em");
+		sortieUtilisateur.setX("70em");
 		sortieUtilisateur.setY("20em");
 		sortieUtilisateur.setDraggable(drag);
 		sortieUtilisateur.setStyleClass(Constants.SORTIE_UTILISATEUR);
@@ -199,7 +199,7 @@ public class GenerateurMoyen extends Generateur {
 		if(solution){
 			sortieSolution = new Valeur("0", false, true);
 			sortieSolution.setData("0");
-			sortieSolution.setX("100em");
+			sortieSolution.setX("90em");
 			sortieSolution.setY("20em");
 			sortieSolution.setDraggable(drag);
 			sortieSolution.setStyleClass(Constants.SORTIE_SOLUTION);
@@ -249,7 +249,7 @@ public class GenerateurMoyen extends Generateur {
 		} else {
 			porte1.setData("");
 		}
-		porte1.setX("40em");
+		porte1.setX("30em");
 		porte1.setY("5em");
 		porte1.setDraggable(drag);
 		porte1.setStyleClass(Constants.PORTE_NOT);
@@ -262,7 +262,7 @@ public class GenerateurMoyen extends Generateur {
 		} else {
 			porte2.setData("");
 		}
-		porte2.setX("60em");
+		porte2.setX("50em");
 		porte2.setY("15em");
 		porte2.setDraggable(drag);
 		porte2.setStyleClass(Constants.PORTE);
@@ -275,7 +275,7 @@ public class GenerateurMoyen extends Generateur {
 		} else {
 			entree1.setData(entrees.get(0));
 		}
-		entree1.setX("20em");
+		entree1.setX("10em");
 		entree1.setY("5em");
 		entree1.setDraggable(drag);
 		entree1.setStyleClass(Constants.ENTREE);
@@ -288,7 +288,7 @@ public class GenerateurMoyen extends Generateur {
 		} else {
 			entree2.setData(entrees.get(1));
 		}
-		entree2.setX("20em");
+		entree2.setX("10em");
 		entree2.setY("25em");
 		entree2.setDraggable(drag);
 		entree2.setStyleClass(Constants.ENTREE);
@@ -309,7 +309,7 @@ public class GenerateurMoyen extends Generateur {
 		sortieUtilisateur = new Valeur("0", false, false);
 		boolean sortieData = this.calculPorte(this.convertToBoolean(entrees.get(0)), null, this.convertToBoolean(entrees.get(1)), porteAlea1, porteAlea2);
 		sortieUtilisateur.setData(sortieData ? "1" : "0");
-		sortieUtilisateur.setX("80em");
+		sortieUtilisateur.setX("70em");
 		sortieUtilisateur.setY("15em");
 		sortieUtilisateur.setDraggable(drag);
 		sortieUtilisateur.setStyleClass(Constants.SORTIE_UTILISATEUR);
@@ -322,7 +322,7 @@ public class GenerateurMoyen extends Generateur {
 		if(solution){
 			sortieSolution = new Valeur("0", false, true);
 			sortieSolution.setData("0");
-			sortieSolution.setX("100em");
+			sortieSolution.setX("90em");
 			sortieSolution.setY("15em");
 			sortieSolution.setDraggable(drag);
 			sortieSolution.setStyleClass(Constants.SORTIE_SOLUTION);
@@ -372,7 +372,7 @@ public class GenerateurMoyen extends Generateur {
 		} else {
 			porte1.setData("");
 		}
-		porte1.setX("40em");
+		porte1.setX("30em");
 		porte1.setY("15em");
 		porte1.setDraggable(drag);
 		porte1.setStyleClass(Constants.PORTE);
@@ -385,7 +385,7 @@ public class GenerateurMoyen extends Generateur {
 		} else {
 			porte2.setData("");
 		}
-		porte2.setX("60em");
+		porte2.setX("50em");
 		porte2.setY("15em");
 		porte2.setDraggable(drag);
 		porte2.setStyleClass(Constants.PORTE_NOT);
@@ -398,7 +398,7 @@ public class GenerateurMoyen extends Generateur {
 		} else {
 			entree1.setData(entrees.get(0));
 		}
-		entree1.setX("20em");
+		entree1.setX("10em");
 		entree1.setY("5em");
 		entree1.setDraggable(drag);
 		entree1.setStyleClass(Constants.ENTREE);
@@ -411,7 +411,7 @@ public class GenerateurMoyen extends Generateur {
 		} else {
 			entree2.setData(entrees.get(1));
 		}
-		entree2.setX("20em");
+		entree2.setX("10em");
 		entree2.setY("25em");
 		entree2.setDraggable(drag);
 		entree2.setStyleClass(Constants.ENTREE);
@@ -431,7 +431,7 @@ public class GenerateurMoyen extends Generateur {
 		sortieUtilisateur = new Valeur("0", false, false);
 		boolean sortieData = this.calculPorte(this.convertToBoolean(entrees.get(0)), this.convertToBoolean(entrees.get(1)), null, porteAlea1, porteAlea2);
 		sortieUtilisateur.setData(sortieData ? "1" : "0");
-		sortieUtilisateur.setX("80em");
+		sortieUtilisateur.setX("70em");
 		sortieUtilisateur.setY("15em");
 		sortieUtilisateur.setDraggable(drag);
 		sortieUtilisateur.setStyleClass(Constants.SORTIE_UTILISATEUR);
@@ -444,7 +444,7 @@ public class GenerateurMoyen extends Generateur {
 		if(solution){
 			sortieSolution = new Valeur("0", false, true);
 			sortieSolution.setData("0");
-			sortieSolution.setX("100em");
+			sortieSolution.setX("90em");
 			sortieSolution.setY("15em");
 			sortieSolution.setDraggable(drag);
 			sortieSolution.setStyleClass(Constants.SORTIE_SOLUTION);

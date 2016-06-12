@@ -42,7 +42,7 @@ public class ConnaissanceServiceImpl implements ConnaissanceService, Serializabl
 		}
 		return niveaux;
 	}
-	
+
 	@Override
 	public List<NiveauDeverouilleDto> reloadNiveauComplexes(final int idApprenant) {
 		List<Connaissance> connaissances = this.connaissanceDAO.loadConnaissance(idApprenant);
@@ -71,12 +71,14 @@ public class ConnaissanceServiceImpl implements ConnaissanceService, Serializabl
 	public void majNiveauConnaissance(final int idApprenant, final List<String> portes, final int nouveauNiveau) {
 		for(String porte : portes){
 			Connaissance connaissance = this.connaissanceDAO.getByLibelle(idApprenant, porte);
-			if(connaissance.getNiveau() < nouveauNiveau){
-				connaissance.setNiveau(nouveauNiveau);
-				this.connaissanceDAO.save(connaissance);
+			if (connaissance != null) {
+				if(connaissance.getNiveau() < nouveauNiveau){
+					connaissance.setNiveau(nouveauNiveau);
+					this.connaissanceDAO.save(connaissance);
+				}
 			}
 		}
-		
+
 	}
 
 }
